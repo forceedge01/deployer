@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly sshServer='rebirth'
-readonly username='abdul'
+readonly sshServer=''
+readonly username=''
 readonly remoteProjectLocation='~'
 readonly repo=''
