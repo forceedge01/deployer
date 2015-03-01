@@ -16,12 +16,15 @@ else
 
 		echo 'Creating symlink...'
 		sudo ln -s $currentDirectory/core/requestHandler.sh /usr/bin/deployer
+
+		echo 'Copy over config file as non-dist'
+		cp $currentDirectory/config/main.sh.dist $currentDirectory/config/main.sh
+		vim $currentDirectory/config/main.sh
 	else
 		echo 'Already installed...'
 	fi
 
 	echo 'Use the "deployer" command to get started..."'
-
 fi
 
 echo 'Done.'
