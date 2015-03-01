@@ -10,6 +10,9 @@ getDeployerLocation
 source $DEPLOYER_LOCATION/deploy.sh
 source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/menu.sh
+echo ''
+echo "PROJECT SELECTED ------> $localProjectLocation"
+echo ''
 
 # define cases in this file and run them
 currentDir=$(pwd)
