@@ -10,52 +10,52 @@ getDeployerLocation
 source $DEPLOYER_LOCATION/deploy.sh
 source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/menu.sh
-echo ''
 echo "PROJECT SELECTED ------> $localProjectLocation"
-echo ''
 
 # define cases in this file and run them
 currentDir=$(pwd)
-case $1 in 
-	"ssh" )
+case "$1" in 
+	'ssh' )
 		deployer_ssher "$2";;
-	"sshp" )
+	'sshp' )
 		deployer_ssher_toDir "$2";; 
-	"deploy" )
-		case $2 in 
-			"latest" )
+	'deploy' | 'd' )
+		case "$2" in 
+			'latest' )
 				deployer_deploy_latest;;
 			* )
 				deployer_deploy "$2";;
 		esac;;
-	"remote" )
-		case $2 in
-			"init" | "clone" )
+	'remote' | 'r' )
+		case "$2" in
+			'init' | "clone" )
 				deployer_init;;
-			"reclone" )
+			'reclone' )
 				deployer_reclone;;
-			"update" )
+			'update' )
 				deployer_remote_update;;
-			"tags" )
+			'tags' )
 				deployer_remote_tags;;
-			"version" )
-				depolyer_remote_project_status;;
-			"status" )
+			'status' )
 				deployer_remote_status;;
+			* )
+				depolyer_remote_project_status;;
 		esac;;
-	"config" )
-		case $2 in 
+	'config' )
+		case "$2" in 
 			"edit" )
 				vim $DEPLOYER_LOCATION/../config;;
 			* )
 				echo 'Displaying config file...'; cat $DEPLOYER_LOCATION/../config/main.sh; echo '';;
 		esac;;
-	"update" )
+	'update' )
 		cd $DEPLOYER_LOCATION; git pull origin master;;
-	"open" | "web" )
+	'open' | 'web' )
 		open $web;;
-	"uninstall" )
+	'uninstall' )
 		deployer_uninstall;;
+	'version' | 'v' )
+		cd $DEPLOYER_LOCATION; git describe --tag;;
 	*)
 		helperMenu;;
 esac
