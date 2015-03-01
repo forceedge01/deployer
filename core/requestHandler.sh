@@ -52,6 +52,8 @@ case $1 in
 		esac;;
 	"update" )
 		cd $DEPLOYER_LOCATION; git pull origin master;;
+	"open" | "web" )
+		open $web;;
 	"uninstall" )
 		deployer_uninstall;;
 	*)

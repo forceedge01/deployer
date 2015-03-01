@@ -8,6 +8,7 @@ readonly username=''
 readonly localProjectLocation=''
 readonly remoteProjectLocation=''
 readonly repo=''
+readonly web=''
 
 # ssh settings
 readonly verbose=0

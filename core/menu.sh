@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # example command deployer push, deployer push latest, deployer push v or hash, deployer remote update, deployer update, deployer init
 function helperMenu() {
@@ -20,6 +21,7 @@ function deployMenu() {
 	printMenu "config" "View the config file for deployer"
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"
+	printMenu "open | web" "Open project link in browser"
 	printMenu "uninstall" "uninstall deployer"
 }
 
