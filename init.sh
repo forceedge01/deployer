@@ -17,9 +17,11 @@ else
 		echo 'Creating symlink...'
 		sudo ln -s $currentDirectory/core/requestHandler.sh /usr/bin/deployer
 
-		echo 'Copy over config file as non-dist'
-		cp $currentDirectory/config/main.sh.dist $currentDirectory/config/main.sh
-		vim $currentDirectory/config/main.sh
+		if [[ ! -f $currentDirectory/config/main.sh ]]; then
+			echo 'Copy over config file as non-dist'
+			cp $currentDirectory/config/main.sh.dist $currentDirectory/config/main.sh
+			vim $currentDirectory/config/main.sh
+		fi
 	else
 		echo 'Already installed...'
 	fi
