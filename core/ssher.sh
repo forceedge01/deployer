@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
-source ../config/main.sh
+source $DEPLOYER_LOCATION/../config/main.sh
 
-function ssher() {
-	ssh $username@$sshServer "$1"
+function deployer_ssher() {
+	if [[ ! -z $1 ]]; then
+		echo "Executing '$1' on '$sshServer'..."
+		ssh $username@$sshServer "$1"
+		
+		return 0
+	fi
+
+	echo "Logging into '$sshServer'..."
+	ssh $username@$sshServer
 }
 
-function ssher_toDir() {
-	ssher "cd cd $remoteProjectLocation; $1" &> /devl/null
+function deployer_ssher_toDir() {
+	deployer_ssher "cd $remoteProjectLocation; $1"
 }

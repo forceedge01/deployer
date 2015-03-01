@@ -3,22 +3,24 @@
 
 # check if alias exists, if not add it.
 
-if [[ ! -f $(pwd)/init.sh ]]; then
+currentDirectory=$(pwd)
+
+if [[ ! -f $currentDirectory/init.sh ]]; then
 	echo 'This script needs to run from the project folder, aborting...'
 else
-	currentDirectory=$(pwd)
-	echo 'Sorting out file permissions...'
-	chmod -R 0777 ./core
-	echo 'Checking for alias in bashrc file...'
+	echo 'Checking for deployer installation...'
 
-	if [[ $(alias|grep deploy) == '' ]]; then
-		echo 'Adding alias to bashrc file...'
-		echo "source $currentDirectory/core/deploy.sh" >> ~/.bashrc
+	if [[ ! -f /usr/bin/deployer ]]; then
+		echo 'Sorting out file permissions...'
+		chmod -R 0777 ./core
+
+		echo 'Creating symlink...'
+		sudo ln -s $currentDirectory/core/requestHandler.sh /usr/bin/deployer
 	else
-		echo 'Alias already exists...'
+		echo 'Already installed...'
 	fi
 
-	echo 'Use the "deploy", "init" aliases to deploy your project to the ssh server"'
+	echo 'Use the "deployer" command to get started..."'
 
 fi
 
