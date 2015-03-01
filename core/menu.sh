@@ -6,7 +6,7 @@ function helperMenu() {
 }
 
 function deployMenu() {
-	echo 'Deploy menu'
+	echo 'Deployer menu'
 	printMenu "ssh" "log into ssh machine"
 	printMenu "ssh [arg]" "ssh commands over to ssh server"
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
@@ -16,6 +16,7 @@ function deployMenu() {
 	printMenu "remote reclone" "Re-Initialize repository on ssh server"
 	printMenu "remote update" "update remote server"
 	printMenu "remote tags" "view tags available on remote machine"
+	printMenu "remote status" "show status of remote machine"
 	printMenu "config" "View the config file for deployer"
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"

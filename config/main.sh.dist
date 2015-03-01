@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
+# server settings
 readonly sshServer=''
 readonly username=''
-readonly remoteProjectLocation='~'
+
+# app specific settings
+readonly localProjectLocation=''
+readonly remoteProjectLocation=''
 readonly repo=''
+
+# ssh settings
+readonly verbose=0

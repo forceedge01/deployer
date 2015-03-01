@@ -5,7 +5,7 @@ function attempt() {
 }
 
 function perform() {
-	echo -n "Performing action -----> $1: "
+	echo -n "Performing action -------> $1: "
 }
 
 function performed() {

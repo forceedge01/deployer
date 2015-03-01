@@ -12,7 +12,7 @@ source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/menu.sh
 
 # define cases in this file and run them
-
+currentDir=$(pwd)
 case $1 in 
 	"ssh" )
 		deployer_ssher "$2";;
@@ -23,7 +23,7 @@ case $1 in
 			"latest" )
 				deployer_deploy_latest;;
 			* )
-				deployer_deploy;;
+				deployer_deploy "$2";;
 		esac;;
 	"remote" )
 		case $2 in
@@ -35,6 +35,10 @@ case $1 in
 				deployer_remote_update;;
 			"tags" )
 				deployer_remote_tags;;
+			"version" )
+				depolyer_remote_project_status;;
+			"status" )
+				deployer_remote_status;;
 		esac;;
 	"config" )
 		case $2 in 
@@ -50,3 +54,6 @@ case $1 in
 	*)
 		helperMenu;;
 esac
+# inject linespace
+echo ''
+cd $currentDir

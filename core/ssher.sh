@@ -4,8 +4,10 @@ source $DEPLOYER_LOCATION/../config/main.sh
 
 function deployer_ssher() {
 	if [[ ! -z $1 ]]; then
-		echo "Executing '$1' on '$sshServer'..."
-		ssh $username@$sshServer "$1"
+		if [[ $verbose == 1 ]]; then
+			echo "Executing '$1' on '$sshServer'..."
+		fi
+		ssh -t $username@$sshServer "$1" 2> /dev/null
 		
 		return 0
 	fi
