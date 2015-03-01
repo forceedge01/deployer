@@ -18,6 +18,7 @@ function deployMenu() {
 	printMenu "config" "View the config file for deployer"
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"
+	printMenu "uninstall" "uninstall deployer"
 }
 
 function printMenu() {

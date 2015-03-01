@@ -8,6 +8,7 @@ function getDeployerLocation() {
 getDeployerLocation
 
 source $DEPLOYER_LOCATION/deploy.sh
+source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/menu.sh
 
 # define cases in this file and run them
@@ -42,6 +43,8 @@ case $1 in
 		esac;;
 	"update" )
 		cd $DEPLOYER_LOCATION; git pull origin master;;
+	"uninstall" )
+		deployer_uninstall;;
 	*)
 		helperMenu;;
 esac
