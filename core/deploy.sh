@@ -18,6 +18,13 @@ function deployer_init() {
 	performed
 }
 
+function deployer_reclone() {
+	attempt "re-setup project"
+	perform "Re-clone repo on remote server"
+	deployer_ssher_toDir "rm -rf $remoteProjectLocation; mkdir -p $remoteProjectLocation; cd $remoteProjectLocation/..; git clone $repo"
+	performed
+}
+
 function deployer_remote_update() {
 	attempt "update"
 	perform "Updating remote server"

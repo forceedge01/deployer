@@ -14,8 +14,6 @@ source $DEPLOYER_LOCATION/menu.sh
 # define cases in this file and run them
 
 case $1 in 
-	"init" )
-		deployer_init;;
 	"ssh" )
 		deployer_ssher "$2";;
 	"sshp" )
@@ -29,6 +27,10 @@ case $1 in
 		esac;;
 	"remote" )
 		case $2 in
+			"init" | "clone" )
+				deployer_init;;
+			"reclone" )
+				deployer_reclone;;
 			"update" )
 				deployer_remote_update;;
 			"tags" )
