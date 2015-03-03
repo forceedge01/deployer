@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-source $DEPLOYER_LOCATION/../config/main.sh
-
 function deployer_ssher() {
+	if [[ -z $username ]] || [[ -z $sshServer ]]; then
+		error 'You must configure the username and sshServer variables in the deployer.config file'
+		return
+	fi
+
 	if [[ ! -z $1 ]]; then
 		if [[ $verbose == 1 ]]; then
 			echo "Executing '$1' on '$sshServer'..."

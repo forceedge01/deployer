@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
 function attempt() {
-	echo "Attempting to $1 on $sshServer..."
+	yellow "Attempting to $1...\r\n"
 }
 
 function perform() {
-	echo -n "Performing action -------> $1: "
+	blue "Performing action -------> $1: "
 }
 
 function performed() {
 	if [[ -z $1 ]]; then
-		echo 'OK'
+		green "OK\r\n"
 	else
-		echo "$1"
+		green "$1\r\n"
 	fi
 }
 
 function failed() {
 	if [[ -z $1 ]]; then
-		echo 'Error'
+		red "Error\r\n"
 	else
-		echo "$1"
+		red "$1\r\n"
 	fi
 }
 

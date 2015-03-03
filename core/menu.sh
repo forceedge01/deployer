@@ -8,6 +8,8 @@ function helperMenu() {
 
 function deployMenu() {
 	echo 'Deployer menu'
+	printMenu 'init' 'Create deployer.config file for current directory'
+	printMenu 'use' 'Use the current directories deployer.config file for deployer'
 	printMenu "ssh" "log into ssh machine"
 	printMenu "ssh [arg]" "ssh commands over to ssh server"
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
@@ -25,9 +27,21 @@ function deployMenu() {
 	printMenu "open | web" "Open project link in browser"
 	printMenu "version | v" "Deisplay deployer version"
 	printMenu "uninstall" "uninstall deployer"
+	info "
+To get started, use the 'deployer init' command to create a 'deployer.config' file for the current directory you are in. 
+Use the 'deployer use' command to attach the project to deployer."
 }
 
 function printMenu() {
-	echo '-------------------------------------------'
-	echo "$1              $2"
+	firstColumnCount=35
+	argSize=${#1}
+	spaces=$((firstColumnCount-$argSize))
+	
+	echo '-------------------------------------------------------------------------------------------------'
+	echo -n "$1"
+	while [ $spaces -gt 0 ]; do
+		echo -n ' '
+		spaces=$((spaces-1))
+	done
+	echo "$2"
 }
