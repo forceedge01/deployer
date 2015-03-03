@@ -1,14 +1,35 @@
 #!/usr/bin/env bash
 
 # server settings
+# server ip to connect to
 readonly sshServer=''
+# connect to ssh server as
 readonly username=''
 
+# deploy settings
+# services to check for after deployment
+readonly services=(httpd mysqld)
+# deploy using git or scp
+readonly deploymentMethod='git'
+# command to run after deployment is done
+readonly postDeployCommand=''
+
 # app specific settings
+# project location on local machine
 readonly localProjectLocation=''
+# project location on ssh server
 readonly remoteProjectLocation=''
+# project repo url
 readonly repo=''
+# project web url
 readonly web=''
+# change config file params
+readonly configFile='config/something.sh'
+# changes to make in config file specified, i.e ('regex' 'value')
+readonly config=(
+	'server' '101929'
+)
 
 # ssh settings
+# set the verbositiy of the deployment process
 readonly verbose=0
