@@ -22,14 +22,14 @@ function deployer_deploy() {
 function deployer_init() {
 	attempt "setup project"
 	perform "Clone repo on remote server"
-	deployer_ssher_toDir "mkdir -p $remoteProjectLocation; cd $remoteProjectLocation/..; git clone $repo; cd $remoteProjectLocation/; git remote add origin $repo"
+	deployer_ssher_toDir "mkdir -p $remoteProjectLocation; git clone $repo $remoteProjectLocation; cd $remoteProjectLocation/; git remote add origin $repo"
 	performed
 }
 
 function deployer_reclone() {
 	attempt "re-setup project"
 	perform "Re-clone repo on remote server"
-	deployer_ssher_toDir "rm -rf $remoteProjectLocation; mkdir -p $remoteProjectLocation; cd $remoteProjectLocation/..; git clone $repo; cd $remoteProjectLocation/; git remote add origin $repo"
+	deployer_ssher_toDir "rm -rf $remoteProjectLocation; mkdir -p $remoteProjectLocation; git clone $repo $remoteProjectLocation; cd $remoteProjectLocation/; git remote add origin $repo"
 	performed
 }
 
