@@ -32,6 +32,7 @@ fi
 source $DEPLOYER_LOCATION/ssher.sh
 source $DEPLOYER_LOCATION/deploy.sh
 source $DEPLOYER_LOCATION/services.sh
+source $DEPLOYER_LOCATION/configParser.sh
 source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/menu.sh
 source $DEPLOYER_LOCATION/requestHandler.sh

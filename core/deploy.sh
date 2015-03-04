@@ -4,12 +4,26 @@
 function deployer_deploy() {
 	if [[ -z "$1" ]]; then
 		attempt "deploy latest from master branch"
+
+		echo -n 'Are you sure you want to continue? [y/n]: '
+		answer=$(userChoice)
+		if [[ $answer != 'Y' ]]; then
+			return 1
+		fi
+
 		deployer_preDeploy
-		perform "pull latest master branch"
+		perform "pull latest commit from master branch"
 		deployer_ssher_toDir "git checkout master; git pull origin master"
 		performed
 	else
 		attempt "deploy '$1'"
+
+		echo -n 'Are you sure you want to continue? [y/n]: '
+		answer=$(userChoice)
+		if [[ $answer != 'Y' ]]; then
+			return 1
+		fi
+
 		deployer_preDeploy
 		deployer_remote_update
 		perform "Checkout tag '$1'"
@@ -22,10 +36,17 @@ function deployer_deploy() {
 
 function deployer_deploy_latest() {
 	attempt "Deploy latest tag"
+
+	echo -n 'Are you sure you want to continue? [y/n]: '
+	answer=$(userChoice)
+	if [[ $answer != 'Y' ]]; then
+		return 1
+	fi
+
 	deployer_preDeploy
 	perform "Fetch latest tag"
 	cd $localProjectLocation
-	latestTag=$(git fetch; git describe --tags `git rev-list --tags --max-count=1`)
+	latestTag=$(git fetch && git describe --tags `git rev-list --tags --max-count=1`)
 
 	if [[ -z $latestTag ]]; then
 		failed "No tag available"
@@ -98,14 +119,21 @@ readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/pro
 function deployer_remote_init() {
 	attempt "setup project"
 	perform "Clone repo on remote server"
-	deployer_ssher_toDir "mkdir -p $remoteProjectLocation; git clone $repo $remoteProjectLocation; cd $remoteProjectLocation/; git remote add origin $repo"
+	deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo"
 	performed
 }
 
 function deployer_reclone() {
 	attempt "re-setup project"
+
+	echo -n 'This will remove existing files and re-create them, are you sure you want to continue? [y/n]: '
+	answer=$(userChoice)
+	if [[ $answer != 'Y' ]]; then
+		return 1
+	fi
+
 	perform "Re-clone repo on remote server"
-	deployer_ssher_toDir "rm -rf $remoteProjectLocation; mkdir -p $remoteProjectLocation; git clone $repo $remoteProjectLocation; cd $remoteProjectLocation/; git remote add origin $repo"
+	deployer_ssher_toDir "rm -rf $remoteProjectLocation && mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo"
 	performed
 }
 

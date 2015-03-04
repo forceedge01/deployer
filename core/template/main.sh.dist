@@ -34,7 +34,6 @@ readonly repo=''
 # project web url, is used with open command
 readonly webURL=''
 # change config file params
-readonly configFile=''
 # changes to make in config file specified, i.e ('regex' 'value')
 declare config=(
 	'server=' 'localhost'

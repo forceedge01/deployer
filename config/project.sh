@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-readonly localProjectLocation='/Volumes/Vagrant/test-fd-api-wrapper'
+readonly localProjectLocation='/Volumes/Projects/driving-theory-test-project'
