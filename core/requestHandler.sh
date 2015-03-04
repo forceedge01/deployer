@@ -36,6 +36,17 @@ case "$1" in
 					* )
 						deployer_services_status;;
 				esac;;
+			'service' )
+				case "$3" in
+					'start' )
+						deployer_service_perform 'start' "$4";;
+					'stop' )
+						deployer_service_perform 'stop' "$4";;
+					'restart' )
+						deployer_service_perform 'restart' "$4";;
+					'status' )
+						deployer_service_perform 'stop' "$4";;
+				esac;;
 			* )
 				depolyer_remote_project_status;;
 		esac;;

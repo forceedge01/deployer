@@ -15,12 +15,22 @@ function deployer_services_restart() {
 	deployer_private_runServicesWith 'restart' 'restart'
 }
 
+function deployer_service_perform() {
+	if [[ -z "$2" ]]; then
+		error 'Service name must be passed in as argument'
+		return
+	fi
+
+	attempt "$1 service '$2'"
+	perform "send command to $1 service"
+	deployer_ssher "sudo service $2 $1"
+	performed
+}
+
 function deployer_private_runServicesWith() {
 	attempt "$1 services"
 	for service in "${services[@]}" 
 	do
-		perform "$1 service '$service'"
-		deployer_ssher "sudo service $service $2"
-		performed
+		deployer_service_perform "$1" "$2"
 	done
 }
