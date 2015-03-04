@@ -51,7 +51,7 @@ case "$1" in
 	'update' )
 		cd $DEPLOYER_LOCATION; git pull origin master;;
 	'open' | 'web' )
-		open $web;;
+		deployer_open_web;;
 	'uninstall' )
 		deployer_uninstall;;
 	'version' | 'v' )

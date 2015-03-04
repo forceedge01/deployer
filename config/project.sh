@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-readonly localProjectLocation=''
+readonly localProjectLocation='/Volumes/Projects/genesis-fork'

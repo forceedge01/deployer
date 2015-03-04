@@ -17,9 +17,9 @@ readonly verbose=0
 # deploy settings
 # services to check for after deployment
 declare services=(httpd mysqld)
-# deploy using git or SCP
+# deploy using git or scp
 readonly deploymentMethod='git'
-# command to run after deployment is done
+# command to run after deployment is done, by default runs in the project directory
 readonly postDeployCommand=''
 
 # ---------------------------------------------–------- #
@@ -29,8 +29,8 @@ readonly postDeployCommand=''
 readonly remoteProjectLocation=''
 # project repo url
 readonly repo=''
-# project web url
-readonly web=''
+# project web url, is used with open command
+readonly webURL=''
 # change config file params
 readonly configFile=''
 # changes to make in config file specified, i.e ('regex' 'value')

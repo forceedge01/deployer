@@ -13,7 +13,35 @@ function deployer_deploy() {
 		deployer_ssher_toDir "git fetch --tags; git checkout $1"
 		performed
 	fi
+	deployer_postDeploy
 	depolyer_remote_project_status
+}
+
+function deployer_deploy_latest() {
+	attempt "Deploy latest tag"
+	perform "Fetch latest tag"
+	cd $localProjectLocation
+	latestTag=$(git fetch; git describe --tags `git rev-list --tags --max-count=1`)
+
+	if [[ -z $latestTag ]]; then
+		failed "No tag available"
+		return 0
+	fi
+
+	performed "$latestTag"
+	deployer_remote_update
+	perform "Deploy tag $latestTag"
+	deployer_ssher_toDir "git checkout $latestTag"
+	performed
+	deployer_postDeploy
+	depolyer_remote_project_status
+}
+
+function deployer_postDeploy() {
+	if [[ ! -z $postDeployCommand ]]; then
+		perform 'Run post deploy commands: '
+		deployer_ssher_toDir "$postDeployCommand"
+	fi
 }
 
 function deployer_init() {
@@ -84,24 +112,6 @@ function deployer_remote_tags() {
 	performed
 }
 
-function deployer_deploy_latest() {
-	attempt "Deploy latest tag"
-	perform "Fetch latest tag"
-	cd $localProjectLocation
-	latestTag=$(git fetch; git describe --tags `git rev-list --tags --max-count=1`)
-
-	if [[ -z $latestTag ]]; then
-		failed "No tag available"
-		return 0
-	fi
-
-	performed "$latestTag"
-	deployer_remote_update
-	perform "Deploy tag $latestTag"
-	deployer_ssher_toDir "git checkout $latestTag"
-	performed
-}
-
 function deployer_remote_status() {
 	perform "Ram status"
 	echo ''
@@ -119,4 +129,12 @@ function deployer_remote_status() {
 function depolyer_remote_project_status() {
 	perform "remote project version"
 	deployer_ssher "cd $remoteProjectLocation; git describe"
+}
+
+function deployer_open_web() {
+	if [[ ! -z "$webURL" ]]; then 
+		open $webURL
+	else 
+		error "Value for 'webURL' not specified in config" 
+	fi
 }
