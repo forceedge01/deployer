@@ -12,7 +12,7 @@ function loadDeployerConfigs() {
 	# load configs
 	source $DEPLOYER_LOCATION/../config/project.sh
 	if [[ ! -f "$localProjectLocation/deployer.config" ]]; then
-		warning 'could not find deployer.config file for the current project specified.'
+		warning 'Could not find deployer.config file for the current project specified.'
 		return
 	fi
 
@@ -20,6 +20,13 @@ function loadDeployerConfigs() {
 }
 
 loadDeployerConfigs
+
+# load libs
+if [[ -z $localProjectLocation ]]; then
+	warning "Project Location ------> Please set project location to use deployer"
+else
+	info "Project Location ------> $localProjectLocation"
+fi
 
 # load libs
 source $DEPLOYER_LOCATION/ssher.sh

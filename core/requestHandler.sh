@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# load libs
-info "Project Location ------> $localProjectLocation"
-
 # define cases in this file and run them
 case "$1" in 
 	'use' )
