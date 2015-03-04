@@ -3,14 +3,17 @@
 
 function deployer_deploy() {
 	if [[ -z "$1" ]]; then
-		attempt "pull the latest from master branch"
+		attempt "deploy latest from master branch"
+		deployer_preDeploy
 		perform "pull latest master branch"
 		deployer_ssher_toDir "git checkout master; git pull origin master"
 		performed
 	else
+		attempt "deploy '$1'"
+		deployer_preDeploy
 		deployer_remote_update
 		perform "Checkout tag '$1'"
-		deployer_ssher_toDir "git fetch --tags; git checkout $1"
+		deployer_ssher_toDir "git checkout $1"
 		performed
 	fi
 	deployer_postDeploy
@@ -19,6 +22,7 @@ function deployer_deploy() {
 
 function deployer_deploy_latest() {
 	attempt "Deploy latest tag"
+	deployer_preDeploy
 	perform "Fetch latest tag"
 	cd $localProjectLocation
 	latestTag=$(git fetch; git describe --tags `git rev-list --tags --max-count=1`)
@@ -37,9 +41,16 @@ function deployer_deploy_latest() {
 	depolyer_remote_project_status
 }
 
+function deployer_preDeploy() {
+	if [[ ! -z $preDeployCommand ]]; then
+		perform 'Run pre-deploy commands: '
+		deployer_ssher_toDir "$preDeployCommand"
+	fi
+}
+
 function deployer_postDeploy() {
 	if [[ ! -z $postDeployCommand ]]; then
-		perform 'Run post deploy commands: '
+		perform 'Run post-deploy commands: '
 		deployer_ssher_toDir "$postDeployCommand"
 	fi
 }
@@ -129,6 +140,7 @@ function deployer_remote_status() {
 function depolyer_remote_project_status() {
 	perform "remote project version"
 	deployer_ssher "cd $remoteProjectLocation; git describe"
+	performed
 }
 
 function deployer_open_web() {

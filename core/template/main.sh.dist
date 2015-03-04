@@ -19,6 +19,8 @@ readonly verbose=0
 declare services=(httpd mysqld)
 # deploy using git or scp
 readonly deploymentMethod='git'
+# command to run before deployment starts, by default runs in the project directory
+readonly preDeployCommand=''
 # command to run after deployment is done, by default runs in the project directory
 readonly postDeployCommand=''
 
