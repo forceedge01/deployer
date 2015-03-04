@@ -20,5 +20,5 @@ function deployer_ssher() {
 }
 
 function deployer_ssher_toDir() {
-	deployer_ssher "cd $remoteProjectLocation; $1"
+	deployer_ssher "cd $remoteProjectLocation &> /dev/null; $1"
 }

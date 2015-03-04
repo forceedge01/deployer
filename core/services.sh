@@ -3,31 +3,24 @@
 source $localProjectLocation/deployer.config &> /dev/null
 
 function deployer_services_start() {
-	attempt "start services"
-	for service in "${services[@]}" 
-	do
-		perform "Starting service '$service'"
-		deployer_ssher "sudo service $service start"
-		performed
-	done
+	deployer_private_runServicesWith 'starting' 'start'
 }
 
 function deployer_services_status() {
-	attempt "check services"
-	for service in "${services[@]}" 
-	do
-		perform "Check service '$service'"
-		deployer_ssher "sudo service $service status"
-		performed
-	done
+	deployer_private_runServicesWith 'check' 'status'
 }
 
 function deployer_services_restart() {
-	attempt "restart services"
+	
+	deployer_private_runServicesWith 'restart' 'restart'
+}
+
+function deployer_private_runServicesWith() {
+	attempt "$1 services"
 	for service in "${services[@]}" 
 	do
-		perform "Check service '$service'"
-		deployer_ssher "sudo service $service restart"
+		perform "$1 service '$service'"
+		deployer_ssher "sudo service $service $2"
 		performed
-	done	
+	done
 }
