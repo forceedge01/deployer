@@ -60,6 +60,8 @@ case "$1" in
 				echo '';;
 		esac;;
 	'update' )
+		deployer_local_update;;
+	'self-update' )
 		cd $DEPLOYER_LOCATION; git pull origin master;;
 	'open' | 'web' )
 		deployer_open_web;;

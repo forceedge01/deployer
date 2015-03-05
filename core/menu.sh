@@ -32,7 +32,9 @@ function deployMenu() {
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"
 	printMenu "open | web" "Open project link in browser"
-	printMenu "version | v" "Deisplay deployer version"
+	printMenu 'update' 'Update current project locally'
+	printMenu 'self-update' 'Update deployer'
+	printMenu "version | v" "Display deployer version"
 	printMenu "uninstall" "uninstall deployer"
 	info "
 To get started, use the 'deployer init' command to create a 'deployer.config' file for the current directory you are in. 
