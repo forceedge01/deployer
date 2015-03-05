@@ -69,6 +69,8 @@ case "$1" in
 		cd $DEPLOYER_LOCATION; git describe --tag;;
 	'test' )
 		alterConfigFiles;;
+	'project' )
+		;;
 	*)
 		helperMenu;;
 esac
