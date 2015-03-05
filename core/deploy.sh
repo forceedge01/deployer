@@ -4,11 +4,12 @@
 function deployer_deploy() {
 	if [[ -z "$1" ]]; then
 		attempt "deploy latest from master branch"
-
-		echo -n 'Are you sure you want to continue? [y/n]: '
-		answer=$(userChoice)
-		if [[ $answer != 'Y' ]]; then
-			return 1
+		if [[ $permissiveDeployment != true ]]; then
+			echo -n 'Are you sure you want to continue? [y/n]: '
+			answer=$(userChoice)
+			if [[ $answer != 'Y' ]]; then
+				return 1
+			fi
 		fi
 
 		deployer_preDeploy
@@ -17,11 +18,12 @@ function deployer_deploy() {
 		performed
 	else
 		attempt "deploy '$1'"
-
-		echo -n 'Are you sure you want to continue? [y/n]: '
-		answer=$(userChoice)
-		if [[ $answer != 'Y' ]]; then
-			return 1
+		if [[ $permissiveDeployment != true ]]; then
+			echo -n 'Are you sure you want to continue? [y/n]: '
+			answer=$(userChoice)
+			if [[ $answer != 'Y' ]]; then
+				return 1
+			fi
 		fi
 
 		deployer_preDeploy
@@ -36,11 +38,12 @@ function deployer_deploy() {
 
 function deployer_deploy_latest() {
 	attempt "Deploy latest tag"
-
-	echo -n 'Are you sure you want to continue? [y/n]: '
-	answer=$(userChoice)
-	if [[ $answer != 'Y' ]]; then
-		return 1
+	if [[ $permissiveDeployment != true ]]; then
+		echo -n 'Are you sure you want to continue? [y/n]: '
+		answer=$(userChoice)
+		if [[ $answer != 'Y' ]]; then
+			return 1
+		fi
 	fi
 
 	deployer_preDeploy
@@ -125,11 +128,12 @@ function deployer_remote_init() {
 
 function deployer_reclone() {
 	attempt "re-setup project"
-
-	echo -n 'This will remove existing files and re-create them, are you sure you want to continue? [y/n]: '
-	answer=$(userChoice)
-	if [[ $answer != 'Y' ]]; then
-		return 1
+	if [[ $permissiveDeployment != true ]]; then
+		echo -n 'This will remove existing files and re-create them, are you sure you want to continue? [y/n]: '
+		answer=$(userChoice)
+		if [[ $answer != 'Y' ]]; then
+			return 1
+		fi
 	fi
 
 	perform "Re-clone repo on remote server"

@@ -67,6 +67,8 @@ case "$1" in
 		deployer_uninstall;;
 	'version' | 'v' )
 		cd $DEPLOYER_LOCATION; git describe --tag;;
+	'test' )
+		alterConfigFiles;;
 	*)
 		helperMenu;;
 esac

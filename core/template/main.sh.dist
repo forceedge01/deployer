@@ -23,6 +23,8 @@ readonly deploymentMethod='git'
 readonly preDeployCommand=''
 # command to run after deployment is done, by default runs in the project directory
 readonly postDeployCommand=''
+# do not ask for confirmation before deployment
+readonly permissiveDeployment=true
 
 # ---------------------------------------------–------- #
 
@@ -34,9 +36,11 @@ readonly repo=''
 # project web url, is used with open command
 readonly webURL=''
 # change config file params
+declare configFiles=('' '' '')
 # changes to make in config file specified, i.e ('regex' 'value')
 declare config=(
-	'server=' 'localhost'
+	'server=root' 'server=localhost'
+	'somethingelse=sometihng' 'whatever'
 )
 
 # ---------------------------------------------–------- #
