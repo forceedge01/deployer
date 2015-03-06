@@ -28,7 +28,7 @@ function deployMenu() {
 	printMenu 'remote service status [service]' 'status single custom service'
 	printMenu 'remote service start [service]' 'start single custom service'
 	printMenu 'remote service stop [service]' 'stop single custom service'
-	printMenu 'remote service restart [service]' 'status single custom service'
+	printMenu 'remote service restart [service]' 'restart single custom service'
 	printMenu "config" "View the config file for deployer"
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"
