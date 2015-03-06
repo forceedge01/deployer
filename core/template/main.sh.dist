@@ -41,11 +41,8 @@ declare repo=''
 # project web url, is used with open command
 declare webURL=''
 # change config file params
-declare configFiles=('' '' '')
+declare configFiles=()
 # changes to make in config file specified, i.e ('regex' 'value')
-declare config=(
-	'server=root' 'server=localhost'
-	'somethingelse=sometihng' 'whatever'
-)
+declare config=()
 
 # ---------------------------------------------–------- #

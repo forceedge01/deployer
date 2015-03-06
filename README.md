@@ -36,24 +36,51 @@ to view the menu.
 ### Config file
 ```
 # server settings
-# the ssh server ip
-readonly sshServer=''
-# username to ssh with
-readonly username=''
+# server ip to connect to
+declare sshServer=''
+# connect to SSH server as
+declare username=''
+
+# ---------------------------------------------–------- #
+
+# SSH settings
+# set the verbositiy of the deployment process
+declare verbose=0
+
+# ---------------------------------------------–------- #
+
+# deploy settings
+# services to check for after deployment
+declare services=(httpd mysqld)
+# deploy using git or scp
+declare deploymentMethod='git'
+# command to run before deployment starts, by default runs in the project directory
+declare preDeployCommand=''
+# command to run after deployment is done, by default runs in the project directory
+declare postDeployCommand=''
+# do not ask for confirmation before deployment
+declare permissiveDeployment=false
+# set downloads folder for deployer
+declare downloadsPath='~/deployer_downloads'
+# set uploads folder for deployer
+declare uploadsPath='~/deployer_uploads'
+
+# ---------------------------------------------–------- #
 
 # app specific settings
-# location of the project on local machine
-readonly localProjectLocation=''
-# location of the project on the remote machine
-readonly remoteProjectLocation=''
-# repository, https recommended
-readonly repo=''
-# url for the project
-readonly web=''
+declare editor='vim'
+# project location on SSH server
+declare remoteProjectLocation=''
+# project repo url
+declare repo=''
+# project web url, is used with open command
+declare webURL=''
+# change config file params
+declare configFiles=('')
+# changes to make in config file specified, i.e ('regex' 'value')
+declare config=()
 
-# ssh settings
-# set message output when sshing
-readonly verbose=0
+# ---------------------------------------------–------- #
 ```
 
 ## Dependencies
