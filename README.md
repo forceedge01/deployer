@@ -1,6 +1,7 @@
 # deployer
 A simple script that will handle project deployment on a remote ssh server. The objective being making the script language independent and as simple as possible.
 
+## Installation
 To get started run 
 
 ```
@@ -8,13 +9,14 @@ git clone https://github.com/forceedge/deployer.git; chmod 0777 deployer/init.sh
 ```
 After the script has completed, it will ask you to set the config file.
 
+## Menu/Commands
 on the command line type 
 ```
 deployer
 ```
 to view the menu.
 
-## Config file
+### Config file
 ```
 # server settings
 # the ssh server ip
