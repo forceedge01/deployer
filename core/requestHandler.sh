@@ -10,8 +10,6 @@ case "$1" in
 		deployer_ssher "$2";;
 	'sshp' )
 		deployer_ssher_toDir "$2";;
-	'upload' )
-		deployer_local_upload "$2";;
 	'deploy' | 'd' )
 		case "$2" in 
 			'latest' )
@@ -33,6 +31,8 @@ case "$1" in
 				deployer_remote_status;;
 			'download' )
 				deployer_remote_download "$3";;
+			'upload' )
+				deployer_local_upload "$3";;
 			'services' )
 				case "$3" in 
 					'start' )

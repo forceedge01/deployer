@@ -13,7 +13,6 @@ function deployMenu() {
 	printMenu "ssh" "log into ssh machine"
 	printMenu "ssh [arg]" "ssh commands over to ssh server"
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
-	printMenu "upload [arg]" "upload file/folder to ssh server configured uploads directory"
 	printMenu "deploy | d" "Deploy latest master branch on remote server"
 	printMenu "deploy [branch/commit/tag]" "deploy a branch, version or commit to the remote server"
 	printMenu "remote" "Show remote project version"
@@ -29,6 +28,8 @@ function deployMenu() {
 	printMenu 'remote service start [service]' 'start single custom service'
 	printMenu 'remote service stop [service]' 'stop single custom service'
 	printMenu 'remote service restart [service]' 'restart single custom service'
+	printMenu "remote upload [arg]" "upload file/folder to ssh server's configured uploads directory"
+	printMenu "remote download [arg]" "download file/folder to ssh server's configured downloads directory"
 	printMenu "config" "View the config file for deployer"
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"

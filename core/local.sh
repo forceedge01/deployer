@@ -52,30 +52,3 @@ function deployer_local_edit_project() {
 
 	$editor $localProjectLocation
 }
-
-function deployer_local_upload() {
-	if [[ -z "$1" ]]; then
-		error 'You must specify the file to upload'
-		return
-	fi
-	attempt "upload file/folder to $sshServer"
-	perform 'Check path provided'
-	recurse=''
-	if [[ -f "$1" ]]; then
-		performed 'File'
-	elif [[ -d "$1" ]]; then
-		performed 'Folder'
-		recurse='-r'
-	else
-		error 'The path specified is not a file or folder'
-		return 234
-	fi
-	perform 'Make sure the uploads dir exists'
-	deployer_ssher "mkdir -p $uploadsPath"
-	performed
-	perform 'SCP file/folder to server'
-	scp $recurse "$1" "$username@$sshServer:$uploadsPath"
-	performed
-	perform 'Show uploads folder contents'
-	deployer_ssher "ls -la $uploadsPath | sed 2,3d"
-}
