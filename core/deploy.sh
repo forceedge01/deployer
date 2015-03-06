@@ -36,6 +36,29 @@ function deployer_deploy() {
 	depolyer_remote_project_status
 }
 
+function deployer_remote_download() {
+	if [[ -z "$1" ]]; then
+		error 'You must supply a url to download from...'
+		return 123
+	fi
+	attempt "download file from '$1'"
+	perform 'Check if the download url is valid'
+	header=$(curl -sI $1)
+	length=$(echo "$header" | grep 'Content-Length' | awk '{split($0,chunks," "); print chunks[2]}' | xargs)
+	status=$(echo "$header" | grep 'HTTP/1.1' | awk '{split($0,chunks," "); print chunks[2]}' | xargs)
+	if [[ $length < 1 ]] || [[ $status =~ ^4|5\d{2}$ ]]; then
+		error 'The download link is invalid'
+		return
+	fi
+	performed
+	perform "Make sure '$downloadsPath' exists"
+	deployer_ssher "mkdir -p $downloadsPath"
+	performed
+	perform 'Download and show file'
+	echo ''
+	deployer_ssher_toDir "cd $downloadsPath && curl -#OL '$1'; ls -la | sed 2,3d"
+}
+
 function deployer_deploy_latest() {
 	attempt "Deploy latest tag"
 	if [[ $permissiveDeployment != true ]]; then
@@ -77,46 +100,6 @@ function deployer_postDeploy() {
 		perform 'Run post-deploy commands: '
 		deployer_ssher_toDir "$postDeployCommand"
 	fi
-}
-
-function deployer_init() {
-	if [[ -f ./deployer.config ]]; then
-		error "deployer.config already exists, run 'deployer config edit' to edit this file'"
-	else
-		perform 'Create deployer.config file for current project'
-		cp "$DEPLOYER_LOCATION/template/main.sh.dist" ./deployer.config
-		performed
-		info 'Please configure the deployer.config file in order to use deployer'
-	fi
-}
-
-function deployer_use() {
-	attempt "set current directory as project dir"
-	perform "locate 'deployer.config' file"
-	if [[ ! -f ./deployer.config ]]; then
-		error "Unable to locate 'deployer.config' file in current directory, run 'deployer init' to create one."
-		return 1
-	fi
-	performed
-	perform 'check if project.sh file exists for deployer'
-	if [[ -f $DEPLOYER_LOCATION/../config/project.sh ]]; then
-		performed
-	else
-		performed 'not found, creating...'
-		perform 'create project.sh for deployer'
-		sudo touch $DEPLOYER_LOCATION/../config/project.sh
-		if [[ $? == 0 ]]; then
-			performed
-		else
-			error 'unable to create project.sh file, please resort to manual creation of file'
-			return
-		fi
-	fi
-	perform 'set current project dir as deployer current project'
-	currentDir=$(pwd)
-	echo "#!/usr/bin/env bash
-readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/project.sh"
-	performed
 }
 
 function deployer_remote_init() {

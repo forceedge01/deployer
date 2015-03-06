@@ -13,6 +13,7 @@ function deployMenu() {
 	printMenu "ssh" "log into ssh machine"
 	printMenu "ssh [arg]" "ssh commands over to ssh server"
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
+	printMenu "upload [arg]" "upload file/folder to ssh server configured uploads directory"
 	printMenu "deploy | d" "Deploy latest master branch on remote server"
 	printMenu "deploy [branch/commit/tag]" "deploy a branch, version or commit to the remote server"
 	printMenu "remote" "Show remote project version"
@@ -32,6 +33,7 @@ function deployMenu() {
 	printMenu "config edit" "edit the config file for deployer"
 	printMenu "update" "update deployer"
 	printMenu "open | web" "Open project link in browser"
+	printMenu 'edit' 'Edit current project in configured editor'
 	printMenu 'update' 'Update current project locally'
 	printMenu 'self-update' 'Update deployer'
 	printMenu "version | v" "Display deployer version"

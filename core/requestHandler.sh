@@ -10,6 +10,8 @@ case "$1" in
 		deployer_ssher "$2";;
 	'sshp' )
 		deployer_ssher_toDir "$2";;
+	'upload' )
+		deployer_local_upload "$2";;
 	'deploy' | 'd' )
 		case "$2" in 
 			'latest' )
@@ -29,6 +31,8 @@ case "$1" in
 				deployer_remote_tags;;
 			'status' )
 				deployer_remote_status;;
+			'download' )
+				deployer_remote_download "$3";;
 			'services' )
 				case "$3" in 
 					'start' )
@@ -53,7 +57,7 @@ case "$1" in
 	'config' )
 		case "$2" in 
 			"edit" )
-				vim $localProjectLocation/deployer.config;;
+				$editor $localProjectLocation/deployer.config;;
 			* )
 				echo 'Displaying project file...'; 
 				cat $localProjectLocation/deployer.config;
@@ -71,6 +75,8 @@ case "$1" in
 		cd $DEPLOYER_LOCATION; git describe --tag;;
 	'test' )
 		alterConfigFiles;;
+	'edit' )
+		deployer_local_edit_project;;
 	'project' )
 		;;
 	*)

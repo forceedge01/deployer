@@ -2,15 +2,15 @@
 
 # server settings
 # server ip to connect to
-readonly sshServer=''
+declare sshServer=''
 # connect to SSH server as
-readonly username=''
+declare username=''
 
 # ---------------------------------------------–------- #
 
 # SSH settings
 # set the verbositiy of the deployment process
-readonly verbose=0
+declare verbose=0
 
 # ---------------------------------------------–------- #
 
@@ -18,23 +18,28 @@ readonly verbose=0
 # services to check for after deployment
 declare services=(httpd mysqld)
 # deploy using git or scp
-readonly deploymentMethod='git'
+declare deploymentMethod='git'
 # command to run before deployment starts, by default runs in the project directory
-readonly preDeployCommand=''
+declare preDeployCommand=''
 # command to run after deployment is done, by default runs in the project directory
-readonly postDeployCommand=''
+declare postDeployCommand=''
 # do not ask for confirmation before deployment
-readonly permissiveDeployment=true
+declare permissiveDeployment=false
+# set downloads folder for deployer
+declare downloadsPath='~/deployer_downloads'
+# set uploads folder for deployer
+declare uploadsPath='~/deployer_uploads'
 
 # ---------------------------------------------–------- #
 
 # app specific settings
+declare editor='vim'
 # project location on SSH server
-readonly remoteProjectLocation=''
+declare remoteProjectLocation=''
 # project repo url
-readonly repo=''
+declare repo=''
 # project web url, is used with open command
-readonly webURL=''
+declare webURL=''
 # change config file params
 declare configFiles=('' '' '')
 # changes to make in config file specified, i.e ('regex' 'value')

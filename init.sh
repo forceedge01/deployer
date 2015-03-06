@@ -19,6 +19,7 @@ else
 
 		if [[ ! -f $currentDirectory/config/main.sh ]]; then
 			echo 'Setup current project'
+			cp $currentDirectory/config/project.sh.dist $currentDirectory/config/project.sh
 			vim $currentDirectory/config/project.sh
 		fi
 	else
