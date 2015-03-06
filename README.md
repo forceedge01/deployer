@@ -7,7 +7,24 @@ To get started run
 ```
 git clone https://github.com/forceedge/deployer.git; chmod 0777 deployer/init.sh; cd deployer; ./init.sh
 ```
-After the script has completed, it will ask you to set the config file.
+## Setup/Initialise project with eployer
+To get a project deployed with deployer use the following command in the project directory
+
+```
+deployer init
+```
+
+This will create the deployer.config file in your project, to use/edit this file with deployer run
+
+```
+deployer use
+```
+
+This will show  a message confirming that the file is being used with deployer. You can quickly edit this file by running
+
+```
+deployer config edit
+```
 
 ## Menu/Commands
 on the command line type 
