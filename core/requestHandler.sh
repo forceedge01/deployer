@@ -17,6 +17,8 @@ case "$1" in
 			* )
 				deployer_deploy "$2";;
 		esac;;
+	'get' )
+		deployer_remote_get "$2";;
 	'remote' | 'r' )
 		case "$2" in
 			'init' | "clone" )
@@ -29,9 +31,9 @@ case "$1" in
 				deployer_remote_tags;;
 			'status' )
 				deployer_remote_status;;
-			'download' )
+			'download' | 'downloads')
 				deployer_remote_download "$3";;
-			'upload' )
+			'upload' | 'uploads' )
 				deployer_local_upload "$3";;
 			'services' )
 				case "$3" in 
@@ -83,4 +85,4 @@ case "$1" in
 		helperMenu;;
 esac
 # inject linespace
-echo ''
+echo 

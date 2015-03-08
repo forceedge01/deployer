@@ -15,6 +15,7 @@ function deployMenu() {
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
 	printMenu "deploy | d" "Deploy latest master branch on remote server"
 	printMenu "deploy [branch/commit/tag]" "deploy a branch, version or commit to the remote server"
+	printMenu 'get [file/folderPath]' 'Get a file/folder from the remote server'
 	printMenu "remote" "Show remote project version"
 	printMenu "remote init | clone" "Initialize repository on ssh server"
 	printMenu "remote reclone" "Re-Initialize repository on ssh server"

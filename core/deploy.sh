@@ -38,7 +38,7 @@ function deployer_deploy() {
 
 function deployer_remote_download() {
 	if [[ -z "$1" ]]; then
-		attempt 'list downloads directory'
+		attempt "list downloads directory: '$downloadsPath'"
 		deployer_ssher_toDir "ls -la $downloadsPath | sed 2,3d"
 		return 0
 	fi
@@ -56,13 +56,13 @@ function deployer_remote_download() {
 	deployer_ssher "mkdir -p $downloadsPath"
 	performed
 	perform 'Download and show file'
-	echo ''
+	echo
 	deployer_ssher_toDir "cd $downloadsPath && curl -#OL '$1'; ls -la | sed 2,3d"
 }
 
 function deployer_local_upload() {
 	if [[ -z "$1" ]]; then
-		attempt 'list uploads directory'
+		attempt "list uploads directory: '$uploadsPath'"
 		deployer_ssher "ls -la $uploadsPath | sed 2,3d"
 		return
 	fi
@@ -169,21 +169,33 @@ function deployer_remote_tags() {
 
 function deployer_remote_status() {
 	perform "Ram status"
-	echo ''
+	echo
 	deployer_ssher "free -m"
-	echo ''
+	echo
 	perform "apache status"
 	deployer_ssher "sudo service httpd status"
-	echo ''
+	echo
 	perform "mysql status"
 	deployer_ssher "sudo service mysqld status"
-	echo ''
+	echo
 	depolyer_remote_project_status
 }
 
 function depolyer_remote_project_status() {
 	perform "remote project version"
 	deployer_ssher "cd $remoteProjectLocation; git describe"
+	performed
+}
+
+function deployer_remote_get() {
+	attempt "get '$1' from remote server"
+	perform "Get file from remote server"
+	file="${1// /\ }"
+	scp -r "$username@$sshServer:$file" "./" 2> /dev/null
+	if [[ $(echo $?) != 0 ]]; then
+		error 'file not found!'
+		return
+	fi
 	performed
 }
 
