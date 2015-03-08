@@ -44,7 +44,7 @@ function deployer_ssh_setup() {
 	keyresult=$(deployer_ssher 'cat ~/.ssh/authorized_keys | grep "$key"')
 	filteredKeyResult="${keyresult//[[:space:]]/}"
 	if [[ ! -z $filteredKeyResult ]]; then
-		performed 'Key already exists in remote server!'
+		performed 'Key already exists on remote server!'
 		return 0
 	fi
 	perform 'set key in remote ssh server'
