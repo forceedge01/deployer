@@ -7,7 +7,12 @@ case "$1" in
 	'init' )
 		deployer_init;;
 	'ssh' )
-		deployer_ssher "$2";;
+		case "$2" in
+			'setup' )
+				deployer_ssh_setup;;
+			* )
+				deployer_ssher "$2";;
+		esac;;
 	'sshp' )
 		deployer_ssher_toDir "$2";;
 	'deploy' | 'd' )
