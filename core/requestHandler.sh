@@ -81,6 +81,8 @@ case "$1" in
 		deployer_local_edit_project;;
 	'project' )
 		;;
+	'help' )
+		deployer_info;;
 	*)
 		helperMenu;;
 esac

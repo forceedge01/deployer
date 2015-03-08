@@ -40,9 +40,6 @@ function deployMenu() {
 	printMenu 'self-update' 'Update deployer'
 	printMenu "version | v" "Display deployer version"
 	printMenu "uninstall" "uninstall deployer"
-	info "
-To get started, use the 'deployer init' command to create a 'deployer.config' file for the current directory you are in. 
-Use the 'deployer use' command to attach the project to deployer."
 }
 
 function printMenu() {
@@ -57,4 +54,17 @@ function printMenu() {
 		spaces=$((spaces-1))
 	done
 	echo "$2"
+}
+
+function deployer_info() {
+	info "
+To get started, use the 'deployer init' command to create a 'deployer.config' file for the current directory you are in. 
+Use the 'deployer use' command to use the 'deployer.config' file with deployer.
+
+To configure the 'deployer.config' file of your current project run 'deployer config edit'. Once configured
+you can run:
+
+- deployer remote init (this will make a clone of the repository configured in the config file)
+
+To view this information again run 'deployer help'"
 }

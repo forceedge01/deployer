@@ -11,6 +11,16 @@ source $DEPLOYER_LOCATION/utilities.sh
 function loadDeployerConfigs() {
 	# load configs
 	source $DEPLOYER_LOCATION/../config/project.sh
+	if [[ -z "$localProjectLocation" ]]; then
+			info "Please run 'deployer help' to get started"
+		return
+	fi
+
+	if [[ ! -d "$localProjectLocation" ]]; then
+		error "Local project path '$localProjectLocation' not found! Make sure the path exists..."
+		return
+	fi
+
 	if [[ ! -f "$localProjectLocation/deployer.config" ]]; then
 		warning 'Could not find deployer.config file for the current project specified.'
 		return

@@ -14,7 +14,7 @@ function deployer_deploy() {
 
 		deployer_preDeploy
 		perform "pull latest commit from master branch"
-		deployer_ssher_toDir "git checkout master; git pull origin master"
+		deployer_ssher_toDir "git checkout master &> /dev/null && git pull origin master"
 		performed
 	else
 		attempt "deploy '$1'"
