@@ -41,7 +41,7 @@ function deployer_ssh_setup() {
 	performed
 	key=$(cat ~/.ssh/id_rsa.pub)
 	perform 'check for key in remote auth keys file'
-	keyresult=$(deployer_ssher 'cat ~/.ssh/authorized_keys | grep "$key"')
+	keyresult=$(deployer_ssher 'cat ~/.ssh/authorized_keys' | grep "$key")
 	filteredKeyResult="${keyresult//[[:space:]]/}"
 	if [[ ! -z $filteredKeyResult ]]; then
 		performed 'Key already exists on remote server!'
@@ -52,5 +52,5 @@ function deployer_ssh_setup() {
 	performed
 	info 'If the next step does not require a password, you are all set!'
 	perform 'connect to remote server'
-	deployer_ssher
+	deployer_ssher ' '
 }
