@@ -134,7 +134,7 @@ function deployer_postDeploy() {
 function deployer_remote_init() {
 	attempt "setup project"
 	perform "Clone repo on remote server"
-	deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo"
+	deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/"
 	performed
 }
 
