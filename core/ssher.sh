@@ -26,11 +26,13 @@ function deployer_ssher_toDir() {
 function deployer_ssh_setup() {
 	attempt 'setup ssh config on remote server'
 	perform 'check if .ssh directory exists'
-	if [[ -d ~/.ssh ]]; then
-		performed
-	else
+	if [[ ! -d ~/.ssh ]]; then
 		echo -n 'Not found, creating'
-		sudo mkdir ~/.ssh		
+		sudo mkdir ~/.ssh
+		if [[ $? != 0 ]]; then
+			error 'Unable to create directory, check permissions and try again.'
+			return 1
+		fi
 	fi
 	performed
 	perform 'check for ssh key'

@@ -34,3 +34,19 @@ function deployer_private_runServicesWith() {
 		deployer_service_perform "$1" "$2"
 	done
 }
+
+function deployer_vhost_create() {
+	attempt 'create a virtualhost on remote machine'
+	if [[ -z "$1" ]]; then
+		error 'You must provide with a virtual host name'
+		return 1
+	fi
+	perform 'Enter host definition in httpd.conf file'
+	$(deployer_ssher 'echo "<VirtualHost *:80>
+    ServerAdmin $username@$1.com
+    DocumentRoot $remoteProjectLocation
+    ServerName $1
+    ErrorLog logs/$1-error.log
+</VirtualHost>" >> /etc/httpd/conf/httpd.conf')
+	performed
+}
