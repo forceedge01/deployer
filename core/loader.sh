@@ -27,6 +27,8 @@ function loadDeployerConfigs() {
 	fi
 
 	source $localProjectLocation/deployer.config
+	# use this to replace string.
+	#sed -i ".bk" 's/alias project/alias SOMETHING=\/Volumes\/Projects/' foo
 }
 
 loadDeployerConfigs
