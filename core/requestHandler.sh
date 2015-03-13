@@ -61,18 +61,18 @@ case "$1" in
 			* )
 				depolyer_remote_project_status;;
 		esac;;
-	'config' )
+	'config' | 'c' )
 		case "$2" in 
-			'edit' )
+			'edit' | 'e' )
 				$editor $localProjectLocation/deployer.config;;
-			'verify' )
+			'verify' | 'v' )
 				deployer_config_status;;
 			* )
 				echo 'Displaying project file...'; 
 				cat $localProjectLocation/deployer.config;
 				echo '';;
 		esac;;
-	'update' )
+	'update' | 'u' )
 		deployer_local_update;;
 	'self-update' )
 		cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;;
@@ -82,9 +82,7 @@ case "$1" in
 		deployer_uninstall;;
 	'version' | 'v' )
 		Deployer_version;;
-	'test' )
-		alterConfigFiles;;
-	'edit' )
+	'edit' | 'e' )
 		deployer_local_edit_project;;
 	'project' | 'p' )
 		;;

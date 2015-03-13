@@ -33,6 +33,7 @@ function deployMenu() {
 	printMenu "remote download [arg]" "download file/folder to ssh server's configured downloads directory"
 	printMenu "config" "View the config file for deployer"
 	printMenu "config edit" "edit the config file for deployer"
+	printMenu "config verify" "verify the config file"
 	printMenu "update" "update deployer"
 	printMenu "open | web" "Open project link in browser"
 	printMenu 'edit' 'Edit current project in configured editor'
@@ -47,7 +48,7 @@ function printMenu() {
 	argSize=${#1}
 	spaces=$((firstColumnCount-$argSize))
 	
-	echo '----------------------------------------------------------------------------------------'
+	echo 
 	echo -n "$1"
 	while [ $spaces -gt 0 ]; do
 		echo -n ' '
