@@ -73,7 +73,7 @@ case "$1" in
 	'update' )
 		deployer_local_update;;
 	'self-update' )
-		cd $DEPLOYER_LOCATION; git pull origin master;;
+		cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;;
 	'open' | 'web' )
 		deployer_open_web;;
 	'uninstall' )
