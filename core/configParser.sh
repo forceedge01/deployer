@@ -12,6 +12,15 @@ function alterConfigFiles() {
 	attempt "Parse config files"
 	for configFile in "${configFiles[@]}" 
 	do
+		perform "Make sure the file '$configFile' exists"
+		result=$(deployer sshp "if [[ -f $configFile ]]; then echo 0; else echo 1; fi")
+		if [[ $result != 0 ]]; then
+			error 'Not found!'
+			continue
+		else
+			performed
+		fi
+
 		for (( i=0; i<=(( ${#config[@]} - 1 )); i=((i+2)) ))
 		do
 			if [[ $((i % 2)) == 0 ]]; then
@@ -22,9 +31,13 @@ function alterConfigFiles() {
 			fi
 		done
 	done
+
+	if [[ -z $commands ]]; then
+		return 0
+	fi
+	
 	perform 'Alter files with configs specified'
-	echo "$commands"
-	# deployer_ssher_toDir "$commands"
+	deployer_ssher_toDir "$commands"
 	performed
 }
 
@@ -34,5 +47,5 @@ function getAlterCommand() {
 		return 1
 	fi
 
-	echo "sed -i 's/$2/$3/g' $1;"
+	echo "sed -i '.bk' 's/$2/$3/' $1;"
 }

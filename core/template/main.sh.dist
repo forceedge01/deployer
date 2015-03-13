@@ -40,7 +40,7 @@ declare remoteProjectLocation=''
 declare repo=''
 # project web url, is used with open command
 declare webURL=''
-# change config file params
+# change config file params, relative to the remote project location or absolute
 declare configFiles=()
 # changes to make in config file specified, i.e ('regex' 'value')
 declare config=()

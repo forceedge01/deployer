@@ -52,3 +52,9 @@ function deployer_local_edit_project() {
 
 	$editor $localProjectLocation
 }
+
+function Deployer_version() {
+	cd $DEPLOYER_LOCATION && git status | head -n 1;
+	blue 'Deployer installation folder: '
+	echo -n $DEPLOYER_LOCATION
+}

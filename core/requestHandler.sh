@@ -79,12 +79,12 @@ case "$1" in
 	'uninstall' )
 		deployer_uninstall;;
 	'version' | 'v' )
-		cd $DEPLOYER_LOCATION; git describe --tag;;
+		Deployer_version;;
 	'test' )
 		alterConfigFiles;;
 	'edit' )
 		deployer_local_edit_project;;
-	'project' )
+	'project' | 'p' )
 		;;
 	'help' )
 		deployer_info;;

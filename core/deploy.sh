@@ -32,6 +32,7 @@ function deployer_deploy() {
 		deployer_ssher_toDir "git checkout $1"
 		performed
 	fi
+	alterConfigFiles
 	deployer_postDeploy
 	depolyer_remote_project_status
 }
@@ -182,9 +183,8 @@ function deployer_remote_status() {
 }
 
 function depolyer_remote_project_status() {
-	perform "remote project version"
-	deployer_ssher "cd $remoteProjectLocation; git describe"
-	performed
+	perform "remote status"
+	deployer_ssher "cd $remoteProjectLocation; git status | head -n 1"
 }
 
 function deployer_remote_get() {
