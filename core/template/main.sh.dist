@@ -8,7 +8,7 @@ declare username=''
 
 # ---------------------------------------------–------- #
 
-# SSH settings
+# SSH debug settings
 # set the verbositiy of the deployment process
 declare verbose=0
 

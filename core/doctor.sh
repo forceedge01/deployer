@@ -7,76 +7,79 @@ function deloyer_doctor() {
 	# check if local is set then local is present
 	# check if local is set then the config file exists
 	# check if ssh server is set then server is sshable
+	echo ''
 }
 
 function deployer_config_status() {
 	# parse the config file and check whats set and whats not
 	attempt 'check the config file'
+
+	warning 'SSH Server Settings'
+
 	perform 'ssh server set'
 	if [[ -z "$sshServer" ]]; then
-		warning 'sshServer var not set!'
+		error 'sshServer var not set!'
 	fi
 	performed
 
 	perform 'username for ssh server set'
 	if [[ -z "$username" ]]; then
-		warning 'username var not set!'
+		error 'username var not set!'
 	fi
 	performed
 
-	perform 'ssh server set'
-	if [[ -z "$sshServer" ]]; then
-		warning 'sshServer var not set!'
+	warning 'SSH debug Settings'
+
+	perform 'verbosity'
+	echo $verbose
+
+	warning 'Deployment settings'
+
+	perform "Deployment method" 
+	if [[ $deploymentMethod != 'git' ]]; then
+		error "unsupported method $deploymentMethod"
+	else
+		performed
 	fi
-	performed
 
-	perform 'ssh server set'
-	if [[ -z "$sshServer" ]]; then
-		warning 'sshServer var not set!'
+	perform 'Permissive deployments'
+	echo $permissiveDeployment
+
+	perform 'Downloads path'
+	if [[ -z $downloadsPath ]]; then
+		warning 'Not set, Wont be able to download files'
+		return 1
+	else
+		performed
 	fi
-	performed
-# connect to SSH server as
-declare username=''
-
-# ---------------------------------------------–------- #
-
-# SSH settings
-# set the verbositiy of the deployment process
-declare verbose=0
-
-# ---------------------------------------------–------- #
-
-# deploy settings
-# services to check for after deployment
-declare services=(httpd mysqld)
-# deploy using git or scp
-declare deploymentMethod='git'
-# command to run before deployment starts, by default runs in the project directory
-declare preDeployCommand=''
-# command to run after deployment is done, by default runs in the project directory
-declare postDeployCommand=''
-# do not ask for confirmation before deployment
-declare permissiveDeployment=false
-# set downloads folder for deployer
-declare downloadsPath='~/deployer_downloads'
-# set uploads folder for deployer
-declare uploadsPath='~/deployer_uploads'
-
-# ---------------------------------------------–------- #
-
-# app specific settings
-declare editor='vim'
-# project location on SSH server
-declare remoteProjectLocation=''
-# project repo url
-declare repo=''
-# project web url, is used with open command
-declare webURL=''
-# change config file params
-declare configFiles=()
-# changes to make in config file specified, i.e ('regex' 'value')
-declare config=()
-
-# ---------------------------------------------–------- #
 	
+	perform 'Uploads path'
+	if [[ -z $uploadsPath ]]; then
+		warning 'Not set, Wont be able to upload files'
+	else
+		performed
+	fi
+
+	warning 'App specific settings'
+
+	perform 'Remote project location'
+	if [[ -z $remoteProjectLocation ]]; then
+		warning 'Not set, using home dir'
+	else
+		performed
+	fi
+
+	perform 'Repo location'
+	if [[ -z $repo ]]; then
+		error 'Not set, unable to deploy'
+	else
+		performed
+	fi
+
+	perform 'webURL'
+	if [[ -z $webURL ]]; then
+		warning 'Not set'
+	else
+		performed
+	fi
 }

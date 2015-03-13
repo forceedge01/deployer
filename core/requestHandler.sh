@@ -63,8 +63,10 @@ case "$1" in
 		esac;;
 	'config' )
 		case "$2" in 
-			"edit" )
+			'edit' )
 				$editor $localProjectLocation/deployer.config;;
+			'verify' )
+				deployer_config_status;;
 			* )
 				echo 'Displaying project file...'; 
 				cat $localProjectLocation/deployer.config;
