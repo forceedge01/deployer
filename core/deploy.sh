@@ -62,6 +62,7 @@ function deployer_deploy_latest() {
 	perform "Deploy tag $latestTag"
 	deployer_ssher_toDir "git checkout $latestTag"
 	performed
+	alterConfigFiles
 	deployer_postDeploy
 	depolyer_remote_project_status
 }
@@ -85,6 +86,7 @@ function deployer_remote_init() {
 	perform "Clone repo on remote server"
 	deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/"
 	performed
+	alterConfigFiles
 }
 
 function deployer_reclone() {
@@ -100,6 +102,7 @@ function deployer_reclone() {
 	perform "Re-clone repo on remote server"
 	deployer_ssher_toDir "rm -rf $remoteProjectLocation && mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo"
 	performed
+	alterConfigFiles
 }
 
 function deployer_remote_update() {
@@ -114,20 +117,6 @@ function deployer_remote_tags() {
 	perform "fetch tags"
 	deployer_ssher_toDir "git fetch --tags; git tag"
 	performed
-}
-
-function deployer_remote_status() {
-	perform "Ram status"
-	echo
-	deployer_ssher "free -m"
-	echo
-	perform "apache status"
-	deployer_ssher "sudo service httpd status"
-	echo
-	perform "mysql status"
-	deployer_ssher "sudo service mysqld status"
-	echo
-	depolyer_remote_project_status
 }
 
 function depolyer_remote_project_status() {

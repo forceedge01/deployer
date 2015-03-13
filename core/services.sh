@@ -112,3 +112,17 @@ function deployer_local_upload() {
 	perform 'Show uploads folder contents'
 	deployer_ssher "ls -la $uploadsPath | sed 2,3d"
 }
+
+function deployer_remote_status() {
+	perform "Ram status"
+	echo
+	deployer_ssher "free -m"
+	echo
+	perform "apache status"
+	deployer_ssher "sudo service httpd status"
+	echo
+	perform "mysql status"
+	deployer_ssher "sudo service mysqld status"
+	echo
+	depolyer_remote_project_status
+}
