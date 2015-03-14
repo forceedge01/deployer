@@ -7,7 +7,7 @@ function helperMenu() {
 }
 
 function deployMenu() {
-	echo 'Deployer menu'
+	warning 'Deployer menu'
 	printMenu 'init' 'Create deployer.config file for current directory'
 	printMenu 'use' 'Use the current directories deployer.config file for deployer'
 	printMenu "ssh [arg]" "log into ssh machine or run command on remote machine"
