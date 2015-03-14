@@ -115,14 +115,13 @@ function deployer_local_upload() {
 
 function deployer_remote_status() {
 	perform "Ram status"
-	echo
 	deployer_ssher "free -m"
 	echo
-	perform "apache status"
-	deployer_ssher "sudo service httpd status"
-	echo
-	perform "mysql status"
-	deployer_ssher "sudo service mysqld status"
-	echo
+	for service in "${services[@]}" 
+	do
+		perform "$service status"
+		deployer_ssher "sudo service $service status"
+		echo
+	done
 	depolyer_remote_project_status
 }
