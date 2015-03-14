@@ -76,10 +76,23 @@ function deployer_config_status() {
 		performed
 	fi
 
-	perform 'webURL'
+	perform 'WebURL'
 	if [[ -z $webURL ]]; then
 		warning 'Not set'
 	else
 		performed
 	fi
+
+	perform 'Deployment process'
+	if [[ ! -z $preDeployCommand ]]; then
+		echo 
+		echo "Pre deploy run -> $preDeployCommand"
+	fi
+
+	echo 'Deploy as usual'
+
+	if [[ ! -z $postDeployCommand ]]; then
+		echo "Post deploy run -> $postDeployCommand"
+	fi
+	performed 'Done'
 }

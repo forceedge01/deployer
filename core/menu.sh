@@ -78,12 +78,12 @@ function printSubMenu() {
 function deployer_info() {
 	info "
 To get started, use the 'deployer init' command to create a 'deployer.config' file for the current directory you are in. 
-Use the 'deployer use' command to use the 'deployer.config' file with deployer.
+Run the 'deployer use' command to use the newly created 'deployer.config' file.
 
 To configure the 'deployer.config' file of your current project run 'deployer config edit'. Once configured
 you can run:
 
-- deployer remote init (this will make a clone of the repository configured in the config file)
+- deployer remote init (this will make a clone of the repository configured in the config file on the remote machine)
 
 To view this information again run 'deployer help'"
 }

@@ -64,7 +64,7 @@ case "$1" in
 	'config' | 'c' )
 		case "$2" in 
 			'edit' | 'e' )
-				$editor $localProjectLocation/deployer.config;;
+				Deployer_config_edit;;
 			'verify' | 'v' )
 				deployer_config_status;;
 			* )
@@ -89,7 +89,7 @@ case "$1" in
 			* )
 				;;
 		esac;;
-	'help' )
+	'help' | '--help' )
 		deployer_info;;
 	*)
 		helperMenu;;
