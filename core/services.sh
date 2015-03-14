@@ -17,7 +17,7 @@ function deployer_services_restart() {
 
 function deployer_service_perform() {
 	if [[ -z "$2" ]]; then
-		error 'Service name must be passed in as argument'
+		error 'Service name must be specified'
 		return
 	fi
 
