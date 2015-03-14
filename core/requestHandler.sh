@@ -87,7 +87,7 @@ case "$1" in
 			'update' | 'u' )
 				deployer_local_update;;
 			* )
-				;;
+				Deployer_local_run "$2";;
 		esac;;
 	'help' | '--help' )
 		deployer_info;;

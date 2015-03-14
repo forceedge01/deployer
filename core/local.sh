@@ -68,3 +68,11 @@ function Deployer_update() {
 	warning 'Updating deployer'
 	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;
 }
+
+function Deployer_local_run() {
+	if [[ -z "$1" ]]; then
+		return 
+	fi
+	warning 'Running command on local project'
+	cd $localProjectLocation; $1;
+}

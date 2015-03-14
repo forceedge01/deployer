@@ -17,7 +17,7 @@ function deployMenu() {
 	printMenu "config" "View the config file for deployer"
 	printSubMenu "edit" "edit the config file for deployer"
 	printSubMenu "verify" "verify the config file"
-	printMenu 'project | p' 'Show project location'
+	printMenu 'project | p [arg]' 'Show project location or run command on project location'
 	printSubMenu "open | web | w" "Open project link in browser"
 	printSubMenu 'edit | e' 'Edit current project in configured editor'
 	printSubMenu 'update | u' 'Update current project locally'
