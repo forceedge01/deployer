@@ -63,3 +63,8 @@ function Deployer_config_edit {
 	attempt 'edit project config file'
 	$editor $localProjectLocation/deployer.config
 }
+
+function Deployer_update() {
+	warning 'Updating deployer'
+	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;
+}

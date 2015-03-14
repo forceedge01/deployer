@@ -72,16 +72,16 @@ case "$1" in
 				cat $localProjectLocation/deployer.config;
 				echo '';;
 		esac;;
-	'self-update' )
-		cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;;
-	'open' | 'web' )
-		deployer_open_web;;
+	'update' | 'u' )
+		Deployer_update;;
 	'uninstall' )
 		deployer_uninstall;;
 	'version' | 'v' )
 		Deployer_version;;
 	'project' | 'p' )
 		case "$2" in 
+			'open' | 'web' | 'w' )
+				deployer_open_web;;
 			'edit' | 'e' )
 				deployer_local_edit_project;;
 			'update' | 'u' )

@@ -14,6 +14,13 @@ function deployMenu() {
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
 	printMenu "deploy | d" "Deploy latest master branch on remote server"
 	printSubMenu "[branch/commit/tag]" "deploy a branch, version or commit to the remote server"
+	printMenu "config" "View the config file for deployer"
+	printSubMenu "edit" "edit the config file for deployer"
+	printSubMenu "verify" "verify the config file"
+	printMenu 'project | p' 'Show project location'
+	printSubMenu "open | web | w" "Open project link in browser"
+	printSubMenu 'edit | e' 'Edit current project in configured editor'
+	printSubMenu 'update | u' 'Update current project locally'
 	printMenu "remote | r" "Show remote project version"
 	printSubMenu "init | clone" "Initialize repository on ssh server"
 	printSubMenu "reclone" "Re-Initialize repository on ssh server"
@@ -30,15 +37,7 @@ function deployMenu() {
 	printSubMenu 'service start [service]' 'start single custom service'
 	printSubMenu 'service stop [service]' 'stop single custom service'
 	printSubMenu 'service restart [service]' 'restart single custom service'
-	printMenu "config" "View the config file for deployer"
-	printSubMenu "edit" "edit the config file for deployer"
-	printSubMenu "verify" "verify the config file"
-	printMenu "update" "update deployer"
-	printMenu "open | web" "Open project link in browser"
-	printMenu 'project | p' 'Show project location'
-	printSubMenu 'edit' 'Edit current project in configured editor'
-	printSubMenu 'update' 'Update current project locally'
-	printMenu 'self-update' 'Update deployer'
+	printMenu "update | u" "Update deployer"
 	printMenu "version | v" "Display deployer version"
 	printMenu "uninstall" "uninstall deployer"
 }
