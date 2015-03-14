@@ -125,6 +125,10 @@ function depolyer_remote_project_status() {
 }
 
 function deployer_remote_get() {
+	if [[ -z "$1" ]]; then
+		error 'Path must be specified'
+		return
+	fi
 	attempt "get '$1' from remote server"
 	perform "Get file from remote server"
 	file="${1// /\ }"

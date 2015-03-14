@@ -22,8 +22,6 @@ case "$1" in
 			* )
 				deployer_deploy "$2";;
 		esac;;
-	'get' )
-		deployer_remote_get "$2";;
 	'remote' | 'r' )
 		case "$2" in
 			'init' | "clone" )
@@ -40,6 +38,8 @@ case "$1" in
 				deployer_remote_download "$3";;
 			'upload' | 'uploads' )
 				deployer_local_upload "$3";;
+			'get' )
+				deployer_remote_get "$3";;
 			'services' )
 				case "$3" in 
 					'start' )
@@ -72,8 +72,6 @@ case "$1" in
 				cat $localProjectLocation/deployer.config;
 				echo '';;
 		esac;;
-	'update' | 'u' )
-		deployer_local_update;;
 	'self-update' )
 		cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;;
 	'open' | 'web' )
@@ -82,10 +80,15 @@ case "$1" in
 		deployer_uninstall;;
 	'version' | 'v' )
 		Deployer_version;;
-	'edit' | 'e' )
-		deployer_local_edit_project;;
 	'project' | 'p' )
-		;;
+		case "$2" in 
+			'edit' | 'e' )
+				deployer_local_edit_project;;
+			'update' | 'u' )
+				deployer_local_update;;
+			* )
+				;;
+		esac;;
 	'help' )
 		deployer_info;;
 	*)
