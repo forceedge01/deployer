@@ -28,10 +28,10 @@ function deployer_deploy() {
 
 		deployer_preDeploy
 		perform 'Update remote server'
-		deployer_ssher_toDir "git pull --tags"
+		deployer_ssher_toDir "git fetch --tags"
 		perform "Checkout tag '$1'"
 		deployer_ssher_toDir "git checkout $1"
-		perform 'Update remote server'
+		perform 'Update remote server if needed'
 		deployer_ssher_toDir "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1"
 		performed
 	fi
