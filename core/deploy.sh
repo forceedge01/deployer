@@ -27,9 +27,12 @@ function deployer_deploy() {
 		fi
 
 		deployer_preDeploy
-		deployer_remote_update
+		perform 'Update remote server'
+		deployer_ssher_toDir "git pull --tags"
 		perform "Checkout tag '$1'"
 		deployer_ssher_toDir "git checkout $1"
+		perform 'Update remote server'
+		deployer_ssher_toDir "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1"
 		performed
 	fi
 	alterConfigFiles
