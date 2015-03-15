@@ -3,6 +3,7 @@
 
 function deployer_deploy() {
 	if [[ -z "$1" ]]; then
+		branch='latest master'
 		attempt "deploy latest from master branch"
 		if [[ $permissiveDeployment != true ]]; then
 			echo -n 'Are you sure you want to continue? [y/n]: '
@@ -17,6 +18,7 @@ function deployer_deploy() {
 		deployer_ssher_toDir "git checkout . && git checkout master &> /dev/null && git pull origin master"
 		performed
 	else
+		branch="$1"
 		attempt "deploy '$1'"
 		if [[ $permissiveDeployment != true ]]; then
 			echo -n 'Are you sure you want to continue? [y/n]: '
@@ -38,6 +40,7 @@ function deployer_deploy() {
 	alterConfigFiles
 	deployer_postDeploy
 	depolyer_remote_project_status
+	deployer_os_notification "$branch deployed successfully"
 }
 
 function deployer_deploy_latest() {
@@ -68,6 +71,7 @@ function deployer_deploy_latest() {
 	alterConfigFiles
 	deployer_postDeploy
 	depolyer_remote_project_status
+	deployer_os_notification "Latest tag deployed successfully"
 }
 
 function deployer_preDeploy() {

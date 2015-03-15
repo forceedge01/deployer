@@ -102,3 +102,13 @@ function userChoice () {
 function printForRead () {
   printf "\n** $1";
 }
+
+function deployer_os_notification() {
+	platform=$(echo `uname`)
+	case "$platform" in 
+		'Darwin' )
+			osascript -e "display notification \"$1\" with title \"Deployer\"";;
+		'Linux' )
+			notify-send - "$1"
+	esac
+}
