@@ -66,7 +66,7 @@ function Deployer_config_edit {
 
 function Deployer_update() {
 	warning 'Updating deployer'
-	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags;
+	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags
 }
 
 function Deployer_local_run() {
@@ -74,5 +74,58 @@ function Deployer_local_run() {
 		return 
 	fi
 	warning 'Running command on local project'
-	cd $localProjectLocation; $1;
+	cd $localProjectLocation
+	$1
+}
+
+function deployer_dev() {
+	if [[ -z $devStart ]]; then
+		warning 'Nothing todo...'
+	fi
+	
+	perform 
+	performed "$devStart"
+	cd $localProjectLocation
+	$devStart
+}
+
+function Deployer_project_save() {
+	cd $localProjectLocation
+	attempt 'save project'
+	changes=$(git status -s)
+	if [[ -z $changes ]]; then
+		warning 'No changes detected'
+		unpushed=$(git log --branches --not --remotes --simplify-by-decoration --decorate --oneline --abbrev-commit)
+		if [[ ! -z $unpushed ]]; then
+			info 'Unpushed Commit(s)'
+			git log --branches --not --remotes --simplify-by-decoration --decorate --oneline --abbrev-commit
+			printForRead 'You have unpushed commits, would you like to push them? [Y/N]: '
+			if [[ $(userChoice) == 'Y' ]]; then
+				perform 'Push local changes'
+				git push
+			fi
+		fi
+		printForRead 'deploy current branch? [Y/N]: '
+		if [[ $(userChoice) != 'Y' ]]; then
+			return
+		fi
+		currentBranch=$(git rev-parse --abbrev-ref HEAD)
+		deployer deploy $currentBranch
+		
+		return
+	fi
+	perform 'Show branch/files'
+	git status -sb
+	readUser 'Please enter commit message: '
+	perform 'Add all files for commit'
+	git add --all
+	performed
+	git commit -m "$input"
+	git push
+	printForRead 'Deploy this branch? [Y/N]: '
+	if [[ $(userChoice) != 'Y' ]]; then
+		return
+	fi
+	currentBranch=$(git rev-parse --abbrev-ref HEAD)
+	deployer deploy $currentBranch
 }

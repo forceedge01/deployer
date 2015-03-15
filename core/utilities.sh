@@ -98,3 +98,7 @@ function userChoice () {
       *) echo 'Response not valid';;
     esac
 }
+
+function printForRead () {
+  printf "\n** $1";
+}

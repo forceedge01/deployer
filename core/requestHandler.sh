@@ -6,6 +6,8 @@ case "$1" in
 		deployer_use;;
 	'init' )
 		deployer_init;;
+	'dev' )
+		deployer_dev;;
 	'ssh' )
 		case "$2" in
 			'setup' )
@@ -86,9 +88,13 @@ case "$1" in
 				deployer_local_edit_project;;
 			'update' | 'u' )
 				deployer_local_update;;
+			'save' | 's' )
+				Deployer_project_save;;
 			* )
 				Deployer_local_run "$2";;
 		esac;;
+	'test' )
+		Deployer_replace_alias;;
 	'help' | '--help' )
 		deployer_info;;
 	*)

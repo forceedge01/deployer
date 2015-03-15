@@ -44,5 +44,7 @@ declare webURL=''
 declare configFiles=()
 # changes to make in config file specified, i.e ('regex' 'value')
 declare config=()
+# any command to run on the local project using the deployer dev command
+declare devStart=''
 
 # ---------------------------------------------–------- #
