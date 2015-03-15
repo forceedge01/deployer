@@ -107,7 +107,7 @@ function deployer_os_notification() {
 	platform=$(echo `uname`)
 	case "$platform" in 
 		'Darwin' )
-			osascript -e "display notification \"$1\" with title \"Deployer\"";;
+			osascript -e "display notification \"$1\" with title \"Deployer: $sshServer\"";;
 		'Linux' )
 			notify-send - "$1"
 	esac
