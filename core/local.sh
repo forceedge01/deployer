@@ -101,14 +101,17 @@ function Deployer_project_save() {
 			git log --branches --not --remotes --simplify-by-decoration --decorate --oneline --abbrev-commit
 			printForRead 'You have unpushed commits, would you like to push them? [Y/N]: '
 			if [[ $(userChoice) == 'Y' ]]; then
+				echo
 				perform 'Push local changes'
 				git push
 			fi
+			echo
 		fi
 		printForRead 'deploy current branch? [Y/N]: '
 		if [[ $(userChoice) != 'Y' ]]; then
 			return
 		fi
+		echo
 		currentBranch=$(git rev-parse --abbrev-ref HEAD)
 		deployer deploy $currentBranch
 		
@@ -126,6 +129,7 @@ function Deployer_project_save() {
 	if [[ $(userChoice) != 'Y' ]]; then
 		return
 	fi
+	echo
 	currentBranch=$(git rev-parse --abbrev-ref HEAD)
 	deployer deploy $currentBranch
 }

@@ -91,7 +91,7 @@ function readUser()
 
 function userChoice () {
     unset choice;
-    read choice;
+    read -d'' -s -n1 choice
     case $choice in
       "n"|"N" ) echo 'N';;
       "y"|"Y" ) echo 'Y';;

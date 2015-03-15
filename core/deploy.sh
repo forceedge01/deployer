@@ -11,6 +11,7 @@ function deployer_deploy() {
 			if [[ $answer != 'Y' ]]; then
 				return 1
 			fi
+			echo
 		fi
 
 		deployer_preDeploy
@@ -26,6 +27,7 @@ function deployer_deploy() {
 			if [[ $answer != 'Y' ]]; then
 				return 1
 			fi
+			echo
 		fi
 
 		deployer_preDeploy
@@ -51,6 +53,7 @@ function deployer_deploy_latest() {
 		if [[ $answer != 'Y' ]]; then
 			return 1
 		fi
+		echo
 	fi
 
 	deployer_preDeploy
