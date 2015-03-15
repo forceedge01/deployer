@@ -124,7 +124,13 @@ function Deployer_project_save() {
 	git add --all
 	performed
 	git commit -m "$input"
-	git push
+	perform 'Push changes'
+	git push &>/dev/null
+	if [[ $(echo $?) != 0 ]]; then
+		error 'Unable to push, aborting...'
+		return
+	fi
+	performed
 	printForRead 'Deploy this branch? [Y/N]: '
 	if [[ $(userChoice) != 'Y' ]]; then
 		return

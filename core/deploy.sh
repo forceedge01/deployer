@@ -15,9 +15,7 @@ function deployer_deploy() {
 		fi
 
 		deployer_preDeploy
-		perform "pull latest commit from master branch"
-		deployer_ssher_toDir "git checkout . && git checkout master &> /dev/null && git pull origin master"
-		performed
+		deployer_pull_changes "master"
 	else
 		branch="$1"
 		attempt "deploy '$1'"
@@ -43,6 +41,16 @@ function deployer_deploy() {
 	deployer_postDeploy
 	depolyer_remote_project_status
 	deployer_os_notification "$branch deployed successfully"
+}
+
+function deployer_pull_changes() {
+	perform "Updating remote: $1"
+	result=$(deployer_ssher_toDir "git checkout . && git checkout $1 &> /dev/null && git pull origin $1 &>/dev/null && [[ $(echo $?) == 0 ]] && echo 0")
+	if [[ $result == 0 ]]; then
+		performed
+		return
+	fi
+	error 'Unable to update'
 }
 
 function deployer_deploy_latest() {
