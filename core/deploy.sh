@@ -29,13 +29,9 @@ function deployer_deploy() {
 		fi
 
 		deployer_preDeploy
-		perform 'Update remote server'
-		deployer_ssher_toDir "git fetch --tags"
-		perform "Checkout tag '$1'"
-		deployer_ssher_toDir "git checkout $1"
-		perform 'Update remote server if needed'
-		deployer_ssher_toDir "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1"
-		performed
+		deployer_run_command 'Update remote server' 'git fetch --tags' 'Unable to get tags'
+		deployer_run_command "Checkout tag/branch '$1'" "git checkout $1" 'Unable to checkout branch'
+		deployer_run_command 'Update remote server if needed' "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1" 'Not needed'
 	fi
 	alterConfigFiles
 	deployer_postDeploy
@@ -43,14 +39,25 @@ function deployer_deploy() {
 	deployer_os_notification "$branch deployed successfully"
 }
 
-function deployer_pull_changes() {
-	perform "Updating remote: $1"
-	result=$(deployer_ssher_toDir "git checkout . && git checkout $1 &> /dev/null && git pull origin $1 &>/dev/null && [[ $(echo $?) == 0 ]] && echo 0")
+function deployer_run_command() {
+	perform "$1"
+	result=$(deployer_ssher_toDir "($2) &>/dev/null && echo -n $?")
 	if [[ $result == 0 ]]; then
 		performed
-		return
+	else
+		error "$3"
 	fi
-	error 'Unable to update'
+}
+
+function deployer_pull_changes() {
+	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to udpate'
+	# perform "Updating remote: $1"
+	# result=$(deployer_ssher_toDir "git checkout . && git checkout $1 &> /dev/null && git pull origin $1 &>/dev/null && [[ $(echo $?) == 0 ]] && echo 0")
+	# if [[ $result == 0 ]]; then
+	# 	performed
+	# 	return
+	# fi
+	# error 'Unable to update'
 }
 
 function deployer_deploy_latest() {
@@ -67,18 +74,19 @@ function deployer_deploy_latest() {
 	deployer_preDeploy
 	perform "Fetch latest tag"
 	cd $localProjectLocation
-	latestTag=$(git fetch && git describe --tags `git rev-list --tags --max-count=1`)
+	latestTag=$(git fetch && git describe --abbrev=0 --tags 2> /dev/null)
 
 	if [[ -z $latestTag ]]; then
-		failed "No tag available"
+		error "No tag available"
 		return 0
 	fi
 
 	performed "$latestTag"
 	deployer_remote_update
-	perform "Deploy tag $latestTag"
-	deployer_ssher_toDir "git checkout $latestTag"
-	performed
+	deployer_run_command "Deploy tag $latestTag" "git checkout $latestTag" "Unable to checkout $latestTag"
+	# perform "Deploy tag $latestTag"
+	# deployer_ssher_toDir "git checkout $latestTag"
+	# performed
 	alterConfigFiles
 	deployer_postDeploy
 	depolyer_remote_project_status
@@ -87,23 +95,26 @@ function deployer_deploy_latest() {
 
 function deployer_preDeploy() {
 	if [[ ! -z $preDeployCommand ]]; then
-		perform 'Run pre-deploy commands: '
-		deployer_ssher_toDir "$preDeployCommand"
+		deployer_run_command 'Run pre-deploy commands' "$preDeployCommand" 'Unable to run preDeployCommands'
+		# perform 'Run pre-deploy commands: '
+		# deployer_ssher_toDir "$preDeployCommand"
 	fi
 }
 
 function deployer_postDeploy() {
 	if [[ ! -z $postDeployCommand ]]; then
-		perform 'Run post-deploy commands: '
-		deployer_ssher_toDir "$postDeployCommand"
+		deployer_run_command 'Run post-deploy commands' "$postDeployCommand" 'Unable to run postDeployCommands'
+		# perform 'Run post-deploy commands: '
+		# deployer_ssher_toDir "$postDeployCommand"
 	fi
 }
 
 function deployer_remote_init() {
 	attempt "setup project"
-	perform "Clone repo on remote server"
-	deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/"
-	performed
+	deployer_run_command 'Clone repo on remote server' "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/" 'Something wentwrong, please try again'
+	# perform "Clone repo on remote server"
+	# deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/"
+	# performed
 	alterConfigFiles
 }
 
@@ -117,17 +128,19 @@ function deployer_reclone() {
 		fi
 	fi
 
-	perform "Re-clone repo on remote server"
-	deployer_ssher_toDir "rm -rf $remoteProjectLocation && mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo"
-	performed
+	deployer_run_command 'Re-clone repo on remote server' "rm -rf $remoteProjectLocation && mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo" 'Unable to re-clone, please try again'
+	# perform "Re-clone repo on remote server"
+	# deployer_ssher_toDir "rm -rf $remoteProjectLocation && mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/; git remote add origin $repo"
+	# performed
 	alterConfigFiles
 }
 
 function deployer_remote_update() {
 	attempt "update"
-	perform "Updating remote server"
-	deployer_ssher_toDir "git fetch; git fetch origin --tags"
-	performed
+	deployer_run_command 'Updating remote server' 'git fetch; git fetch origin --tags' 'Unable to update'
+	# perform "Updating remote server"
+	# deployer_ssher_toDir "git fetch; git fetch origin --tags"
+	# performed
 }
 
 function deployer_remote_tags() {

@@ -3,6 +3,7 @@
 source $localProjectLocation/deployer.config &> /dev/null
 
 function alterConfigFiles() {
+	perform 'Edit config files'
 	len=${#configFiles[@]}
 	if [[ $len == 0 ]]; then
 		warning 'No config files specified'
@@ -36,9 +37,10 @@ function alterConfigFiles() {
 		return 0
 	fi
 	
-	perform 'Alter files with configs specified'
-	deployer_ssher_toDir "$commands"
-	performed
+	deployer_run_command 'Alter files with configs specified' "$commands" 'Unable to alter all config files'
+	# perform 'Alter files with configs specified'
+	# deployer_ssher_toDir "$commands"
+	# performed
 }
 
 function getAlterCommand() {
