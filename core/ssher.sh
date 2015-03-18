@@ -33,14 +33,17 @@ function deployer_ssh_setup() {
 			error 'Unable to create directory, check permissions and try again.'
 			return 1
 		fi
+    else
+        performed
 	fi
-	performed
-	perform 'check for ssh key'
+
+    perform 'check for ssh key'
 	if [[ ! -f ~/.ssh/id_rsa.pub ]]; then
 		echo -n 'Not found creating key pair'
 		ssh-keygen -t rsa
-	fi	
-	performed
+    else
+        performed
+	fi
 	key=$(cat ~/.ssh/id_rsa.pub)
 	perform 'check for key in remote auth keys file'
 	keyresult=$(deployer_ssher 'cat ~/.ssh/authorized_keys' | grep "$key")
@@ -48,6 +51,8 @@ function deployer_ssh_setup() {
 	if [[ ! -z $filteredKeyResult ]]; then
 		performed 'Key already exists on remote server!'
 		return 0
+    else
+        warning 'Not found, adding key'
 	fi
 	perform 'set key in remote ssh server'
 	deployer_ssher "touch ~/.ssh/authorized_keys && echo $key >> ~/.ssh/authorized_keys"

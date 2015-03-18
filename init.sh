@@ -6,7 +6,7 @@
 currentDirectory=$(pwd)
 
 if [[ ! -f $currentDirectory/init.sh ]]; then
-	echo 'This script needs to run from the project folder, aborting...'
+	echo 'This script needs to run from inside the deployer folder, aborting...'
 else
 	echo 'Checking for deployer installation...'
 
@@ -24,6 +24,18 @@ else
 	else
 		echo 'Already installed...'
 	fi
+
+	echo -n 'Detecting OS: '$OSTYPE
+	case $OSTYPE in
+		"darwin"* )
+			echo 'Supported OS'
+		"linux"* )
+			echo 'Supported OS, adding aliases to normalise deployer environment'
+			echo "alias open='xdg-open'" >> ~/.bashrc
+			echo "alias deployer='bash deployer'" >> ~/.bashrc
+		* )
+			echo 'Unsupported OS'
+	esac
 
 	echo 'Use the "deployer" command to get started..."'
 fi
