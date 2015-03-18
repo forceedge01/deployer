@@ -19,23 +19,25 @@ function deployer_config_status() {
 	perform 'ssh server set'
 	if [[ -z "$sshServer" ]]; then
 		error 'sshServer var not set!'
-	fi
-	performed
+    else
+        performed
+    fi
 
 	perform 'username for ssh server set'
 	if [[ -z "$username" ]]; then
 		error 'username var not set!'
-	fi
-	performed
+    else
+	    performed
+    fi
 
 	warning 'SSH debug Settings'
 
 	perform 'verbosity'
-	echo $verbose
+	[[ ! -z $verbose ]] && echo $verbose || echo "false"
 
 	warning 'Deployment settings'
 
-	perform "Deployment method" 
+	perform "Deployment method"
 	if [[ $deploymentMethod != 'git' ]]; then
 		error "unsupported method $deploymentMethod"
 	else
@@ -43,16 +45,14 @@ function deployer_config_status() {
 	fi
 
 	perform 'Permissive deployments'
-	echo $permissiveDeployment
-
+	[[ ! -z $permissiveDeployment ]] && echo $permissiveDeployment || echo "false"
 	perform 'Downloads path'
 	if [[ -z $downloadsPath ]]; then
 		warning 'Not set, Wont be able to download files'
-		return 1
 	else
 		performed
 	fi
-	
+
 	perform 'Uploads path'
 	if [[ -z $uploadsPath ]]; then
 		warning 'Not set, Wont be able to upload files'
