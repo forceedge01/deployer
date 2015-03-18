@@ -25,16 +25,20 @@ else
 		echo 'Already installed...'
 	fi
 
-	echo -n 'Detecting OS: '$OSTYPE
+	echo 'Detecting OS: '$OSTYPE
 	case $OSTYPE in
 		"darwin"* )
-			echo 'Supported OS'
+			echo 'Supported OS';;
 		"linux"* )
-			echo 'Supported OS, adding aliases to normalise deployer environment'
-			echo "alias open='xdg-open'" >> ~/.bashrc
-			echo "alias deployer='bash deployer'" >> ~/.bashrc
+			echo 'Supported OS, adding aliases to bashrc file to normalise deployer environment'
+			echo '# Deployer aliases/functions' >> ~/.bashrc
+			echo 'function open { xdg-open "$1" &>/dev/null; }' >> ~/.bashrc
+			echo 'alias deployer="bash deployer"' >> ~/.bashrc
+			echo '# End of deployer aliases and functions' >> ~/.bashrc
+			echo 'Make sure the bashrc file is sourced before using the deployer command'
+			source ~/.bashrc;;
 		* )
-			echo 'Unsupported OS'
+			echo 'Unsupported OS';;
 	esac
 
 	echo 'Use the "deployer" command to get started..."'
