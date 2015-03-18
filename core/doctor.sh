@@ -16,14 +16,14 @@ function deployer_config_status() {
 
 	warning 'SSH Server Settings'
 
-	perform 'ssh server set'
+	perform 'SSH server set'
 	if [[ -z "$sshServer" ]]; then
-		error 'sshServer var not set!'
+		error 'SSH server var not set!'
     else
         performed
     fi
 
-	perform 'username for ssh server set'
+	perform 'username for SSH server set'
 	if [[ -z "$username" ]]; then
 		error 'username var not set!'
     else
@@ -85,7 +85,7 @@ function deployer_config_status() {
 
 	perform 'Deployment process'
 	if [[ ! -z $preDeployCommand ]]; then
-		echo 
+		echo
 		echo "Pre deploy run -> $preDeployCommand"
 	fi
 
