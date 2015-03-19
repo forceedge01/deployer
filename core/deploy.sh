@@ -39,20 +39,6 @@ function deployer_deploy() {
 	deployer_os_notification "$branch deployed successfully"
 }
 
-function deployer_run_command() {
-	perform "$1"
-	if [[ $verbose == 1 ]]; then
-		deployer_ssher_toDir "$2"
-		return 0
-	fi
-	result=$(deployer_ssher_toDir "($2) &>/dev/null && echo -n $?")
-	if [[ $result == 0 ]]; then
-		performed
-	else
-		error "$3"
-	fi
-}
-
 function deployer_pull_changes() {
 	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to udpate'
 	# perform "Updating remote: $1"

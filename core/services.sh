@@ -22,9 +22,7 @@ function deployer_service_perform() {
 	fi
 
 	attempt "$1 service '$2'"
-	perform "send command to $1 service"
-	deployer_ssher "sudo service $2 $1"
-	performed
+	deployer_run_command "send command to $1 service" "sudo service $2 $1" 'Unable to start service!'
 }
 
 function deployer_private_runServicesWith() {
@@ -72,9 +70,7 @@ function deployer_remote_download() {
 		return
 	fi
 	performed
-	perform "Make sure '$downloadsPath' exists"
-	deployer_ssher "mkdir -p $downloadsPath"
-	performed
+	deployer_run_command "Make sure '$downloadsPath' exists" "mkdir -p $downloadsPath" 'Unable to create folder path'
 	perform 'Download and show file'
 	echo
 	deployer_ssher_toDir "cd $downloadsPath && curl -#OL '$1'; ls -la | sed 2,3d"
@@ -103,9 +99,7 @@ function deployer_local_upload() {
 		error 'The path specified is not a file or folder'
 		return 234
 	fi
-	perform 'Make sure the uploads dir exists'
-	deployer_ssher "mkdir -p $uploadsPath"
-	performed
+	deployer_ssher_toDir 'Make sure the uploads dir exists' "mkdir -p $uploadsPath" 'Unable to create uploads path!'
 	perform 'SCP file/folder to server'
 	scp $recurse "$1" "$username@$sshServer:$uploadsPath"
 	performed

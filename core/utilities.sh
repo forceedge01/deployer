@@ -112,3 +112,17 @@ function deployer_os_notification() {
 			notify-send - "$1"
 	esac
 }
+
+function deployer_run_command() {
+	perform "$1"
+	if [[ $verbose == 1 ]]; then
+		deployer_ssher_toDir "$2"
+		return 0
+	fi
+	result=$(deployer_ssher_toDir "($2) &>/dev/null && echo -n $?")
+	if [[ $result == 0 ]]; then
+		performed
+	else
+		error "$3"
+	fi
+}

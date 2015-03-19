@@ -54,10 +54,5 @@ function deployer_ssh_setup() {
     else
         warning 'Not found, adding key'
 	fi
-	perform 'set key in remote ssh server'
-	deployer_ssher "touch ~/.ssh/authorized_keys && echo $key >> ~/.ssh/authorized_keys"
-	performed
-	info 'If the next step does not require a password, you are all set!'
-	perform 'connect to remote server'
-	deployer_ssher ' '
+	deployer_run_command 'set key in remote ssh server' "touch ~/.ssh/authorized_keys && echo $key >> ~/.ssh/authorized_keys" 'Unable to reach server!'
 }
