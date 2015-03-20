@@ -38,6 +38,7 @@ function deployMenu() {
 	printSubMenu 'service start [service]' 'start single custom service'
 	printSubMenu 'service stop [service]' 'stop single custom service'
 	printSubMenu 'service restart [service]' 'restart single custom service'
+	printMenu 'logs' 'Tail remote log file'
 	printMenu 'dev' 'Run devStart command configured in config file'
 	printMenu "update | u" "Update deployer"
 	printMenu "version | v" "Display deployer version"

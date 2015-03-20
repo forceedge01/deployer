@@ -5,7 +5,7 @@ function attempt() {
 }
 
 function perform() {
-	blue "Performing action -------> $1: "
+	gray "Perform ----> $1: "
 }
 
 function performed() {
@@ -51,6 +51,10 @@ function green()
 function yellow()
 {
 	printf "\e[33m$1\e[0m"
+}
+
+function gray() {
+	printf "\e[38;5;243m$1\e[0m"
 }
 
 function error()

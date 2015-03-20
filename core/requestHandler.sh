@@ -6,6 +6,8 @@ case "$1" in
 		deployer_use;;
 	'init' )
 		deployer_init;;
+	'log' )
+		Deployer_tail_logs;;
 	'dev' )
 		deployer_dev;;
 	'ssh' )

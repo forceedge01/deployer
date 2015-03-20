@@ -14,6 +14,11 @@ function deployer_config_status() {
 	# parse the config file and check whats set and whats not
 	attempt 'check the config file'
 
+	if [[ -z $localProjectLocation ]]; then
+		error 'Local project location not set, please run deployer use in the project directory that holds the deployer.config file and re-run this command.'
+		return
+	fi
+
 	warning 'SSH Server Settings'
 
 	perform 'SSH server set'
@@ -79,6 +84,13 @@ function deployer_config_status() {
 	perform 'WebURL'
 	if [[ -z $webURL ]]; then
 		warning 'Not set'
+	else
+		performed
+	fi
+
+	perform 'appLog'
+	if [[ -z $appLog ]]; then
+		warning "Not set, won't be able to run 'deployer log'"
 	else
 		performed
 	fi
