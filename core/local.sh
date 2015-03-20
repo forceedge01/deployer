@@ -96,6 +96,7 @@ function Deployer_project_save() {
 	if [[ -z $changes ]]; then
 		warning 'No changes detected'
 		unpushed=$(git log --branches --not --remotes --simplify-by-decoration --decorate --oneline --abbrev-commit)
+		result=$?
 		if [[ ! -z $unpushed ]]; then
 			info 'Unpushed Commit(s)'
 			git log --branches --not --remotes --simplify-by-decoration --decorate --oneline --abbrev-commit
@@ -104,9 +105,15 @@ function Deployer_project_save() {
 				echo
 				perform 'Push local changes'
 				git push
+				result=$?
 			fi
 			echo
 		fi
+		if [[ $result != 0 ]]; then
+			error 'There was an error, please review and re-run this command'
+			return
+		fi
+
 		printForRead 'deploy current branch? [Y/N]: '
 		if [[ $(userChoice) != 'Y' ]]; then
 			return
