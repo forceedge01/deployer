@@ -21,6 +21,8 @@ else
 			echo 'Setup current project'
 			cp $currentDirectory/config/project.sh.dist $currentDirectory/config/project.sh
 		fi
+        echo 'Exporting variable $project to bashrc file'
+        echo "alias project=\"cd \$(deployer p | awk '{split(\$0,chunks,\" \"); print chunks[4]}')\"" >> ~/.bashrc
 	else
 		echo 'Already installed...'
 	fi
