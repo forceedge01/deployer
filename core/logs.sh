@@ -7,7 +7,7 @@ function Deployer_tail_logs() {
     fi
 
     logCommand=''
-	perform 'Tail log file'
+	perform 'Tail log files'
     for logFile in "${logFiles[@]}"
 	do
         logCommand=$logCommand"tail -f $logFile;"

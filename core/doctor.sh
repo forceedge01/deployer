@@ -88,9 +88,9 @@ function deployer_config_status() {
 		performed
 	fi
 
-	perform 'appLog'
-	if [[ -z $appLog ]]; then
-		warning "Not set, won't be able to run 'deployer log'"
+	perform 'logFiles'
+	if [[ -z $logFiles ]]; then
+		warning "Not set, won't be able to run 'deployer logs'"
 	else
 		performed
 	fi
