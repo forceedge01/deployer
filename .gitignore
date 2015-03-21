@@ -1,1 +1,2 @@
 config/project.sh
+.fuse_hidden*

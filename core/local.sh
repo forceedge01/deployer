@@ -120,8 +120,8 @@ function Deployer_project_save() {
 		fi
 		echo
 		currentBranch=$(git rev-parse --abbrev-ref HEAD)
-		deployer deploy $currentBranch
-		
+		deployer_deploy $currentBranch
+
 		return
 	fi
 	perform 'Show branch/files'
@@ -144,5 +144,5 @@ function Deployer_project_save() {
 	fi
 	echo
 	currentBranch=$(git rev-parse --abbrev-ref HEAD)
-	deployer deploy $currentBranch
+	deployer_deploy $currentBranch
 }

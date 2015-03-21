@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
 function Deployer_tail_logs() {
-	deployer_run_command 'Tail log file' "tail -f $appLog" 'Unable to tail log file, make sure it exists'
+    if [[ -z $logFiles ]]; then
+        error 'You need to set the logFiles variable in the config file in order to tail it'
+        return
+    fi
+
+    logCommand=''
+	perform 'Tail log file'
+    for logFile in "${logFiles[@]}"
+	do
+        logCommand=$logCommand"tail -f $logFile;"
+    done
+    
+    deployer_ssher "$logCommand"
 }
