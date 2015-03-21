@@ -33,8 +33,7 @@ else
 			echo 'Supported OS';;
 		"linux"* )
 			echo 'Supported OS, adding aliases to bashrc file to normalise deployer environment'
-			echo '# Deployer aliases/functions' >> ~/.bashrc
-			echo 'function open { xdg-open "$1" &>/dev/null; }' >> ~/.bashrc
+			echo '# Deployer aliases' >> ~/.bashrc
 			echo 'alias deployer="bash deployer"' >> ~/.bashrc
 			echo '# End of deployer aliases and functions' >> ~/.bashrc
 			echo 'Make sure the bashrc file is sourced before using the deployer command'

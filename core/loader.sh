@@ -33,12 +33,18 @@ function loadDeployerConfigs() {
 
 loadDeployerConfigs
 
+
 # load libs
 if [[ -z $localProjectLocation ]]; then
 	warning "Project Location ------> Please set project location to use deployer"
 else
 	info "Project Location ------> $localProjectLocation"
 fi
+
+case $OSTYPE in
+	"linux"* )
+        source $DEPLOYER_LOCATION/normaliser.sh;;
+esac
 
 # load libs
 source $DEPLOYER_LOCATION/ssher.sh
