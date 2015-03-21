@@ -11,7 +11,7 @@ function deployer_services_status() {
 }
 
 function deployer_services_restart() {
-	
+
 	deployer_private_runServicesWith 'restart' 'restart'
 }
 
@@ -29,7 +29,7 @@ function deployer_private_runServicesWith() {
 	attempt "$1 services"
 	for service in "${services[@]}" 
 	do
-		deployer_service_perform "$1" "$2"
+		deployer_service_perform "$2" "$service"
 	done
 }
 

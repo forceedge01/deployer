@@ -48,6 +48,8 @@ case "$1" in
 				case "$3" in 
 					'start' )
 						deployer_services_start;;
+                    'restart')
+                        deployer_services_restart;;
 					* )
 						deployer_services_status;;
 				esac;;
