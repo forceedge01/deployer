@@ -124,13 +124,13 @@ function Deployer_project_save() {
 
 		return
 	fi
+    perform 'Add all files for commit'
+	git add --all
+	performed
 	perform 'Show branch/files'
 	git status -sb
 	readUser 'Please enter commit message: '
-	perform 'Add all files for commit'
-	git add --all
-	performed
-	git commit -m "$input"
+    git commit -m "$input"
 	perform 'Push changes'
 	git push &>/dev/null
 	if [[ $(echo $?) != 0 ]]; then

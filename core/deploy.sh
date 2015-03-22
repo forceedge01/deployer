@@ -29,9 +29,9 @@ function deployer_deploy() {
 		fi
 
 		deployer_preDeploy
-		deployer_run_command 'Update remote server' 'git fetch --tags' 'Unable to get tags'
+		deployer_run_command 'Update remote server tags' 'git fetch --tags' 'Unable to get tags'
 		deployer_run_command "Checkout tag/branch '$1'" "git checkout $1" 'Unable to checkout branch'
-		deployer_run_command 'Update remote server if needed' "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1" 'Not needed'
+		deployer_run_command 'Update remote server codebase if needed' "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1" 'Not needed'
 	fi
 	alterConfigFiles
 	deployer_postDeploy
