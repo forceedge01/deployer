@@ -113,7 +113,7 @@ function deployer_os_notification() {
 		'Darwin' )
 			osascript -e "display notification \"$1\" with title \"Deployer: $sshServer\"";;
 		'Linux' )
-			notify-send - "$1"
+			notify-send "Deployer" "$1"
 	esac
 }
 
