@@ -52,6 +52,7 @@ source $DEPLOYER_LOCATION/deploy.sh
 source $DEPLOYER_LOCATION/services.sh
 source $DEPLOYER_LOCATION/configParser.sh
 source $DEPLOYER_LOCATION/local.sh
+source $DEPLOYER_LOCATION/mysql.sh
 source $DEPLOYER_LOCATION/doctor.sh
 source $DEPLOYER_LOCATION/logs.sh
 source $DEPLOYER_LOCATION/uninstall.sh

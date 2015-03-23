@@ -65,6 +65,11 @@ function deployer_config_status() {
 		performed
 	fi
 
+    warning 'MySQL settings'
+
+    perform 'MySQL connection string'
+    deployer_get_connection_string
+
 	warning 'App specific settings'
 
 	perform 'Remote project location'

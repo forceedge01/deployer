@@ -32,6 +32,17 @@ declare uploadsPath='~/deployer_uploads'
 
 # ---------------------------------------------–------- #
 
+# mysql server settings
+# the user to connect as to mysql
+declare dbUser=''
+# should a password be used, usefull if you dont set a password in the config and still want mysql to prompt for password
+declare usePassword='true'
+# set the password for mysql db, strictly speaking this isnt recommended as there are chances of exposing your password
+declare dbPassword=''
+# the database name, optional
+declare dbName=''
+
+# ----------------------------------------------------- #
 # app specific settings
 declare editor='vim'
 # project location on SSH server
