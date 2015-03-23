@@ -141,8 +141,7 @@ function deployer_remote_tags() {
 }
 
 function depolyer_remote_project_status() {
-	perform "remote status"
-	deployer_ssher "cd $remoteProjectLocation; git status | head -n 1"
+    deployer_run_command 'Remote status' "cd $remoteProjectLocation; git status | head -n 1" 'Unable to fetch status'
 }
 
 function deployer_remote_get() {

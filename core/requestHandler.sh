@@ -28,23 +28,23 @@ case "$1" in
 		esac;;
 	'remote'* | 'r' )
 		case "$1" in
-			*':init' | *":clone" )
+			*'init' | *"clone" )
 				deployer_remote_init;;
-			*':reclone' )
+			*'reclone' )
 				deployer_reclone;;
-			*':update' )
+			*'update' )
 				deployer_remote_update;;
-			*':tags' )
+			*'tags' )
 				deployer_remote_tags;;
-			*':status' )
+			*'status' )
 				deployer_remote_status;;
-			*':download' | *':downloads')
+			*'download' | *':downloads')
 				deployer_remote_download "$3";;
-			*':upload' | *':uploads' )
+			*'upload' | *':uploads' )
 				deployer_local_upload "$3";;
-			*':get' )
+			*'get' )
 				deployer_remote_get "$3";;
-			*':services' )
+			*'services' )
 				case "$3" in 
 					'start' )
 						deployer_services_start;;
@@ -53,7 +53,7 @@ case "$1" in
 					* )
 						deployer_services_status;;
 				esac;;
-			*':service' )
+			*'service' )
 				case "$3" in
 					'start' )
 						deployer_service_perform 'start' "$4";;
@@ -64,7 +64,7 @@ case "$1" in
 					'status' )
 						deployer_service_perform 'stop' "$4";;
 				esac;;
-            *':mysql' )
+            *'mysql' )
                 deployer_mysql;;
                     * )
 				depolyer_remote_project_status;;

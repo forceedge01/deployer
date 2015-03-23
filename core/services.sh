@@ -108,13 +108,11 @@ function deployer_local_upload() {
 }
 
 function deployer_remote_status() {
-	perform "Ram status"
-	deployer_ssher "free -m"
+    deployer_run_command 'Ram Status' 'free -m' 'Unable to reach ssh server'
 	echo
 	for service in "${services[@]}" 
 	do
-		perform "$service status"
-		deployer_ssher "sudo service $service status"
+        deployer_run_command "$service status" "sudo service $service status" 'Unable to reach service'
 		echo
 	done
 	depolyer_remote_project_status
