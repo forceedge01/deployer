@@ -1,7 +1,9 @@
 #!/usr/local/env bash
 
 function deployer_mysql() {
-deployer_run_command 'Connect to mysql' "$(deployer_get_connection_string)" 'Unable to connect, make sure mysql is running or the ssh server is reachable'
+	mysqlCommand=$(deployer_get_connection_string)
+	perform 'Log into MySQL'
+	deployer_ssher "$mysqlCommand"
 }
 
 function deployer_get_connection_string() {

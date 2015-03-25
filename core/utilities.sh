@@ -5,7 +5,7 @@ function attempt() {
 }
 
 function perform() {
-	gray "Perform ----> $1: "
+	gray "Perform >> $1: "
 }
 
 function performed() {
@@ -123,10 +123,22 @@ function deployer_run_command() {
 		deployer_ssher_toDir "$2"
 		return 0
 	fi
+	if [[ $3 == 1 ]]; then
+		deployer_ssher_toDir "$2"
+		return 0
+	fi
+
 	result=$(deployer_ssher_toDir "($2) &>/dev/null && echo -n $?")
 	if [[ $result == 0 ]]; then
 		performed
 	else
 		error "$3"
+	fi
+}
+
+function deployer_exec() {
+	"$1"
+	if [[ $? != 0 ]]; then
+		echo $?
 	fi
 }

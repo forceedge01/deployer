@@ -108,7 +108,7 @@ function deployer_local_upload() {
 }
 
 function deployer_remote_status() {
-    deployer_run_command 'Ram Status' 'free -m' 'Unable to reach ssh server'
+    deployer_run_command 'Ram Status' 'echo;free -m' 1
 	echo
 	for service in "${services[@]}" 
 	do

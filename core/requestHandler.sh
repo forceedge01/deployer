@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 # define cases in this file and run them
-case "$1" in 
+IFS=':' read -ra ADDR <<< "$1"
+service="${ADDR[0]}"
+action="${ADDR[1]}"
+
+case "$service" in 
 	'use' )
 		deployer_use;;
 	'init' )
@@ -11,7 +15,7 @@ case "$1" in
 	'dev' )
 		deployer_dev;;
 	'ssh' )
-		case "$2" in
+		case "$action" in
 			'setup' )
 				deployer_ssh_setup;;
 			* )
@@ -26,26 +30,35 @@ case "$1" in
 			* )
 				deployer_deploy "$2";;
 		esac;;
-	'remote'* | 'r' )
-		case "$1" in
-			*'init' | *"clone" )
+	'addons' )
+		case "$action" in 
+			'get' )
+				deployer_addons_get "$2";;
+			'remove' )
+				deployer_addons_remove "2";;
+			'list' | * )
+				deployer_addons_list;;
+		esac;;
+	'remote' | 'r' )
+		case "$action" in
+			'init' | "clone" )
 				deployer_remote_init;;
-			*'reclone' )
+			'reclone' )
 				deployer_reclone;;
-			*'update' )
+			'update' )
 				deployer_remote_update;;
-			*'tags' )
+			'tags' )
 				deployer_remote_tags;;
-			*'status' )
+			'status' )
 				deployer_remote_status;;
-			*'download' | *':downloads')
-				deployer_remote_download "$3";;
-			*'upload' | *':uploads' )
-				deployer_local_upload "$3";;
-			*'get' )
-				deployer_remote_get "$3";;
-			*'services' )
-				case "$3" in 
+			'download' | 'downloads')
+				deployer_remote_download "$2";;
+			'upload' | 'uploads' )
+				deployer_local_upload "$2";;
+			'get' )
+				deployer_remote_get "$2";;
+			'services' )
+				case "$2" in 
 					'start' )
 						deployer_services_start;;
                     'restart')
@@ -53,24 +66,24 @@ case "$1" in
 					* )
 						deployer_services_status;;
 				esac;;
-			*'service' )
-				case "$3" in
+			'service' )
+				case "$2" in
 					'start' )
-						deployer_service_perform 'start' "$4";;
+						deployer_service_perform 'start' "$3";;
 					'stop' )
-						deployer_service_perform 'stop' "$4";;
+						deployer_service_perform 'stop' "$3";;
 					'restart' )
-						deployer_service_perform 'restart' "$4";;
+						deployer_service_perform 'restart' "$3";;
 					'status' )
-						deployer_service_perform 'stop' "$4";;
+						deployer_service_perform 'status' "$3";;
 				esac;;
-            *'mysql' )
+            'mysql' | 'ms')
                 deployer_mysql;;
-                    * )
+            * )
 				depolyer_remote_project_status;;
 		esac;;
 	'config' | 'c' )
-		case "$2" in 
+		case "$action" in 
 			'edit' | 'e' )
 				Deployer_config_edit;;
 			'verify' | 'v' )
@@ -87,7 +100,7 @@ case "$1" in
 	'version' | 'v' )
 		Deployer_version;;
 	'project' | 'p' )
-		case "$2" in 
+		case "$action" in 
 			'open' | 'web' | 'w' )
 				deployer_open_web;;
 			'edit' | 'e' )
