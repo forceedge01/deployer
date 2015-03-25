@@ -1,10 +1,7 @@
 # deployer
 A simple script that will handle project deployment on a remote ssh server. The objective being making the script language independent and as simple as possible.
 
-## Installation
-To get started run 
-
-### Supported OS
+## Supported OS
 Local machine:
 - OSX (tested)
 - Ubuntu (tested)
@@ -13,6 +10,9 @@ Remote server:
 - Centos 6 (tested)
 
 Deployer should work on any cli that has bash tools available.
+
+## Installation
+To get started run 
 
 ```
 git clone https://github.com/forceedge/deployer.git; chmod 0777 deployer/init.sh; cd deployer; ./init.sh
