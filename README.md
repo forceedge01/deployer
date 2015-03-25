@@ -21,9 +21,18 @@ deployer use
 ```
 
 This will show  a message confirming that the file is being used with deployer. You can quickly edit this file by running
-
 ```
-deployer config edit
+deployer config:edit
+```
+
+Deploying is as easy as
+```
+deployer deploy
+```
+
+Or a specific branch
+```
+deployer deploy mybranch
 ```
 
 ## Menu/Commands
