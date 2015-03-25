@@ -17,7 +17,7 @@ To get started run
 ```
 git clone https://github.com/forceedge/deployer.git; chmod 0777 deployer/init.sh; cd deployer; ./init.sh
 ```
-## Setup/Initialise project with eployer
+## Setup/Initialise project with deployer
 To get a project deployed with deployer use the following command in the project directory
 
 ```
@@ -43,6 +43,12 @@ deployer deploy
 Or a specific branch
 ```
 deployer deploy mybranch
+```
+
+To quickly setup ssh keys on the remote server, just run:
+
+```
+deployer ssh:setup
 ```
 
 ## Menu/Commands
