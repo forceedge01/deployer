@@ -38,7 +38,6 @@ function alterConfigFiles() {
 		return 0
 	fi
 	
-	echo $commands
 	deployer_run_command 'Alter files with configs specified' "$commands" 'Unable to alter all config files'
 }
 

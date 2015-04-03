@@ -54,8 +54,11 @@ declare webURL=''
 # change config file params, relative to the remote project location or absolute, 
 # space separated list
 declare configFiles=()
-# changes to make in config file specified, i.e ('regex' 'value')
-declare config=()
+# changes to make in config file specified, i.e ("regex" "value")
+# escaped characters list ', ", (, ), < >, /, <,>, ;
+declare config=(
+ "" ""
+)
 # log filepath for this app
 declare appLog=''
 # any command to run on the local project using the deployer dev command
