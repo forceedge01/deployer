@@ -14,7 +14,8 @@ function alterConfigFiles() {
 	for configFile in "${configFiles[@]}" 
 	do
 		perform "Make sure the file '$configFile' exists"
-		result=$(deployer sshp "if [[ -f $configFile ]]; then echo 0; else echo 1; fi")
+		location="$remoteProjectLocation/$configFile"
+		result=$(deployer_ssher "[[ -f $location ]] && echo -n $?")	
 		if [[ $result != 0 ]]; then
 			error 'Not found!'
 			continue
@@ -37,10 +38,19 @@ function alterConfigFiles() {
 		return 0
 	fi
 	
+	echo $commands
 	deployer_run_command 'Alter files with configs specified' "$commands" 'Unable to alter all config files'
-	# perform 'Alter files with configs specified'
-	# deployer_ssher_toDir "$commands"
-	# performed
+}
+
+function getRegexFriendlyString() {
+	string="$1"
+	declare replacements=("'" '"' '(' ')' ' ' '/' ',' ';')
+	for replace in "${replacements[@]}"
+	do
+		string=${string//$replace/'\'$replace}
+	done
+
+	echo "$string"
 }
 
 function getAlterCommand() {
@@ -49,5 +59,8 @@ function getAlterCommand() {
 		return 1
 	fi
 
-	echo "sed -i '.bk' 's/$2/$3/' $1;"
+	replaceRegex=$(getRegexFriendlyString "$2")
+	replaceWith=$(getRegexFriendlyString "$3")
+
+	echo "sed -i'.bk' s/$replaceRegex/$replaceWith/ $1;"
 }
