@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 
 function deployer_init() {
+	perform 'Create deployer.config file for current project'
 	if [[ -f ./deployer.config ]]; then
-		error "deployer.config already exists, run 'deployer config edit' to edit this file'"
+		warning "deployer.config already exists, run 'deployer config:edit' to edit this file'"
 	else
-		perform 'Create deployer.config file for current project'
 		cp "$DEPLOYER_LOCATION/template/main.sh.dist" ./deployer.config
 		performed
-		info 'Please configure the deployer.config file in order to use deployer'
 	fi
+
+	perform 'Initialize git repo (safe)'
+	git init &>/dev/null
+	performed
+	perform "Set push configuration to 'current'"
+	git config --global push.default current
+	performed
+	info 'Please configure the deployer.config file in order to use deployer'
 }
 
 function deployer_use() {
@@ -132,7 +139,8 @@ function Deployer_project_save() {
 	readUser 'Please enter commit message: '
     git commit -m "$input"
 	perform 'Push changes'
-	git push &>/dev/null
+	branch=$(getCurrentBranchName)
+	output=$(git push origin $branch)
 	if [[ $(echo $?) != 0 ]]; then
 		error 'Unable to push, aborting...'
 		return

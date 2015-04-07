@@ -142,3 +142,7 @@ function deployer_exec() {
 		echo $?
 	fi
 }
+
+function getCurrentBranchName() {
+	git rev-parse --abbrev-ref HEAD
+}

@@ -43,6 +43,15 @@ function deployer_config_status() {
     	error 'Unable to reach ssh server'
     fi
 
+    perform 'Deployer dependencies on server'
+    echo -n 'Git >> '
+    output=$(deployer_ssher 'git --version &>/dev/null && echo -n $?')
+    if [[ $output != 0 ]]; then
+    	error 'Not found'
+    else
+    	performed
+    fi
+
 	warning 'SSH debug Settings'
 
 	perform 'verbosity'
