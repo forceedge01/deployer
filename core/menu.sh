@@ -8,8 +8,8 @@ function helperMenu() {
 
 function deployMenu() {
 	warning 'Deployer menu'
-	printMenu 'init' 'Create deployer.config file for current directory'
-	printMenu 'use' 'Use the current directories deployer.config file for deployer'
+	printMenu 'init' "Create $deployerFile file for current directory"
+	printMenu 'use' "Use the current directories $deployerFile file for deployer"
 	printMenu "ssh [arg]" "log into ssh machine or run command on remote machine"
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
 	printMenu "deploy | d" "Deploy latest master branch on remote server"
@@ -79,10 +79,10 @@ function printSubMenu() {
 
 function deployer_info() {
 	gray "
-To get started, use the 'deployer init' command to create a 'deployer.config' file for the current directory you are in. 
-Run the 'deployer use' command to use the newly created 'deployer.config' file.
+To get started, use the 'deployer init' command to create a '$deployerFile' file for the current directory you are in. 
+Run the 'deployer use' command to use the newly created '$deployerFile' file.
 
-To configure the 'deployer.config' file of your current project run 'deployer config edit'. Once configured
+To configure the '$deployerFile' file of your current project run 'deployer config edit'. Once configured
 you can run:
 
 - deployer remote init (this will make a clone of the repository configured in the config file on the remote machine)

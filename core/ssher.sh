@@ -2,7 +2,7 @@
 
 function deployer_ssher() {
 	if [[ -z $username ]] || [[ -z $sshServer ]]; then
-		error 'You must configure the username and sshServer variables in the deployer.config file'
+		error "You must configure the username and sshServer variables in the $deployerFile file"
 		return
 	fi
 

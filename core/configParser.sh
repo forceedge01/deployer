@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $localProjectLocation/deployer.config &> /dev/null
+source $localProjectLocation/$deployerFile &> /dev/null
 
 function alterConfigFiles() {
 	perform 'Edit config files'

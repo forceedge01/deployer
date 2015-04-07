@@ -15,7 +15,7 @@ function deployer_config_status() {
 	attempt 'check the config file'
 
 	if [[ -z $localProjectLocation ]]; then
-		error 'Local project location not set, please run deployer use in the project directory that holds the deployer.config file and re-run this command.'
+		error "Local project location not set, please run deployer use in the project directory that holds the $deployerFile file and re-run this command."
 		return
 	fi
 

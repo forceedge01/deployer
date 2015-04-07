@@ -6,6 +6,7 @@ function getDeployerLocation() {
 }
 
 getDeployerLocation
+source $DEPLOYER_LOCATION/vars/core.sh
 source $DEPLOYER_LOCATION/utilities.sh
 
 function loadDeployerConfigs() {
@@ -21,12 +22,12 @@ function loadDeployerConfigs() {
 		return
 	fi
 
-	if [[ ! -f "$localProjectLocation/deployer.config" ]]; then
-		warning 'Could not find deployer.config file for the current project specified.'
+	if [[ ! -f "$localProjectLocation/$deployerFile" ]]; then
+		warning 'Could not find $deployerFile file for the current project specified.'
 		return
 	fi
 
-	source $localProjectLocation/deployer.config
+	source $localProjectLocation/$deployerFile
 }
 
 function setDefaults() {

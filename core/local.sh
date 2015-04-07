@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 function deployer_init() {
-	perform 'Create deployer.config file for current project'
-	if [[ -f ./deployer.config ]]; then
-		warning "deployer.config already exists, run 'deployer config:edit' to edit this file'"
+	perform 'Create $deployerFile file for current project'
+	if [[ -f ./$deployerFile ]]; then
+		warning "$deployerFile already exists, run 'deployer config:edit' to edit this file'"
 	else
-		cp "$DEPLOYER_LOCATION/template/main.sh.dist" ./deployer.config
+		cp "$DEPLOYER_LOCATION/template/main.sh.dist" ./$deployerFile
 		performed
 	fi
 
@@ -15,14 +15,14 @@ function deployer_init() {
 	perform "Set push configuration to 'current'"
 	git config --global push.default current
 	performed
-	info 'Please configure the deployer.config file in order to use deployer'
+	info "Please configure the $deployerFile file in order to use deployer"
 }
 
 function deployer_use() {
 	attempt "set current directory as project dir"
-	perform "locate 'deployer.config' file"
-	if [[ ! -f ./deployer.config ]]; then
-		error "Unable to locate 'deployer.config' file in current directory, run 'deployer init' to create one."
+	perform "locate '$deployerFile' file"
+	if [[ ! -f ./$deployerFile ]]; then
+		error "Unable to locate '$deployerFile' file in current directory, run 'deployer init' to create one."
 		return 1
 	fi
 	performed
@@ -68,7 +68,7 @@ function Deployer_version() {
 
 function Deployer_config_edit {
 	attempt 'edit project config file'
-	$editor $localProjectLocation/deployer.config
+	$editor $localProjectLocation/$deployerFile
 }
 
 function Deployer_update() {

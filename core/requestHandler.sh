@@ -90,7 +90,7 @@ case "$service" in
 				deployer_config_status;;
 			* )
 				echo 'Displaying project file...'; 
-				cat $localProjectLocation/deployer.config;
+				cat $localProjectLocation/$deployerFile;
 				echo '';;
 		esac;;
 	'update' | 'u' )

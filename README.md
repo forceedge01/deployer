@@ -24,7 +24,7 @@ To get a project deployed with deployer use the following command in the project
 deployer init
 ```
 
-This will create the deployer.config file in your project, to use/edit this file with deployer run
+This will create the deploy.conf file in your project, to use/edit this file with deployer run
 
 ```
 deployer use

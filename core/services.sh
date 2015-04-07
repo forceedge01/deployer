@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $localProjectLocation/deployer.config &> /dev/null
+source $localProjectLocation/$deployerFile &> /dev/null
 
 function deployer_services_start() {
 	deployer_private_runServicesWith 'starting' 'start'
