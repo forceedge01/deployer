@@ -101,8 +101,12 @@ case "$service" in
 		Deployer_version;;
 	'project' | 'p' )
 		case "$action" in 
-			'open' | 'web' | 'w' )
+			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
+			'repo' )
+				open $repoURL;;
+			'pullrequest' | 'pr' )
+				Deployer_pullrequest;;
 			'edit' | 'e' )
 				deployer_local_edit_project;;
 			'update' | 'u' )

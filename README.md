@@ -1,13 +1,23 @@
 # deployer
 A simple script that will handle project deployment on a remote ssh server. The objective being making the script language independent and as simple as possible.
 
+## Supported OS
+Local machine:
+- OSX (tested)
+- Ubuntu (tested)
+
+Remote server:
+- Centos 6 (tested)
+
+Deployer should work on any cli that has bash tools available.
+
 ## Installation
 To get started run 
 
 ```
 git clone https://github.com/forceedge/deployer.git; chmod 0777 deployer/init.sh; cd deployer; ./init.sh
 ```
-## Setup/Initialise project with eployer
+## Setup/Initialise project with deployer
 To get a project deployed with deployer use the following command in the project directory
 
 ```
@@ -21,9 +31,24 @@ deployer use
 ```
 
 This will show  a message confirming that the file is being used with deployer. You can quickly edit this file by running
+```
+deployer config:edit
+```
+
+Deploying is as easy as
+```
+deployer deploy
+```
+
+Or a specific branch
+```
+deployer deploy mybranch
+```
+
+To quickly setup ssh keys on the remote server, just run:
 
 ```
-deployer config edit
+deployer ssh:setup
 ```
 
 ## Menu/Commands
