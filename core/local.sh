@@ -146,11 +146,6 @@ function Deployer_project_save() {
 		return
 	fi
 	performed
-	printForRead 'Deploy this branch? [Y/N]: '
-	if [[ $(userChoice) != 'Y' ]]; then
-		return
-	fi
-	echo
 	currentBranch=$(git rev-parse --abbrev-ref HEAD)
 	deployer_deploy $currentBranch
 }
