@@ -2,6 +2,11 @@
 # create the script to be called by the alias i suppose
 
 function deployer_deploy() {
+	if [[ -z $repo ]]; then
+		error "You need to set the repo variable in the deployer config in order to deploy"
+		return
+	fi
+
 	if [[ -z "$1" ]]; then
 		branch='latest master'
 		attempt "deploy latest from master branch"
@@ -51,6 +56,11 @@ function deployer_pull_changes() {
 }
 
 function deployer_deploy_latest() {
+	if [[ -z $repo ]]; then
+		error "You need to set the repo variable in the deployer config in order to deploy"
+		return
+	fi
+	
 	attempt "Deploy latest tag"
 	if [[ $permissiveDeployment != true ]]; then
 		echo -n 'Are you sure you want to continue? [y/n]: '

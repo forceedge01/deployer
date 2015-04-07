@@ -35,6 +35,8 @@ to view the menu.
 
 ### Config file
 ```
+#!/usr/bin/env bash
+
 # server settings
 # server ip to connect to
 declare sshServer=''
@@ -43,7 +45,7 @@ declare username=''
 
 # ---------------------------------------------–------- #
 
-# SSH settings
+# SSH debug settings
 # set the verbositiy of the deployment process
 declare verbose=0
 
@@ -67,6 +69,17 @@ declare uploadsPath='~/deployer_uploads'
 
 # ---------------------------------------------–------- #
 
+# mysql server settings
+# the user to connect as to mysql
+declare dbUser=''
+# should a password be used, usefull if you dont set a password in the config and still want mysql to prompt for password
+declare usePassword='true'
+# set the password for mysql db, strictly speaking this isnt recommended as there are chances of exposing your password
+declare dbPassword=''
+# the database name, optional
+declare dbName=''
+
+# ----------------------------------------------------- #
 # app specific settings
 declare editor='vim'
 # project location on SSH server
@@ -75,10 +88,14 @@ declare remoteProjectLocation=''
 declare repo=''
 # project web url, is used with open command
 declare webURL=''
-# change config file params
-declare configFiles=('')
+# change config file params, relative to the remote project location or absolute
+declare configFiles=()
 # changes to make in config file specified, i.e ('regex' 'value')
 declare config=()
+# log filepath for this app
+declare appLog=''
+# any command to run on the local project using the deployer dev command
+declare devStart=''
 
 # ---------------------------------------------–------- #
 ```

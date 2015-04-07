@@ -27,12 +27,15 @@ function loadDeployerConfigs() {
 	fi
 
 	source $localProjectLocation/deployer.config
-	# use this to replace string.
-	#sed -i ".bk" 's/alias project/alias SOMETHING=\/Volumes\/Projects/' foo
+}
+
+function setDefaults() {
+	if [[ -z $repo ]]; then
+		repo=$(cd $DEPLOYER_LOCATION && git config --get remote.origin.url)
+	fi
 }
 
 loadDeployerConfigs
-
 
 # load libs
 if [[ -z $localProjectLocation ]]; then
@@ -57,4 +60,6 @@ source $DEPLOYER_LOCATION/doctor.sh
 source $DEPLOYER_LOCATION/logs.sh
 source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/menu.sh
+# set defaults to variables if no value is supplied prior to loading the requestHandler, the variables may be re-sourced prior to this point 
+setDefaults
 source $DEPLOYER_LOCATION/requestHandler.sh

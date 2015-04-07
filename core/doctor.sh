@@ -35,6 +35,14 @@ function deployer_config_status() {
 	    performed
     fi
 
+    perform 'SSH server reachable'
+    reachable=$(ssh -o BatchMode=yes -o ConnectTimeout=5 $username@$sshServer 'echo 1')
+    if [[ $reachable == 1 ]]; then
+    	performed
+    else
+    	error 'Unable to reach ssh server'
+    fi
+
 	warning 'SSH debug Settings'
 
 	perform 'verbosity'
@@ -83,7 +91,7 @@ function deployer_config_status() {
 	if [[ -z $repo ]]; then
 		error 'Not set, unable to deploy'
 	else
-		performed
+		performed "$repo"
 	fi
 
 	perform 'WebURL'
