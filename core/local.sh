@@ -26,24 +26,24 @@ function deployer_use() {
 		return 1
 	fi
 	performed
-	perform 'check if project.sh file exists for deployer'
-	if [[ -f $DEPLOYER_LOCATION/../config/project.sh ]]; then
+	perform "check if $projectFile file exists for deployer"
+	if [[ -f $DEPLOYER_LOCATION/../config/$projectFile ]]; then
 		performed
 	else
 		performed 'not found, creating...'
-		perform 'create project.sh for deployer'
-		sudo touch $DEPLOYER_LOCATION/../config/project.sh
+		perform "create $projectFile for deployer"
+		sudo touch $DEPLOYER_LOCATION/../config/$projectFile
 		if [[ $? == 0 ]]; then
 			performed
 		else
-			error 'unable to create project.sh file, please resort to manual creation of file'
+			error "unable to create $projectFile file, please resort to manual creation of file"
 			return
 		fi
 	fi
 	perform 'set current project dir as deployer current project'
 	currentDir=$(pwd)
 	echo "#!/usr/bin/env bash
-readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/project.sh"
+readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$projectFile"
 	performed
 }
 

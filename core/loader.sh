@@ -11,7 +11,7 @@ source $DEPLOYER_LOCATION/utilities.sh
 
 function loadDeployerConfigs() {
 	# load configs
-	source $DEPLOYER_LOCATION/../config/project.sh
+	source $DEPLOYER_LOCATION/../config/$projectFile
 	if [[ -z "$localProjectLocation" ]]; then
 			info "Please run 'deployer help' to get started"
 		return
