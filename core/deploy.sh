@@ -46,13 +46,6 @@ function deployer_deploy() {
 
 function deployer_pull_changes() {
 	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to udpate'
-	# perform "Updating remote: $1"
-	# result=$(deployer_ssher_toDir "git checkout . && git checkout $1 &> /dev/null && git pull origin $1 &>/dev/null && [[ $(echo $?) == 0 ]] && echo 0")
-	# if [[ $result == 0 ]]; then
-	# 	performed
-	# 	return
-	# fi
-	# error 'Unable to update'
 }
 
 function deployer_deploy_latest() {
