@@ -149,3 +149,15 @@ function Deployer_project_save() {
 	currentBranch=$(git rev-parse --abbrev-ref HEAD)
 	deployer_deploy $currentBranch
 }
+
+Deployer_project_diff() {
+	warning "showing diff on project"
+	cd $localProjectLocation
+	git diff $1
+}
+
+Deployer_project_status() {
+	warning "Show status of project"
+	cd $localProjectLocation
+	git status
+}
