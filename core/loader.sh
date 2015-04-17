@@ -23,7 +23,7 @@ function loadDeployerConfigs() {
 	fi
 
 	if [[ ! -f "$localProjectLocation/$deployerFile" ]]; then
-		warning 'Could not find $deployerFile file for the current project specified.'
+		warning "Could not find $deployerFile file for the current project specified."
 		return
 	fi
 
