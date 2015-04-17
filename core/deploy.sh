@@ -7,7 +7,7 @@ function deployer_deploy() {
 		return
 	fi
 
-	if [[ -z "$1" ]]; then
+	if [[ -z "$1" || "$1" == 'master' ]]; then
 		branch='latest master'
 		attempt "deploy latest from master branch"
 		if [[ $permissiveDeployment != true ]]; then
@@ -46,13 +46,6 @@ function deployer_deploy() {
 
 function deployer_pull_changes() {
 	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to udpate'
-	# perform "Updating remote: $1"
-	# result=$(deployer_ssher_toDir "git checkout . && git checkout $1 &> /dev/null && git pull origin $1 &>/dev/null && [[ $(echo $?) == 0 ]] && echo 0")
-	# if [[ $result == 0 ]]; then
-	# 	performed
-	# 	return
-	# fi
-	# error 'Unable to update'
 }
 
 function deployer_deploy_latest() {
@@ -111,7 +104,7 @@ function deployer_postDeploy() {
 
 function deployer_remote_init() {
 	attempt "setup project"
-	deployer_run_command 'Clone repo on remote server' "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/" 'Something wentwrong, please try again'
+	deployer_run_command 'Clone repo on remote server' "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/" 'Something went wrong, please try again'
 	# perform "Clone repo on remote server"
 	# deployer_ssher_toDir "mkdir -p $remoteProjectLocation && git clone $repo $remoteProjectLocation && cd $remoteProjectLocation/"
 	# performed

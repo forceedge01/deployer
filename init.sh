@@ -18,8 +18,9 @@ else
 		sudo ln -s $currentDirectory/core/loader.sh /usr/bin/deployer
 
 		if [[ ! -f $currentDirectory/config/main.sh ]]; then
+			source $currentDirectory/core/vars/core.sh
 			echo 'Setup current project'
-			cp $currentDirectory/config/project.sh.dist $currentDirectory/config/project.sh
+			cp $currentDirectory/config/$projectFileDistributable $currentDirectory/config/$projectFile
 		fi
         echo 'Exporting variable $project to bashrc file'
         echo "alias project=\"cd \$(deployer p | awk '{split(\$0,chunks,\" \"); print chunks[4]}')\"" >> ~/.bashrc
