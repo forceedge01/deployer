@@ -122,6 +122,19 @@ case "$service" in
 			* )
 				Deployer_local_run "$2";;
 		esac;;
+	'issue' | 'i' )
+		case "$action" in
+			'init' )
+				Deployer_issue_init;;
+			'list' )
+				Deployer_issue_list;;
+			'new' )
+				Deployer_issue_new "$2" "$3";;
+			'edit' )
+				Deployer_issue_edit;;
+			* )
+				Deployer_issue_list;;
+		esac;;
 	'test' )
 		Deployer_replace_alias;;
 	'help' | '--help' )
