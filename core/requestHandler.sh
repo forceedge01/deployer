@@ -39,6 +39,15 @@ case "$service" in
 			'list' | * )
 				deployer_addons_list;;
 		esac;;
+	'docs' | 'd' )
+		case "$action" in 
+			'open' )
+				Deployer_docs_open "$2";;
+			'get' )
+				Deployer_docs_get "$2";;
+			* )
+				Deployer_docs_list;;
+		esac;;
 	'remote' | 'r' )
 		case "$action" in
 			'init' | "clone" )
@@ -104,7 +113,7 @@ case "$service" in
 			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
 			'repo' )
-				open $repoURL;;
+				Deployer_repo_url;;
 			# 'pullrequest' | 'pr' )
 			# 	Deployer_pullrequest;;
 			'edit' | 'e' )
