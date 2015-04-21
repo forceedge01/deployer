@@ -175,5 +175,5 @@ function Deployer_repo_url() {
 		url='https://'${ADDR[1]}
 	fi
 	
-	open "$url"
+	echo "$url"
 }

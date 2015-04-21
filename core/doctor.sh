@@ -82,6 +82,18 @@ function deployer_config_status() {
 		performed
 	fi
 
+	perform 'Deployment process'
+	if [[ ! -z $preDeployCommand ]]; then
+		echo
+		echo "Pre deploy run -> $preDeployCommand"
+	fi
+
+	echo 'Deploy as usual'
+
+	if [[ ! -z $postDeployCommand ]]; then
+		echo "Post deploy run -> $postDeployCommand"
+	fi
+
     warning 'MySQL settings'
 
     perform 'MySQL connection string'
@@ -101,6 +113,8 @@ function deployer_config_status() {
 		error 'Not set, unable to deploy'
 	else
 		performed "$repo"
+		perform 'Repo Url'
+		performed $(Deployer_repo_url)
 	fi
 
 	perform 'WebURL'
@@ -115,18 +129,6 @@ function deployer_config_status() {
 		warning "Not set, won't be able to run 'deployer logs'"
 	else
 		performed
-	fi
-
-	perform 'Deployment process'
-	if [[ ! -z $preDeployCommand ]]; then
-		echo
-		echo "Pre deploy run -> $preDeployCommand"
-	fi
-
-	echo 'Deploy as usual'
-
-	if [[ ! -z $postDeployCommand ]]; then
-		echo "Post deploy run -> $postDeployCommand"
 	fi
 	performed 'Done'
 }
