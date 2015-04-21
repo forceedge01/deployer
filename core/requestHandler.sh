@@ -93,20 +93,12 @@ case "$service" in
 				cat $localProjectLocation/$deployerFile;
 				echo '';;
 		esac;;
-	'update' | 'u' )
-		Deployer_update;;
-	'uninstall' )
-		deployer_uninstall;;
-	'version' | 'v' )
-		Deployer_version;;
 	'project' | 'p' )
 		case "$action" in 
 			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
 			'repo' )
 				open $repoURL;;
-			# 'pullrequest' | 'pr' )
-			# 	Deployer_pullrequest;;
 			'edit' | 'e' )
 				deployer_local_edit_project;;
 			'update' | 'u' )
@@ -122,7 +114,7 @@ case "$service" in
 			* )
 				Deployer_local_run "$2";;
 		esac;;
-	'issue' | 'i' )
+	'issue' | 'issues' | 'i' )
 		case "$action" in
 			'init' )
 				Deployer_issue_init;;
@@ -135,8 +127,12 @@ case "$service" in
 			* )
 				Deployer_issue_list;;
 		esac;;
-	'test' )
-		Deployer_replace_alias;;
+	'update' | 'u' )
+		Deployer_update;;
+	'uninstall' )
+		deployer_uninstall;;
+	'version' | 'v' )
+		Deployer_version;;
 	'help' | '--help' )
 		deployer_info;;
 	*)
