@@ -57,7 +57,7 @@ case "$service" in
 				deployer_addons_get "$2";;
 			'remove' )
 				deployer_addons_remove "2";;
-			'list' | * )
+			* )
 				deployer_addons_list;;
 		esac;;
 	'docs' | 'd' )
