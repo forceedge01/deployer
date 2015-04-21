@@ -52,6 +52,7 @@ esac
 
 # load libs
 source $DEPLOYER_LOCATION/ssher.sh
+source $DEPLOYER_LOCATION/addons.sh
 source $DEPLOYER_LOCATION/deploy.sh
 source $DEPLOYER_LOCATION/services.sh
 source $DEPLOYER_LOCATION/configParser.sh

@@ -54,11 +54,11 @@ case "$service" in
 	'addons' )
 		case "$action" in 
 			'get' )
-				deployer_addons_get "$2";;
+				Deployer_addons_get "$2";;
 			'remove' )
-				deployer_addons_remove "2";;
+				Deployer_addons_remove "$2";;
 			* )
-				deployer_addons_list;;
+				Deployer_addons_list;;
 		esac;;
 	'docs' | 'd' )
 		case "$action" in 
