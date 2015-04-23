@@ -41,6 +41,8 @@ case "$service" in
 				Deployer_project_status;;
 			'checkout' | 'ch' )
 				Deployer_project_checkout "$2";;
+			'select' )
+				deployer_select_project "$2";;
 			* )
 				Deployer_local_run "$2";;
 		esac;;

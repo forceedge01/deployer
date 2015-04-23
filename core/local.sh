@@ -18,6 +18,24 @@ function deployer_init() {
 	info "Please configure the $deployerFile file in order to use deployer"
 }
 
+function deployer_select_project() {
+	warning 'Select a project'
+	cat -n $projectsLog
+	readUser 'Enter project number: '
+
+	project=$(awk "NR==$input" $projectsLog)
+
+	if [[ -z $project ]]; then
+		error "Could not find project number $input"
+
+		return
+	fi
+
+	cd "$project"
+	deployer_use
+	info 'Project set to: '$project
+}
+
 function deployer_use() {
 	attempt "set current directory as project dir"
 	perform "locate '$deployerFile' file"
