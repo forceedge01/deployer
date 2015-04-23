@@ -17,7 +17,7 @@ Deployer_issue_list() {
 	warning 'Display issues'
 
 	if [[ ! -f "$localProjectLocation/issues" ]]; then
-		error 'Issues file not found, please run deployer issue:init'
+		warning "Issues file not found, run 'deployer issue:init' to create one"
 		return
 	fi
 
@@ -29,7 +29,7 @@ Deployer_issue_new() {
 	cd $localProjectLocation
 
 	if [[ ! -f ./issues ]]; then
-		error "Issues file not found, run 'deployer issue:init'"
+		warning "Issues file not found, run 'deployer issue:init' to create one"
 		return
 	fi
 
