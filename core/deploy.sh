@@ -10,36 +10,41 @@ function deployer_deploy() {
 	if [[ -z "$1" || "$1" == 'master' ]]; then
 		branch='latest master'
 		attempt "deploy latest from master branch"
-		if [[ $permissiveDeployment != true ]]; then
-			echo -n 'Are you sure you want to continue? [y/n]: '
-			answer=$(userChoice)
-			if [[ $answer != 'Y' ]]; then
-				return 1
-			fi
-			echo
-		fi
-
-		deployer_preDeploy
-		deployer_pull_changes "master"
 	else
 		branch="$1"
 		attempt "deploy '$1'"
-		if [[ $permissiveDeployment != true ]]; then
-			echo -n 'Are you sure you want to continue? [y/n]: '
-			answer=$(userChoice)
-			if [[ $answer != 'Y' ]]; then
-				return 1
-			fi
-			echo
-		fi
+	fi
 
-		deployer_preDeploy
+	if [[ $permissiveDeployment != true ]]; then
+		echo -n 'Are you sure you want to continue? [y/n]: '
+		answer=$(userChoice)
+		if [[ $answer != 'Y' ]]; then
+			return 1
+		fi
+		echo
+	fi
+
+	if [[ ! -z $maintenancePageContent ]]; then
+		deployer_run_command 'Put up maintenance page' "touch index.html && echo '$maintenancePageContent' > index.html"
+	fi
+
+	deployer_preDeploy
+	
+	if [[ -z "$1" || "$1" == 'master' ]]; then
+		deployer_pull_changes "master"
+	else
 		deployer_run_command 'Update remote server' 'git fetch --tags; git fetch origin' 'Unable to get tags'
 		deployer_run_command "Checkout tag/branch '$1'" "git checkout $1" 'Unable to checkout branch'
 		deployer_run_command 'Update remote server codebase if needed' "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1" 'Not needed'
 	fi
+
 	alterConfigFiles
 	deployer_postDeploy
+
+	if [[ ! -z $maintenancePageContent ]]; then
+		deployer_run_command 'Take down maintenance page' 'rm index.html'
+	fi
+
 	depolyer_remote_project_status
 	deployer_os_notification "$branch deployed successfully"
 }

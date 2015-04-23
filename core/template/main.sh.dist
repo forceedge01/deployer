@@ -21,6 +21,10 @@ declare verbose=0
 # deploy settings
 # services to check for after deployment
 declare services=(httpd mysqld)
+# set maintenance page content here, will be used to create an index.html page when deploying and fill it 
+# with the content you have set below, if left empty the index.html page will not be created at all
+# any content set previously will be erased if content is set
+declare maintenancePageContent=''
 # command to run before deployment starts, by default runs in the project directory
 declare preDeployCommand=''
 # command to run after deployment is done, by default runs in the project directory

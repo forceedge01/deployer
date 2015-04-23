@@ -117,6 +117,13 @@ function deployer_config_status() {
 		performed
 	fi
 
+	perform 'Maintenance page'
+	if [[ -z $maintenancePageContent ]]; then
+		warning 'Maintenance page not set'
+	else
+		perform
+	fi
+
 	perform 'Deployment process'
 	if [[ ! -z $preDeployCommand ]]; then
 		echo
