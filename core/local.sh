@@ -174,8 +174,8 @@ function Deployer_project_save() {
 	fi
 	performed
 
-	if [[ -z $remoteProjectLocation ]]; then
-		warning 'remoteProjectLocation not set, will not deploy'
+	if [[ -z $sshServer ]]; then
+		warning 'sshServer not set, will not deploy'
 		return
 	fi
 
