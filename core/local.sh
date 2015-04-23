@@ -173,6 +173,12 @@ function Deployer_project_save() {
 		return
 	fi
 	performed
+
+	if [[ -z $remoteProjectLocation ]]; then
+		warning 'remoteProjectLocation not set, will not deploy'
+		return
+	fi
+
 	currentBranch=$(git rev-parse --abbrev-ref HEAD)
 	deployer_deploy $currentBranch
 }
