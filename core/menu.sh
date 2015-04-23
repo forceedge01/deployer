@@ -12,18 +12,26 @@ function deployMenu() {
 	printMenu 'use' "Use the current directories $deployerFile file for deployer"
 	printMenu "ssh [arg]" "log into ssh machine or run command on remote machine"
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
+
 	printMenu "deploy | d" "Deploy latest master branch on remote server"
 	printSubMenu "[branch/commit/tag]" "deploy a branch, version or commit to the remote server"
+
 	printMenu "config" "View the config file for deployer"
 	printSubMenu "edit" "edit the config file for deployer"
 	printSubMenu "verify" "verify the config file"
+
 	printMenu 'project|p [arg]' 'Show project location or run command on project location'
-	printSubMenu "open | web | w" "Open project link in browser"
+	printSubMenu 'open | o | web | w' 'Open project link in browser'
+	printSubMenu 'repo' 'Open the repo url'
 	printSubMenu 'edit | e' 'Edit current project in configured editor'
 	printSubMenu 'update | u' 'Update current project locally'
+	printSubMenu 'status | st'
+	printSubMenu 'diff | d'
+	printSubMenu 'checkout | ch'
 	printSubMenu 'save | s' 'Save local project changes'
-	printMenu "remote | r" "Show remote project version"
-	printSubMenu "init | clone" "Initialize repository on ssh server"
+
+	printMenu 'remote | r' 'Show remote project version'
+	printSubMenu 'init | clone' 'Initialize repository on ssh server'
 	printSubMenu "reclone" "Re-Initialize repository on ssh server"
 	printSubMenu "update" "update remote server"
 	printSubMenu "tags" "view tags available on remote machine"
@@ -38,6 +46,17 @@ function deployMenu() {
 	printSubMenu 'service start [service]' 'start single custom service'
 	printSubMenu 'service stop [service]' 'stop single custom service'
 	printSubMenu 'service restart [service]' 'restart single custom service'
+
+	printMenu 'issue | issues | i'
+	printSubMenu 'init'
+	printSubMenu 'list'
+	printSubMenu 'new'
+	printSubMenu 'edit'
+
+	printMenu 'docs | d'
+	printSubMenu 'open'
+	printSubMenu 'get'
+
 	printMenu 'logs' 'Tail remote log file'
 	printMenu 'dev' 'Run devStart command configured in config file'
 	printMenu "update | u" "Update deployer"
@@ -82,10 +101,11 @@ function deployer_info() {
 To get started, use the 'deployer init' command to create a '$deployerFile' file for the current directory you are in. 
 Run the 'deployer use' command to use the newly created '$deployerFile' file.
 
-To configure the '$deployerFile' file of your current project run 'deployer config edit'. Once configured
+To configure the '$deployerFile' file of your current project run 'deployer config:edit'. Once configured
 you can run:
 
-- deployer remote init (this will make a clone of the repository configured in the config file on the remote machine)
+- deployer remote:init (this will make a clone of the repository configured in the config file on the remote machine)
+- deployer project:edit to start editing the project selected
 
 To view this information again run 'deployer help'
 "

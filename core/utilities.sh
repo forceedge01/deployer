@@ -146,3 +146,13 @@ function deployer_exec() {
 function getCurrentBranchName() {
 	git rev-parse --abbrev-ref HEAD
 }
+
+function getFolderNameFromRepoUrl() {
+	IFS='/' read -ra ADDR <<< "$repo"
+	for fragment in "${ADDR[@]}" 
+	do
+		frag="$fragment"
+	done
+
+	echo "$frag"
+}

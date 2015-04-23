@@ -23,6 +23,27 @@ case "$service" in
 		esac;;
 	'sshp' )
 		deployer_ssher_toDir "$2";;
+	'project' | 'p' )
+		case "$action" in 
+			'open' | 'web' | 'w' | 'o' )
+				deployer_open_web;;
+			'repo' )
+				open $(Deployer_repo_url);;
+			'edit' | 'e' )
+				deployer_local_edit_project;;
+			'update' | 'u' )
+				deployer_local_update;;
+			'save' | 's' )
+				Deployer_project_save;;
+			'diff' | 'd' )
+				Deployer_project_diff "$2";;
+			'status' | 'st' )
+				Deployer_project_status;;
+			'checkout' | 'ch' )
+				Deployer_project_checkout "$2";;
+			* )
+				Deployer_local_run "$2";;
+		esac;;
 	'deploy' | 'd' )
 		case "$2" in 
 			'latest' )
@@ -33,11 +54,20 @@ case "$service" in
 	'addons' )
 		case "$action" in 
 			'get' )
-				deployer_addons_get "$2";;
+				Deployer_addons_get "$2";;
 			'remove' )
-				deployer_addons_remove "2";;
-			'list' | * )
-				deployer_addons_list;;
+				Deployer_addons_remove "$2";;
+			* )
+				Deployer_addons_list;;
+		esac;;
+	'docs' | 'd' )
+		case "$action" in 
+			'open' )
+				Deployer_docs_open "$2";;
+			'get' )
+				Deployer_docs_get "$2";;
+			* )
+				Deployer_docs_list;;
 		esac;;
 	'remote' | 'r' )
 		case "$action" in
@@ -92,27 +122,6 @@ case "$service" in
 				echo 'Displaying project file...'; 
 				cat $localProjectLocation/$deployerFile;
 				echo '';;
-		esac;;
-	'project' | 'p' )
-		case "$action" in 
-			'open' | 'web' | 'w' | 'o' )
-				deployer_open_web;;
-			'repo' )
-				open $repoURL;;
-			'edit' | 'e' )
-				deployer_local_edit_project;;
-			'update' | 'u' )
-				deployer_local_update;;
-			'save' | 's' )
-				Deployer_project_save;;
-			'diff' | 'd' )
-				Deployer_project_diff "$2";;
-			'status' | 'st' )
-				Deployer_project_status;;
-			'checkout' | 'ch' )
-				Deployer_project_checkout "$2";;
-			* )
-				Deployer_local_run "$2";;
 		esac;;
 	'issue' | 'issues' | 'i' )
 		case "$action" in

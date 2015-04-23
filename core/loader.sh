@@ -52,6 +52,7 @@ esac
 
 # load libs
 source $DEPLOYER_LOCATION/ssher.sh
+source $DEPLOYER_LOCATION/addons.sh
 source $DEPLOYER_LOCATION/deploy.sh
 source $DEPLOYER_LOCATION/services.sh
 source $DEPLOYER_LOCATION/configParser.sh
@@ -61,6 +62,7 @@ source $DEPLOYER_LOCATION/doctor.sh
 source $DEPLOYER_LOCATION/logs.sh
 source $DEPLOYER_LOCATION/uninstall.sh
 source $DEPLOYER_LOCATION/issues.sh
+source $DEPLOYER_LOCATION/docs.sh
 source $DEPLOYER_LOCATION/menu.sh
 # set defaults to variables if no value is supplied prior to loading the requestHandler, the variables may be re-sourced prior to this point 
 setDefaults

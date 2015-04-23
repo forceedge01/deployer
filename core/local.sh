@@ -161,3 +161,19 @@ Deployer_project_status() {
 	cd $localProjectLocation
 	git status
 }
+
+function Deployer_repo_url() {
+	substring=$(echo $repo | grep http)
+	if [[ -z $substring ]]; then # is a ssh url e.g git@bitbucket.org:wqureshi/driving-theory-test-project.git
+		# explode on @, then on : and trim .git
+		IFS='@' read -ra ADDR <<< "$repo"
+		IFS=':' read -ra ADDR <<< "${ADDR[1]}"
+		url="https://${ADDR[0]}/${ADDR[1]}"
+	else # is a http url e.g https://wqureshi@bitbucket.org/wqureshi/driving-theory-test-project.git
+		# remote everything before @ sign and trim .git
+		IFS='@' read -ra ADDR <<< "$repo"
+		url='https://'${ADDR[1]}
+	fi
+	
+	echo "$url"
+}
