@@ -44,6 +44,9 @@ case "$service" in
 			* )
 				Deployer_local_run "$2";;
 		esac;;
+	'projects' )
+		warning 'Showing all projects used with deployer'
+		cat -n $projectsLog;;
 	'deploy' | 'd' )
 		case "$2" in 
 			'latest' )

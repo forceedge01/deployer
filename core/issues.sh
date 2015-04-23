@@ -21,7 +21,7 @@ Deployer_issue_list() {
 		return
 	fi
 
-	cat $localProjectLocation/issues
+	cat -n $localProjectLocation/issues
 }
 
 Deployer_issue_new() {
@@ -52,7 +52,6 @@ Deployer_issue_new() {
 
 	perform 'Store issue'
 	echo "$date [$user]::$category $1" >> ./issues
-	echo "" >> ./issues
 	performed
 }
 

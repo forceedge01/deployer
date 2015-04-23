@@ -45,6 +45,15 @@ function deployer_use() {
 	echo "#!/usr/bin/env bash
 readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$projectFile"
 	performed
+
+	perform 'store current project dir in projects.log file'
+	isInFile=$(cat $projectsLog | grep $currentDir)
+	if [[ -z $isInFile ]]; then
+		echo $currentDir >> $projectsLog
+		performed
+	else
+		performed 'Already exists'
+	fi
 }
 
 function deployer_local_update() {

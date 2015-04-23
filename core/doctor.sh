@@ -147,7 +147,8 @@ function deployer_config_status() {
 	echo 'Deploy as usual'
 
 	if [[ ! -z $postDeployCommand ]]; then
-		echo "Post deploy run -> $postDeployCommand"
+		perform 'Post deploy run'
+		echo "$postDeployCommand"
 	fi
 	performed 'Done'
 }
