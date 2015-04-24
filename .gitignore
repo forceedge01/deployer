@@ -1,3 +1,4 @@
 config/project.sh
 .fuse_hidden*
 logs/*
+core/loader.sh.bk

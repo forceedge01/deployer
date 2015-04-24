@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+deployerAlias=deployer
+
 function getDeployerLocation() {
-	fileLocation=$(ls -la /usr/bin | grep 'deployer ->' | awk '{split($0, location,/ -> /); print location[2]}')
+	fileLocation=$(ls -la /usr/bin | grep "$deployerAlias ->" | awk '{split($0, location,/ -> /); print location[2]}')
 	export DEPLOYER_LOCATION=$(dirname ${fileLocation})
 }
 
