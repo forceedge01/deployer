@@ -44,6 +44,7 @@ case $OSTYPE in
 esac
 
 # load libs
+source $DEPLOYER_LOCATION/local/init.sh
 source $DEPLOYER_LOCATION/local/deployer.sh
 source $DEPLOYER_LOCATION/local/uninstall.sh
 
