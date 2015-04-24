@@ -17,6 +17,8 @@ To get started run
 ```
 git clone https://github.com/forceedge/deployer.git; chmod 0777 deployer/init.sh; cd deployer; ./init.sh
 ```
+**Note: You can change the alias to be whatever you want in the init file, just set the deployerAlias to what you would like and run the command above.**
+
 ## Setup/Initialise project with deployer
 To get a project deployed with deployer use the following command in the project directory
 
