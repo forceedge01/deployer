@@ -98,15 +98,15 @@ function printSubMenu() {
 
 function deployer_info() {
 	gray "
-To get started, use the 'deployer init' command to create a '$deployerFile' file for the current directory you are in. 
-Run the 'deployer use' command to use the newly created '$deployerFile' file.
+To get started, use the '$deployerAlias init' command to create a '$deployerFile' file for the current directory you are in. 
+Run the '$deployerAlias use' command to use the newly created '$deployerFile' file.
 
-To configure the '$deployerFile' file of your current project run 'deployer config:edit'. Once configured
+To configure the '$deployerFile' file of your current project run '$deployerAlias config:edit'. Once configured
 you can run:
 
-- deployer remote:init (this will make a clone of the repository configured in the config file on the remote machine)
-- deployer project:edit to start editing the project selected
+- $deployerAlias remote:init (this will make a clone of the repository configured in the config file on the remote machine)
+- $deployerAlias project:edit to start editing the project selected
 
-To view this information again run 'deployer help'
+To view this information again run '$deployerAlias help'
 "
 }

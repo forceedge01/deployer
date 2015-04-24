@@ -3,7 +3,7 @@
 
 # check if alias exists, if not add it.
 
-declare deployerAlias="deployer"
+declare deployerAlias="dep"
 
 currentDirectory=$(pwd)
 

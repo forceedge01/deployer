@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-deployerAlias=deployer
+deployerAlias=dep
 
 function getDeployerLocation() {
 	fileLocation=$(ls -la /usr/bin | grep "$deployerAlias ->" | awk '{split($0, location,/ -> /); print location[2]}')
@@ -15,7 +15,7 @@ function loadDeployerConfigs() {
 	# load configs
 	source $DEPLOYER_LOCATION/../config/$projectFile
 	if [[ -z "$localProjectLocation" ]]; then
-			info "Please run 'deployer help' to get started"
+			info "Please run '$deployerAlias help' to get started"
 		return
 	fi
 
