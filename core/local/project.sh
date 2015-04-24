@@ -31,6 +31,14 @@ function deployer_select_project() {
 function Deployer_project_save() {
 	cd $localProjectLocation
 	attempt 'save project'
+	branch=$(getCurrentBranchName)
+
+	if [[ $allowSaveToMaster == false && $branch == 'master' ]]; then
+		error 'allowSaveToMaster is set to false, cannot push to master. Please create another branch and save again'
+
+		return
+	fi
+	
 	changes=$(git status -s)
 	if [[ -z $changes ]]; then
 		warning 'No changes detected'
@@ -71,7 +79,6 @@ function Deployer_project_save() {
 	readUser 'Please enter commit message: '
     git commit -m "$input"
 	perform 'Push changes'
-	branch=$(getCurrentBranchName)
 	output=$(git push origin $branch)
 	if [[ $(echo $?) != 0 ]]; then
 		error 'Unable to push, aborting...'

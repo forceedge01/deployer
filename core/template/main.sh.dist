@@ -51,6 +51,8 @@ declare dbName=''
 # ----------------------------------------------------- #
 # app specific settings
 declare editor='vim'
+# allow push to master branch
+declare allowSaveToMaster=false
 # project location on SSH server
 declare remoteProjectLocation=''
 # project repo url, if not set default origin url will be used
