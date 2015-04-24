@@ -134,7 +134,7 @@ case "$service" in
 				esac;;
             'mysql' | 'ms')
 				# load files
-				source $DEPLOYER_LOCATION/remote/mysql.sh
+				source $DEPLOYER_LOCATION/../addons/mysql.sh
 
                 deployer_mysql;;
             * )

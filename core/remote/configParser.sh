@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 source $localProjectLocation/$deployerFile &> /dev/null
+# set defaults to variables if no value is supplied prior to loading the requestHandler, the variables may be re-sourced prior to this point 
+setDefaults
 
 function alterConfigFiles() {
 	perform 'Edit config files'

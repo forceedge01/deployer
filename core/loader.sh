@@ -54,6 +54,5 @@ source $DEPLOYER_LOCATION/remote/logs.sh
 source $DEPLOYER_LOCATION/remote/remote_config.sh
 
 source $DEPLOYER_LOCATION/menu.sh
-# set defaults to variables if no value is supplied prior to loading the requestHandler, the variables may be re-sourced prior to this point 
-setDefaults
+
 source $DEPLOYER_LOCATION/requestHandler.sh

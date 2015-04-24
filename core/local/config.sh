@@ -52,11 +52,6 @@ function deloyer_config_doctor() {
 	perform 'verbosity'
 	[[ ! -z $verbose ]] && echo $verbose || echo "false"
 
-    warning 'MySQL settings'
-
-    perform 'MySQL connection string'
-    deployer_get_connection_string
-
 	warning 'App specific settings'
 
 	perform 'Remote project location'
@@ -118,7 +113,7 @@ function deloyer_config_doctor() {
 	if [[ -z $maintenancePageContent ]]; then
 		warning 'Maintenance page not set'
 	else
-		perform
+		performed
 	fi
 
 	perform 'Deployment process'
