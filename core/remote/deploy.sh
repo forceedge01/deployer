@@ -167,11 +167,3 @@ function deployer_remote_get() {
 	fi
 	performed
 }
-
-function deployer_open_web() {
-	if [[ ! -z "$webURL" ]]; then 
-		open $webURL
-	else 
-		error "Value for 'webURL' not specified in config" 
-	fi
-}

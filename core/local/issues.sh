@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-Deployer_issue_init() {
+function Deployer_issue_init() {
 	warning 'Initialise issues structure'
 
 	if [[ -z $$localProjectLocation ]]; then
@@ -13,7 +13,7 @@ Deployer_issue_init() {
 	performed
 }
 
-Deployer_issue_list() {
+function Deployer_issue_list() {
 	warning 'Display issues'
 
 	if [[ ! -f "$localProjectLocation/issues" ]]; then
@@ -24,7 +24,7 @@ Deployer_issue_list() {
 	cat -n $localProjectLocation/issues
 }
 
-Deployer_issue_new() {
+function Deployer_issue_new() {
 	warning 'New issue'
 	cd $localProjectLocation
 
@@ -55,7 +55,7 @@ Deployer_issue_new() {
 	performed
 }
 
-Deployer_issue_edit() {
+function Deployer_issue_edit() {
 	warning 'About to edit the issues file'
 	$editor $localProjectLocation/issues
 }

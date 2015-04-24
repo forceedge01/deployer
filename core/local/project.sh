@@ -18,33 +18,6 @@ function deployer_init() {
 	info "Please configure the $deployerFile file in order to use deployer"
 }
 
-function deployer_select_project() {
-	warning 'Select a project'
-	cat -n $projectsLog
-	readUser 'Enter project number: '
-
-	project=$(awk "NR==$input" $projectsLog)
-
-	if [[ -z $project ]]; then
-		error "Could not find project number $input"
-
-		return
-	fi
-
-	if [[ ! -d $project ]]; then
-		error 'Project not found!'
-		perform 'Remove entry from projects file'
-		sed -i'.bk' -e "$input"d "$projectsLog"
-		performed
-
-		return
-	fi
-
-	cd "$project"
-	deployer_use
-	info 'Project set to: '$project
-}
-
 function deployer_use() {
 	attempt "set current directory as project dir"
 	perform "locate '$deployerFile' file"
@@ -83,53 +56,32 @@ readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$pr
 	fi
 }
 
-function deployer_local_update() {
-	cd $localProjectLocation && git pull origin
-}
+function deployer_select_project() {
+	warning 'Select a project'
+	Deployer_local_run
+	cat -n $projectsLog
+	readUser 'Enter project number: '
 
-function deployer_local_edit_project() {
-	if [[ -z "$editor" ]]; then
-		warning 'Editor not configured, using vim'
-		editor='vim'
+	project=$(awk "NR==$input" $projectsLog)
+
+	if [[ -z $project ]]; then
+		error "Could not find project number $input"
+
+		return
 	fi
 
-	$editor $localProjectLocation
-}
+	if [[ ! -d $project ]]; then
+		error 'Project not found!'
+		perform 'Remove entry from projects file'
+		sed -i'.bk' -e "$input"d "$projectsLog"
+		performed
 
-function Deployer_version() {
-	cd $DEPLOYER_LOCATION && git status | head -n 1
-	blue 'Deployer installation folder: '
-	echo -n $DEPLOYER_LOCATION
-}
-
-function Deployer_config_edit {
-	attempt 'edit project config file'
-	$editor $localProjectLocation/$deployerFile
-}
-
-function Deployer_update() {
-	warning 'Updating deployer'
-	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags
-}
-
-function Deployer_local_run() {
-	if [[ -z "$1" ]]; then
-		return 
+		return
 	fi
-	warning 'Running command on local project'
-	cd $localProjectLocation
-	$1
-}
 
-function deployer_dev() {
-	if [[ -z $devStart ]]; then
-		warning 'Nothing todo...'
-	fi
-	
-	perform 
-	performed "$devStart"
-	cd $localProjectLocation
-	$devStart
+	cd "$project"
+	deployer_use
+	info 'Project set to: '$project
 }
 
 function Deployer_project_save() {
@@ -192,30 +144,51 @@ function Deployer_project_save() {
 	deployer_deploy $currentBranch
 }
 
-Deployer_project_diff() {
+function Deployer_project_diff() {
 	warning "showing diff on project"
 	cd $localProjectLocation
 	git diff $1
 }
 
-Deployer_project_status() {
+function Deployer_project_status() {
 	warning "Show status of project"
 	cd $localProjectLocation
 	git status
 }
 
-function Deployer_repo_url() {
-	substring=$(echo $repo | grep http)
-	if [[ -z $substring ]]; then # is a ssh url e.g git@bitbucket.org:wqureshi/driving-theory-test-project.git
-		# explode on @, then on : and trim .git
-		IFS='@' read -ra ADDR <<< "$repo"
-		IFS=':' read -ra ADDR <<< "${ADDR[1]}"
-		url="https://${ADDR[0]}/${ADDR[1]}"
-	else # is a http url e.g https://wqureshi@bitbucket.org/wqureshi/driving-theory-test-project.git
-		# remote everything before @ sign and trim .git
-		IFS='@' read -ra ADDR <<< "$repo"
-		url='https://'${ADDR[1]}
+function deployer_local_update() {
+	cd $localProjectLocation && git pull origin
+}
+
+function deployer_local_edit_project() {
+	if [[ -z "$editor" ]]; then
+		warning 'Editor not configured, using vim'
+		editor='vim'
 	fi
-	
-	echo "$url"
+
+	$editor $localProjectLocation
+}
+
+function Deployer_local_run() {
+	if [[ -z "$1" ]]; then
+		# load libs
+		if [[ -z $localProjectLocation ]]; then
+			warning "Project Location ------> Please set project location to use deployer"
+		else
+			info "Project Location ------> $localProjectLocation"
+		fi
+
+		return 
+	fi
+	warning 'Running command on local project'
+	cd $localProjectLocation
+	"$1"
+}
+
+function deployer_open_web() {
+	if [[ ! -z "$webURL" ]]; then 
+		open $webURL
+	else 
+		error "Value for 'webURL' not specified in config" 
+	fi
 }

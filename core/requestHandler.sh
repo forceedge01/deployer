@@ -24,6 +24,9 @@ case "$service" in
 	'sshp' )
 		deployer_ssher_toDir "$2";;
 	'project' | 'p' )
+		# load relative files
+		source $DEPLOYER_LOCATION/local/project.sh
+		# handle cases
 		case "$action" in 
 			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
@@ -54,6 +57,10 @@ case "$service" in
 				deployer_deploy "$2";;
 		esac;;
 	'addons' )
+		# load files
+		source $DEPLOYER_LOCATION/local/addons.sh
+
+		# handle casees
 		case "$action" in 
 			'get' )
 				Deployer_addons_get "$2";;
@@ -63,6 +70,10 @@ case "$service" in
 				Deployer_addons_list;;
 		esac;;
 	'docs' | 'd' )
+		# load files
+		source $DEPLOYER_LOCATION/local/docs.sh
+
+		# handle cases
 		case "$action" in 
 			'open' )
 				Deployer_docs_open "$2";;
@@ -84,12 +95,20 @@ case "$service" in
 			'status' )
 				deployer_remote_status;;
 			'download' | 'downloads')
+				source $DEPLOYER_LOCATION/remote/download_upload.sh
+
 				deployer_remote_download "$2";;
 			'upload' | 'uploads' )
+				source $DEPLOYER_LOCATION/remote/download_upload.sh
+				
 				deployer_local_upload "$2";;
 			'get' )
 				deployer_remote_get "$2";;
 			'services' )
+				# load relative files
+				source $DEPLOYER_LOCATION/remote/services.sh
+				
+				# handle cases
 				case "$2" in 
 					'start' )
 						deployer_services_start;;
@@ -99,6 +118,10 @@ case "$service" in
 						deployer_services_status;;
 				esac;;
 			'service' )
+				# load relative files
+				source $DEPLOYER_LOCATION/remote/services.sh
+
+				# handle cases
 				case "$2" in
 					'start' )
 						deployer_service_perform 'start' "$3";;
@@ -110,22 +133,33 @@ case "$service" in
 						deployer_service_perform 'status' "$3";;
 				esac;;
             'mysql' | 'ms')
+				# load files
+				source $DEPLOYER_LOCATION/remote/mysql.sh
+
                 deployer_mysql;;
             * )
 				depolyer_remote_project_status;;
 		esac;;
 	'config' | 'c' )
+		# load relative files
+		source $DEPLOYER_LOCATION/local/config.sh
+
+		# handle cases
 		case "$action" in 
 			'edit' | 'e' )
 				Deployer_config_edit;;
 			'verify' | 'v' )
-				deployer_config_status;;
+				deloyer_config_doctor;;
 			* )
 				echo 'Displaying project file...'; 
 				cat $localProjectLocation/$deployerFile;
 				echo '';;
 		esac;;
 	'issue' | 'issues' | 'i' )
+		# load relative files
+		source $DEPLOYER_LOCATION/local/issues.sh
+
+		# handle cases
 		case "$action" in
 			'init' )
 				Deployer_issue_init;;

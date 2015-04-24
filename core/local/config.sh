@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
 
-function deloyer_doctor() {
-	# check if deployer files are all there
-	# check if remote is set then remote is cloned
-	# check if remote is set remote has origin
-	# check if local is set then local is present
-	# check if local is set then the config file exists
-	# check if ssh server is set then server is sshable
-	echo ''
+function Deployer_config_edit {
+	attempt 'edit project config file'
+	$editor $localProjectLocation/$deployerFile
 }
 
-function deployer_config_status() {
+function deloyer_config_doctor() {
 	# parse the config file and check whats set and whats not
 	attempt 'verify the config file'
 

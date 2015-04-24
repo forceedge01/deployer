@@ -1,54 +1,5 @@
 #!/usr/bin/env bash
 
-source $localProjectLocation/$deployerFile &> /dev/null
-
-function deployer_services_start() {
-	deployer_private_runServicesWith 'starting' 'start'
-}
-
-function deployer_services_status() {
-	deployer_private_runServicesWith 'check' 'status'
-}
-
-function deployer_services_restart() {
-
-	deployer_private_runServicesWith 'restart' 'restart'
-}
-
-function deployer_service_perform() {
-	if [[ -z "$2" ]]; then
-		error 'Service name must be specified'
-		return
-	fi
-
-	attempt "$1 service '$2'"
-	deployer_run_command "send command to $1 service" "sudo service $2 $1" 'Unable to start service!'
-}
-
-function deployer_private_runServicesWith() {
-	attempt "$1 services"
-	for service in "${services[@]}" 
-	do
-		deployer_service_perform "$2" "$service"
-	done
-}
-
-function deployer_vhost_create() {
-	attempt 'create a virtualhost on remote machine'
-	if [[ -z "$1" ]]; then
-		error 'You must provide with a virtual host name'
-		return 1
-	fi
-	perform 'Enter host definition in httpd.conf file'
-	$(deployer_ssher 'echo "<VirtualHost *:80>
-    ServerAdmin $username@$1.com
-    DocumentRoot $remoteProjectLocation
-    ServerName $1
-    ErrorLog logs/$1-error.log
-</VirtualHost>" >> /etc/httpd/conf/httpd.conf')
-	performed
-}
-
 function deployer_remote_download() {
 	if [[ -z $downloadsPath ]]; then
 		error 'downloadsPath must be set in config file'
@@ -105,15 +56,4 @@ function deployer_local_upload() {
 	performed
 	perform 'Show uploads folder contents'
 	deployer_ssher "ls -la $uploadsPath | sed 2,3d"
-}
-
-function deployer_remote_status() {
-    deployer_run_command 'Ram Status' 'echo;free -m' 1
-	echo
-	for service in "${services[@]}" 
-	do
-        deployer_run_command "$service status" "sudo service $service status" 'Unable to reach service'
-		echo
-	done
-	depolyer_remote_project_status
 }
