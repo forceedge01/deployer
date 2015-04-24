@@ -12,7 +12,7 @@ function deloyer_doctor() {
 
 function deployer_config_status() {
 	# parse the config file and check whats set and whats not
-	attempt 'check the config file'
+	attempt 'verify the config file'
 
 	if [[ -z $localProjectLocation ]]; then
 		error "Local project location not set, please run deployer use in the project directory that holds the $deployerFile file and re-run this command."
@@ -57,43 +57,6 @@ function deployer_config_status() {
 	perform 'verbosity'
 	[[ ! -z $verbose ]] && echo $verbose || echo "false"
 
-	warning 'Deployment settings'
-
-	perform "Deployment method"
-	if [[ $deploymentMethod != 'git' ]]; then
-		error "unsupported method $deploymentMethod"
-	else
-		performed
-	fi
-
-	perform 'Permissive deployments'
-	[[ ! -z $permissiveDeployment ]] && echo $permissiveDeployment || echo "false"
-	perform 'Downloads path'
-	if [[ -z $downloadsPath ]]; then
-		warning 'Not set, Wont be able to download files'
-	else
-		performed
-	fi
-
-	perform 'Uploads path'
-	if [[ -z $uploadsPath ]]; then
-		warning 'Not set, Wont be able to upload files'
-	else
-		performed
-	fi
-
-	perform 'Deployment process'
-	if [[ ! -z $preDeployCommand ]]; then
-		echo
-		echo "Pre deploy run -> $preDeployCommand"
-	fi
-
-	echo 'Deploy as usual'
-
-	if [[ ! -z $postDeployCommand ]]; then
-		echo "Post deploy run -> $postDeployCommand"
-	fi
-
     warning 'MySQL settings'
 
     perform 'MySQL connection string'
@@ -131,6 +94,31 @@ function deployer_config_status() {
 		performed
 	fi
 
+	warning 'Deployment settings'
+
+	perform "Deployment method"
+	if [[ $deploymentMethod != 'git' ]]; then
+		error "unsupported method $deploymentMethod"
+	else
+		performed
+	fi
+
+	perform 'Permissive deployments'
+	[[ ! -z $permissiveDeployment ]] && echo $permissiveDeployment || echo "false"
+	perform 'Downloads path'
+	if [[ -z $downloadsPath ]]; then
+		warning 'Not set, Wont be able to download files'
+	else
+		performed
+	fi
+
+	perform 'Uploads path'
+	if [[ -z $uploadsPath ]]; then
+		warning 'Not set, Wont be able to upload files'
+	else
+		performed
+	fi
+
 	perform 'Maintenance page'
 	if [[ -z $maintenancePageContent ]]; then
 		warning 'Maintenance page not set'
@@ -139,6 +127,12 @@ function deployer_config_status() {
 	fi
 
 	perform 'Deployment process'
+
+	if [[ -z $sshServer ]]; then
+		warning 'sshServer not set, will not deploy'
+		return
+	fi
+
 	if [[ ! -z $preDeployCommand ]]; then
 		echo
 		echo "Pre deploy run -> $preDeployCommand"
@@ -150,5 +144,4 @@ function deployer_config_status() {
 		perform 'Post deploy run'
 		echo "$postDeployCommand"
 	fi
-	performed 'Done'
 }
