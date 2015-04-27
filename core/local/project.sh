@@ -131,6 +131,12 @@ function Deployer_project_diff() {
 	git diff $1
 }
 
+function Deployer_project_checkout() {
+	warning "checking out $1"
+	cd $localProjectLocation
+	git checkout $1
+}
+
 function Deployer_project_status() {
 	warning "Show status of project"
 	cd $localProjectLocation
@@ -159,7 +165,7 @@ function Deployer_local_run() {
 	fi
 	warning 'Running command on local project'
 	cd $localProjectLocation
-	"$1"
+	$1
 }
 
 function deployer_open_web() {
