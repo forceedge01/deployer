@@ -132,8 +132,15 @@ function Deployer_project_diff() {
 }
 
 function Deployer_project_checkout() {
-	warning "checking out $1"
 	cd $localProjectLocation
+
+	if [[ -z $1 ]]; then
+		warning 'Showing branches'
+		git branch -a
+		return
+	fi
+	
+	warning "checking out $1"
 	git checkout $1
 }
 
