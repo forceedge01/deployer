@@ -28,6 +28,34 @@ function deployer_select_project() {
 	info 'Project set to: '$project
 }
 
+function Deployer_project_update() {
+	cd $localProjectLocation
+	branch=$(getCurrentBranchName)
+	attempt "update current branch: $branch"
+
+	if [[ $branch == 'master' ]]; then
+		perform 'Update master branch'
+		git pull
+	else
+		perform 'checkout and update master branch'
+		git checkout master
+		git pull
+
+		if [[ $? != 0 ]]; then
+			error 'Unable to update...'
+
+			return
+		fi
+		performed
+
+		perform "checkout $branch and merge master"
+		git checkout $branch
+		git merge master
+	fi
+
+	performed
+}
+
 function Deployer_project_save() {
 	cd $localProjectLocation
 	attempt 'save project'
@@ -105,10 +133,6 @@ function Deployer_project_status() {
 	warning "Show status of project"
 	cd $localProjectLocation
 	git status
-}
-
-function deployer_local_update() {
-	cd $localProjectLocation && git pull origin
 }
 
 function deployer_local_edit_project() {

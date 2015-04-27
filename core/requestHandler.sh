@@ -35,7 +35,7 @@ case "$service" in
 			'edit' | 'e' )
 				deployer_local_edit_project;;
 			'update' | 'u' )
-				deployer_local_update;;
+				Deployer_project_update;;
 			'save' | 's' )
 				Deployer_project_save;;
 			'diff' | 'd' )

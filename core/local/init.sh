@@ -52,7 +52,8 @@ readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$pr
 	perform 'store current project dir in projects.log file'
 	isInFile=$(cat $projectsLog | grep $currentDir)
 	if [[ -z $isInFile ]]; then
-		echo $currentDir >> $projectsLog
+		name=$(deployer_FolderNameFromPath $currentDir)
+		echo "[$name] - $currentDir" >> $projectsLog
 		performed
 	else
 		performed 'Already exists'

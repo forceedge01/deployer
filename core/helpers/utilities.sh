@@ -157,6 +157,16 @@ function getFolderNameFromRepoUrl() {
 	echo "$frag"
 }
 
+function deployer_FolderNameFromPath() {
+	IFS='/' read -ra ADDR <<< "$1"
+	for fragment in "${ADDR[@]}" 
+	do
+		frag="$fragment"
+	done
+
+	echo "$frag"
+}
+
 function Deployer_repo_url() {
 	substring=$(echo $repo | grep http)
 	if [[ -z $substring ]]; then # is a ssh url e.g git@bitbucket.org:wqureshi/driving-theory-test-project.git
