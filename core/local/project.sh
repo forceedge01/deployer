@@ -140,7 +140,7 @@ function Deployer_project_checkout() {
 function Deployer_project_status() {
 	warning "Show status of project"
 	cd $localProjectLocation
-	git status
+	git status -sb
 }
 
 function deployer_local_edit_project() {
@@ -159,6 +159,7 @@ function Deployer_local_run() {
 			warning "Project Location ------> Please set project location to use deployer"
 		else
 			info "Project Location ------> $localProjectLocation"
+			Deployer_project_status
 		fi
 
 		return 
