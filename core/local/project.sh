@@ -156,9 +156,10 @@ function Deployer_local_run() {
 	if [[ -z "$1" ]]; then
 		# load libs
 		if [[ -z $localProjectLocation ]]; then
-			warning "Project Location ------> Please set project location to use deployer"
+			warning "Project Location >>> Please set project location to use deployer"
 		else
-			info "Project Location ------> $localProjectLocation"
+			gray "Project Location >>> $localProjectLocation"
+			echo
 			Deployer_project_status
 		fi
 
