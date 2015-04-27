@@ -13,6 +13,8 @@ function deployer_select_project() {
 
 		return
 	fi
+	
+	project=$(echo $project | awk -F'] - ' '{print $2}')
 
 	if [[ ! -d $project ]]; then
 		error 'Project not found!'
@@ -25,7 +27,7 @@ function deployer_select_project() {
 
 	cd "$project"
 	deployer_use
-	info 'Project set to: '$project
+	info "Project set to: $project"
 }
 
 function Deployer_project_update() {
