@@ -7,8 +7,9 @@ function Deployer_version() {
 }
 
 function Deployer_update() {
-	warning 'Updating deployer'
+	warning 'Updating deployer...'
 	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags
+	performed
 }
 
 function deployer_dev() {

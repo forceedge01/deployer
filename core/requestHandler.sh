@@ -48,6 +48,8 @@ case "$service" in
 				Deployer_project_merge "$2";;
 			'select' | 'sel' )
 				deployer_select_project "$2";;
+			'test' | 't' )
+				Deployer_project_test;;
 			* )
 				Deployer_local_run "$2";;
 		esac;;

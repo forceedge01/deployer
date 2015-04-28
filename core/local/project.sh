@@ -201,3 +201,13 @@ function deployer_open_web() {
 		error "Value for 'webURL' not specified in config" 
 	fi
 }
+
+function Deployer_project_test() {
+	warning 'Run test command'
+
+	if [[ -z $projectTest ]]; then
+		error 'No command to run'
+	else
+		$projectTest
+	fi
+}
