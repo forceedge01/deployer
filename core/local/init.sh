@@ -43,6 +43,14 @@ function deployer_use() {
 			return
 		fi
 	fi
+
+	perform 'Make sure the logs folder/file exists'
+	if [[ ! -f $projectsLog ]]; then
+		mkdir $DEPLOYER_LOCATION/../logs
+		touch $projectsLog
+	fi
+	performed
+
 	perform 'set current project dir as deployer current project'
 	currentDir=$(pwd)
 	echo "#!/usr/bin/env bash
