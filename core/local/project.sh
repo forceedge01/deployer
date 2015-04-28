@@ -140,8 +140,12 @@ function Deployer_project_checkout() {
 		return
 	fi
 	
-	warning "checking out $1"
-	git checkout $1
+	warning "Checking out $1"
+	if [[ $(git branch --list $1) == '' ]]; then
+		git checkout -b $1
+	else 
+		git checkout $1
+	fi
 }
 
 function Deployer_project_status() {
@@ -165,7 +169,8 @@ function Deployer_local_run() {
 		if [[ -z $localProjectLocation ]]; then
 			warning "Project Location >>> Please set project location to use deployer"
 		else
-			gray "Project Location >>> $localProjectLocation"
+			folder=$(deployer_FolderNameFromPath $localProjectLocation)
+			gray "Project [$folder] >>> $localProjectLocation"
 			echo
 			Deployer_project_status
 		fi
