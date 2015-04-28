@@ -21,6 +21,23 @@ function deloyer_config_doctor() {
 		error 'SSH server var not set!'
     else
         performed
+
+		perform 'SSH server reachable'
+	    reachable=$(ssh -o BatchMode=yes -o ConnectTimeout=5 $username@$sshServer 'echo 1')
+	    if [[ $reachable == 1 ]]; then
+	    	performed
+	    else
+	    	error 'Unable to reach ssh server'
+	    fi
+
+	    perform 'Deployer dependencies on server'
+	    echo -n 'Git >> '
+	    output=$(deployer_ssher 'git --version &>/dev/null && echo -n $?')
+	    if [[ $output != 0 ]]; then
+	    	error 'Not found'
+	    else
+	    	performed
+	    fi
     fi
 
 	perform 'username for SSH server set'
@@ -28,23 +45,6 @@ function deloyer_config_doctor() {
 		error 'username var not set!'
     else
 	    performed
-    fi
-
-    perform 'SSH server reachable'
-    reachable=$(ssh -o BatchMode=yes -o ConnectTimeout=5 $username@$sshServer 'echo 1')
-    if [[ $reachable == 1 ]]; then
-    	performed
-    else
-    	error 'Unable to reach ssh server'
-    fi
-
-    perform 'Deployer dependencies on server'
-    echo -n 'Git >> '
-    output=$(deployer_ssher 'git --version &>/dev/null && echo -n $?')
-    if [[ $output != 0 ]]; then
-    	error 'Not found'
-    else
-    	performed
     fi
 
 	warning 'SSH debug Settings'
