@@ -142,6 +142,7 @@ function Deployer_project_checkout() {
 	
 	warning "Checking out $1"
 	if [[ $(git branch --list $1) == '' ]]; then
+		git checkout master
 		git checkout -b $1
 	else 
 		git checkout $1
@@ -152,6 +153,17 @@ function Deployer_project_status() {
 	warning "Show status of project"
 	cd $localProjectLocation
 	git status -sb
+}
+
+function Deployer_project_merge() {
+	warning "Merging branch $1"
+
+	if [[ $(git branch --list $1) == '' ]]; then
+		error 'Branch not found'
+		return
+	fi
+
+	git merge $1
 }
 
 function deployer_local_edit_project() {

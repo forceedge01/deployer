@@ -44,6 +44,8 @@ case "$service" in
 				Deployer_project_status;;
 			'checkout' | 'ch' )
 				Deployer_project_checkout "$2";;
+			'merge' | 'mr' )
+				Deployer_project_merge "$2";;
 			'select' | 'sel' )
 				deployer_select_project "$2";;
 			* )

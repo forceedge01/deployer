@@ -25,9 +25,10 @@ function deployMenu() {
 	printSubMenu 'repo' 'Open the repo url'
 	printSubMenu 'edit | e' 'Edit current project in configured editor'
 	printSubMenu 'update | u' 'Update current project locally'
-	printSubMenu 'status | st'
-	printSubMenu 'diff | d'
-	printSubMenu 'checkout | ch'
+	printSubMenu 'status | st' 'show status of the project'
+	printSubMenu 'diff | d' 'show diff'
+	printSubMenu 'checkout | ch' 'show/create/switch branches'
+	printSubMenu 'merge | mr' 'merge a branch into the current branch'
 	printSubMenu 'save | s' 'Save local project changes'
 
 	printMenu 'remote | r' 'Show remote project version'
