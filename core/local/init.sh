@@ -22,7 +22,13 @@ function deployer_init() {
 }
 
 function deployer_use() {
+	if [[ $localProjectLocation == $(pwd) ]]; then
+		warning 'Project already selected'
+		return
+	fi
+	
 	attempt "set current directory as project dir"
+
 	perform "locate '$deployerFile' file"
 	if [[ ! -f ./$deployerFile ]]; then
 		error "Unable to locate '$deployerFile' file in current directory, run 'deployer init' to create one."
