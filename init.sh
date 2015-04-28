@@ -41,7 +41,7 @@ else
 		"linux"* )
 			echo 'Supported OS, adding aliases to bashrc file to normalise deployer environment'
 			echo '# Deployer aliases' >> ~/.bashrc
-			echo "alias $deployerAlias='bash deployer'" >> ~/.bashrc
+			echo "alias $deployerAlias='bash $deployerAlias'" >> ~/.bashrc
 			echo '# End of deployer aliases and functions' >> ~/.bashrc
 			echo 'Make sure the bashrc file is sourced before using the deployer command'
 			source ~/.bashrc;;
