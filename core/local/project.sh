@@ -2,7 +2,8 @@
 
 function deployer_select_project() {
 	warning 'Select a project'
-	Deployer_local_run
+	deployer_project_location
+	echo
 	cat -n $projectsLog
 	readUser 'Enter project number: '
 
@@ -181,9 +182,7 @@ function Deployer_local_run() {
 		if [[ -z $localProjectLocation ]]; then
 			warning "Project Location >>> Please set project location to use deployer"
 		else
-			folder=$(deployer_FolderNameFromPath $localProjectLocation)
-			gray "Project [$folder] >>> $localProjectLocation"
-			echo
+			echo $(deployer_project_location)
 			Deployer_project_status
 		fi
 
@@ -192,6 +191,12 @@ function Deployer_local_run() {
 	warning 'Running command on local project'
 	cd $localProjectLocation
 	$1
+}
+
+function deployer_project_location() {
+	folder=$(deployer_FolderNameFromPath $localProjectLocation)
+	gray "Project [$folder] >>> $localProjectLocation"
+	echo
 }
 
 function deployer_open_web() {
