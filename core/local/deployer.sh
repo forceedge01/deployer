@@ -23,7 +23,7 @@ function deployer_dev() {
 	IFS=';' read -ra ADDR <<< "$devStart"
 	for command in "${ADDR[@]}" 
 	do
-		performed $command
+		performed "$command"
 		$command
 	done
 }
