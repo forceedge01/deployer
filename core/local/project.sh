@@ -14,6 +14,9 @@ function Deployer_project_init() {
 		return
 	fi
 
+	# go to the home directory to make the dir, if path is not absoute, create it 
+	# in the home dir
+	cd
 	mkdir -p "$1"
 	performed
 
