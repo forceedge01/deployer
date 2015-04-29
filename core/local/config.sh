@@ -88,14 +88,22 @@ function deloyer_config_doctor() {
 	if [[ -z $devStart ]]; then
 		warning 'No dev command, nullified project:dev'
 	else
-		performed "$devStart"
+		if [[ $(echo "$devStart" | grep ';') == '' ]]; then
+			error "Command must end with semicolon: '$devStart' -> '$devStart;'"
+		else
+			performed "$devStart"
+		fi
 	fi
 
 	perform 'test command'
 	if [[ -z $testStart ]]; then
 		warning 'No test command, nullified project:test'
 	else
-		performed "$testStart"
+		if [[ $(echo "$testStart" | grep ';') == '' ]]; then
+			error "Command must end with semicolon: '$testStart' -> '$testStart;'"
+		else
+			performed "$testStart"
+		fi
 	fi
 
 	warning 'Deployment settings'
