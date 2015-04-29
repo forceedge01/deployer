@@ -246,11 +246,11 @@ function deployer_open_web() {
 function Deployer_project_test() {
 	warning 'Run test command'
 
-	if [[ -z $projectTest ]]; then
+	if [[ -z $testStart ]]; then
 		error 'No command to run'
 	else
 		cd $localProjectLocation
-		deployer_run_semicolon_delimited_commands "$projectTest"
+		deployer_run_semicolon_delimited_commands "$testStart"
 	fi
 }
 

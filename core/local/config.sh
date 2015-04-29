@@ -84,6 +84,20 @@ function deloyer_config_doctor() {
 		performed
 	fi
 
+	perform 'dev command'
+	if [[ -z $testStart ]]; then
+		warning 'No dev command, nullified project:dev'
+	else
+		performed $devStart
+	fi
+
+	perform 'test command'
+	if [[ -z $testStart ]]; then
+		warning 'No test command, nullified project:test'
+	else
+		performed $testStart
+	fi
+
 	warning 'Deployment settings'
 
 	perform "Deployment method"

@@ -75,6 +75,6 @@ declare appLog=''
 # any command to run on the local project using the deployer project:dev command, separate commands by ';' delimiter
 declare devStart=''
 # an alias to the command you want to set to have the tests run
-declare projectTest=''
+declare testStart=''
 
 # ---------------------------------------------–------- #
