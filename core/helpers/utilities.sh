@@ -189,6 +189,8 @@ function deployer_run_semicolon_delimited_commands() {
 		return
 	fi
 
+	breakOnFailure=$2
+
 	IFS=';' read -ra ADDR <<< "$1"
 	for command in "${ADDR[@]}" 
 	do
@@ -196,6 +198,10 @@ function deployer_run_semicolon_delimited_commands() {
 		$command
 		if [[ $? != 0 ]]; then
 			error 'An error occured'
+
+			if [[ $breakOnFailure == true ]]; then
+				return
+			fi
 		else
 			performed "$command"
 		fi

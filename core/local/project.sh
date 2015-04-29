@@ -250,7 +250,7 @@ function Deployer_project_test() {
 		error 'No command to run'
 	else
 		cd $localProjectLocation
-		deployer_run_semicolon_delimited_commands "$testStart"
+		deployer_run_semicolon_delimited_commands "$testStart" true
 	fi
 }
 
@@ -261,5 +261,5 @@ function deployer_dev() {
 	fi
 	
 	cd $localProjectLocation
-	deployer_run_semicolon_delimited_commands "$devStart"
+	deployer_run_semicolon_delimited_commands "$devStart" false
 }
