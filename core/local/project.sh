@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
 
+function Deployer_project_init() {
+	attempt 'create a new project'
+
+	perform 'Create project folder'
+	if [[ -z $1 ]]; then
+		error 'Unable to initiate new project, need to specify path'
+		return
+	fi
+
+	if [[ -d "$1" ]]; then
+		error 'Unable to instantiate new project, path already exists'
+		return
+	fi
+
+	mkdir -p "$1"
+	performed
+
+	cd $1
+	deployer_init
+	deployer_use
+}
+
 function deployer_select_project() {
 	warning 'Select a project'
 	deployer_project_location

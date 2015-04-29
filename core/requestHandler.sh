@@ -28,6 +28,8 @@ case "$service" in
 		source $DEPLOYER_LOCATION/local/project.sh
 		# handle cases
 		case "$action" in 
+			'init' )
+				Deployer_project_init "$2";;
 			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
 			'repo' )

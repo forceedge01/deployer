@@ -21,6 +21,7 @@ function deployMenu() {
 	printSubMenu "verify" "verify the config file"
 
 	printMenu 'project|p [arg]' 'Show project location or run command on project location'
+	printSubMenu 'init' 'Initiate new project'
 	printSubMenu 'open | o | web | w' 'Open project link in browser'
 	printSubMenu 'repo' 'Open the repo url'
 	printSubMenu 'edit | e' 'Edit current project in configured editor'
