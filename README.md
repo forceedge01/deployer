@@ -61,14 +61,18 @@ deployer
 to view the menu.
 
 ### Config file
-```
+```bash
 #!/usr/bin/env bash
+
+# This is the config file that runs with deployer. Any variable marked with a 
+# '*' comment means its crucial to deployer working properly, use 'deployer 
+# config:verify' to check your configuration once you are done setting variables.
 
 # server settings
 # server ip to connect to
-declare sshServer=''
+declare sshServer='' # *
 # connect to SSH server as
-declare username=''
+declare username='' # *
 
 # ---------------------------------------------–------- #
 
@@ -81,8 +85,10 @@ declare verbose=0
 # deploy settings
 # services to check for after deployment
 declare services=(httpd mysqld)
-# deploy using git or scp
-declare deploymentMethod='git'
+# set maintenance page content here, will be used to create an index.html page when deploying and fill it 
+# with the content you have set below, if left empty the index.html page will not be created at all
+# any content set previously will be erased if content is set
+declare maintenancePageContent=''
 # command to run before deployment starts, by default runs in the project directory
 declare preDeployCommand=''
 # command to run after deployment is done, by default runs in the project directory
@@ -99,7 +105,7 @@ declare uploadsPath='~/deployer_uploads'
 # mysql server settings
 # the user to connect as to mysql
 declare dbUser=''
-# should a password be used, usefull if you dont set a password in the config and still want mysql to prompt for password
+# should a password be used, usefull if you dont set a password in this file and still want mysql to prompt for password
 declare usePassword='true'
 # set the password for mysql db, strictly speaking this isnt recommended as there are chances of exposing your password
 declare dbPassword=''
@@ -109,20 +115,31 @@ declare dbName=''
 # ----------------------------------------------------- #
 # app specific settings
 declare editor='vim'
+# allow push to master branch
+declare allowSaveToMaster=false
 # project location on SSH server
 declare remoteProjectLocation=''
-# project repo url
+# project repo url, if not set default origin url will be used
 declare repo=''
 # project web url, is used with open command
 declare webURL=''
-# change config file params, relative to the remote project location or absolute
+# change config file params, relative to the remote project location or absolute, 
+# space separated list
 declare configFiles=()
-# changes to make in config file specified, i.e ('regex' 'value')
-declare config=()
+# changes to make in config file specified, i.e ("string" "replace") 
+# i.e ("DEFINE('ROOT', __DIR__);" "DEFINE('ROOT', 'my/path');")
+# escaped characters list ', ", (, ), < >, /, <,>, ;
+# Note that . and * are not escaped and are valid regex expressions
+# Above example can be re-written as ("DEFINE('ROOT', .*" "DEFINE('ROOT', 'my/path');")
+declare config=(
+ "" ""
+)
 # log filepath for this app
 declare appLog=''
 # any command to run on the local project using the deployer dev command
 declare devStart=''
+# an alias to the command you want to set to have the tests run
+declare projectTest=''
 
 # ---------------------------------------------–------- #
 ```
