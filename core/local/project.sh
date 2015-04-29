@@ -3,6 +3,10 @@
 function Deployer_project_init() {
 	attempt 'create a new project'
 
+	# go to the home directory to make the dir, if path is not absoute, create it 
+	# in the home dir
+	cd
+
 	perform 'Create project folder'
 	if [[ -z $1 ]]; then
 		error 'Unable to initiate new project, need to specify path'
@@ -14,15 +18,14 @@ function Deployer_project_init() {
 		return
 	fi
 
-	# go to the home directory to make the dir, if path is not absoute, create it 
-	# in the home dir
-	cd
 	mkdir -p "$1"
 	performed
 
 	cd $1
 	deployer_init
 	deployer_use
+
+	info 'New project created: '$(pwd)
 }
 
 function deployer_select_project() {
