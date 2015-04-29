@@ -17,8 +17,13 @@ function deployer_dev() {
 		warning 'Nothing todo...'
 	fi
 	
-	perform 
-	performed "$devStart"
 	cd $localProjectLocation
-	$devStart
+	perform 
+
+	IFS=';' read -ra ADDR <<< "$devStart"
+	for command in "${ADDR[@]}" 
+	do
+		performed $command
+		$command
+	done
 }
