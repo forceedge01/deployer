@@ -85,17 +85,17 @@ function deloyer_config_doctor() {
 	fi
 
 	perform 'dev command'
-	if [[ -z $testStart ]]; then
+	if [[ -z $devStart ]]; then
 		warning 'No dev command, nullified project:dev'
 	else
-		performed $devStart
+		performed "$devStart"
 	fi
 
 	perform 'test command'
 	if [[ -z $testStart ]]; then
 		warning 'No test command, nullified project:test'
 	else
-		performed $testStart
+		performed "$testStart"
 	fi
 
 	warning 'Deployment settings'
