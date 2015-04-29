@@ -205,17 +205,23 @@ function deployer_local_edit_project() {
 }
 
 function Deployer_local_run() {
+	if [[ ! -d $localProjectLocation ]]; then
+		return
+	fi
+
 	if [[ -z "$1" ]]; then
 		# load libs
 		if [[ -z $localProjectLocation ]]; then
 			warning "Project Location >>> Please set project location to use deployer"
-		else
-			echo $(deployer_project_location)
-			Deployer_project_status
+			return
 		fi
+
+		echo $(deployer_project_location)
+		Deployer_project_status
 
 		return 
 	fi
+
 	warning 'Running command on local project'
 	cd $localProjectLocation
 	$1
