@@ -182,3 +182,22 @@ function Deployer_repo_url() {
 	
 	echo "$url"
 }
+
+function deployer_run_semicolon_delimited_commands() {
+	if [[ $(echo "$1" | grep ';') == '' ]]; then
+		error 'Command must end with semicolon'
+		return
+	fi
+
+	IFS=';' read -ra ADDR <<< "$1"
+	for command in "${ADDR[@]}" 
+	do
+		perform "$command"
+		$command
+		if [[ $? != 0 ]]; then
+			error 'An error occured'
+		else
+			performed "$command"
+		fi
+	done
+}

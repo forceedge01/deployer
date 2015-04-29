@@ -11,19 +11,3 @@ function Deployer_update() {
 	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags
 	performed
 }
-
-function deployer_dev() {
-	if [[ -z $devStart ]]; then
-		warning 'Nothing todo...'
-	fi
-	
-	cd $localProjectLocation
-	perform 
-
-	IFS=';' read -ra ADDR <<< "$devStart"
-	for command in "${ADDR[@]}" 
-	do
-		performed "$command"
-		$command
-	done
-}

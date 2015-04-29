@@ -171,9 +171,11 @@ function Deployer_project_checkout() {
 	
 	warning "Checking out $1"
 	if [[ $(git branch --list $1) == '' ]]; then
+		info 'New branch checkout'
 		git checkout master
 		git checkout -b $1
 	else 
+		info 'Existing branch checkout'
 		git checkout $1
 	fi
 }
@@ -247,6 +249,17 @@ function Deployer_project_test() {
 	if [[ -z $projectTest ]]; then
 		error 'No command to run'
 	else
-		$projectTest
+		cd $localProjectLocation
+		deployer_run_semicolon_delimited_commands "$projectTest"
 	fi
+}
+
+function deployer_dev() {
+	if [[ -z $devStart ]]; then
+		warning 'Nothing todo...'
+		return
+	fi
+	
+	cd $localProjectLocation
+	deployer_run_semicolon_delimited_commands "$devStart"
 }

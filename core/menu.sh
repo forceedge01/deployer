@@ -31,6 +31,8 @@ function deployMenu() {
 	printSubMenu 'checkout | ch' 'show/create/switch branches'
 	printSubMenu 'merge | mr' 'merge a branch into the current branch'
 	printSubMenu 'save | s' 'Save local project changes'
+	printSubMenu 'dev' 'Run devStart command configured in config file'
+	printSubMenu 'test' 'Run test command set in config file'
 
 	printMenu 'remote | r' 'Show remote project version'
 	printSubMenu 'init | clone' 'Initialize repository on ssh server'
@@ -60,7 +62,6 @@ function deployMenu() {
 	printSubMenu 'get'
 
 	printMenu 'logs' 'Tail remote log file'
-	printMenu 'dev' 'Run devStart command configured in config file'
 	printMenu "update | u" "Update deployer"
 	printMenu "version | v" "Display deployer version"
 	printMenu "uninstall" "uninstall deployer"
