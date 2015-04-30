@@ -173,6 +173,10 @@ function Deployer_project_checkout() {
 	if [[ $(git branch --list $1) == '' ]]; then
 		info 'New branch checkout'
 		git checkout master
+		if [[ $? != 0 ]]; then
+			error 'Unable to checkout, an error should be visible above'
+			return
+		fi
 		git checkout -b $1
 	else 
 		info 'Existing branch checkout'
