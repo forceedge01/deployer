@@ -50,7 +50,7 @@ function deployer_deploy() {
 }
 
 function deployer_pull_changes() {
-	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to udpate'
+	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to update'
 }
 
 function deployer_deploy_latest() {
