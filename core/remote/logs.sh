@@ -10,8 +10,8 @@ function Deployer_tail_logs() {
 	perform 'Tail log files'
     for logFile in "${logFiles[@]}"
 	do
-        logCommand=$logCommand"tail -f $logFile;"
+        logCommand=$logCommand" -f $logFile "
     done
     
-    deployer_ssher "$logCommand"
+    deployer_ssher "tail $logCommand"
 }
