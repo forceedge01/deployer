@@ -7,8 +7,7 @@ function Deployer_project_init() {
 	# in the home dir
 	cd
 
-	perform 'Create project folder'
-	if [[ -z $1 ]]; then
+	if [[ -z "$1" ]]; then
 		error 'Unable to initiate new project, need to specify path'
 		return
 	fi
@@ -18,10 +17,24 @@ function Deployer_project_init() {
 		return
 	fi
 
-	mkdir -p "$1"
-	performed
+	if [[ ! -z "$2" ]]; then
+		perform 'Clone repo'
+		git clone "$2" "$1"
+		performed
+		
+		cd "$1"
+		
+		perform 'Make sure master branch is checked out'
+		git checkout master
+		performed
+	else
+		perform 'Create project folder'
+		mkdir -p "$1"
+		performed
 
-	cd $1
+		cd "$1"
+	fi
+
 	deployer_init
 	deployer_use
 

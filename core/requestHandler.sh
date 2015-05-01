@@ -27,7 +27,7 @@ case "$service" in
 		# handle cases
 		case "$action" in 
 			'init' )
-				Deployer_project_init "$2";;
+				Deployer_project_init "$2" "$3";;
 			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
 			'repo' )
