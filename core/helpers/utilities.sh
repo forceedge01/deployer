@@ -207,3 +207,13 @@ function deployer_run_semicolon_delimited_commands() {
 		fi
 	done
 }
+
+function perform_command_local() {
+	perform "$1"
+	exitCode=$("$2" &>/dev/null && echo -n $?)
+	if [[ $exitCode != 0 ]]; then
+		error "$3"
+		return
+	fi
+	performed
+}

@@ -75,18 +75,18 @@ case "$service" in
 			* )
 				Deployer_addons_list;;
 		esac;;
-	'docs' | 'd' )
+	'downloads' | 'dl' )
 		# load files
-		source $DEPLOYER_LOCATION/local/docs.sh
+		source $DEPLOYER_LOCATION/local/downloads.sh
 
 		# handle cases
 		case "$action" in 
 			'open' )
-				Deployer_docs_open "$2";;
+				Deployer_downloads_open "$2";;
 			'get' )
-				Deployer_docs_get "$2";;
+				Deployer_downloads_get "$2";;
 			* )
-				Deployer_docs_list;;
+				Deployer_downloads_list;;
 		esac;;
 	'remote' | 'r' )
 		case "$action" in
