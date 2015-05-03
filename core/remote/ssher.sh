@@ -20,7 +20,12 @@ function deployer_ssher() {
 }
 
 function deployer_ssher_toDir() {
-	deployer_ssher "cd $remoteProjectLocation &> /dev/null; $1"
+	execCommand=$1
+	if [[ -z "$execCommand" ]]; then
+		execCommand='bash'
+	fi
+
+	deployer_ssher "cd $remoteProjectLocation &> /dev/null; $execCommand"
 }
 
 function deployer_ssh_setup() {
