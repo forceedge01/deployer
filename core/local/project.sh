@@ -60,9 +60,9 @@ function deployer_select_project() {
 
 	if [[ ! -d $project ]]; then
 		error 'Project not found!'
-		perform 'Remove entry from projects file'
-		sed -i'.bk' -e "$input"d "$projectsLog"
-		performed
+		# perform 'Remove entry from projects file'
+		# sed -i'.bk' -e "$input"d "$projectsLog"
+		# performed
 
 		return
 	fi
