@@ -69,7 +69,9 @@ function deployer_select_project() {
 
 	cd "$project"
 	deployer_use
-	info "Project set to: $project"
+	echo 
+	gray "Project set to: "
+	info "[$(deployer_FolderNameFromPath $project)] >>> $project"
 }
 
 function Deployer_project_update() {
