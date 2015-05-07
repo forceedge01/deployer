@@ -182,6 +182,13 @@ case "$service" in
 			* )
 				Deployer_issue_list;;
 		esac;;
+	'dev' )
+		case "$action" in 
+			'save' )
+				Deployer_save;;
+			'edit' )
+				Deployer_edit;;
+		esac;;
 	'update' | 'u' )
 		Deployer_update;;
 	'uninstall' )

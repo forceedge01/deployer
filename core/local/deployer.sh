@@ -11,3 +11,15 @@ function Deployer_update() {
 	cd $DEPLOYER_LOCATION && git pull origin && git pull origin --tags
 	performed
 }
+
+function Deployer_save() {
+	attempt 'save deployer changes'
+	cd $DEPLOYER_LOCATION
+	git add --all
+	git commit
+	git push
+}
+
+function Deployer_edit() {
+	$editor $DEPLOYER_LOCATION
+}
