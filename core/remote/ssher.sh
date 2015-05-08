@@ -61,3 +61,8 @@ function deployer_ssh_setup() {
 	fi
 	deployer_run_command 'set key in remote ssh server' "touch ~/.ssh/authorized_keys && echo $key >> ~/.ssh/authorized_keys" 'Unable to reach server!'
 }
+
+function deployer_remote_keys() {
+	attempt 'show ssh keys'
+	deployer_ssher "cat ~/.ssh/authorized_keys"
+}

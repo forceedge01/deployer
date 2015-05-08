@@ -114,6 +114,8 @@ case "$service" in
 				deployer_local_upload "$2";;
 			'get' )
 				deployer_remote_get "$2";;
+			'keys' )
+				deployer_remote_keys;;
 			'services' )
 				# load relative files
 				source $DEPLOYER_LOCATION/remote/services.sh
