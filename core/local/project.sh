@@ -287,5 +287,17 @@ function deployer_dev() {
 function Deployer_project_list() {
 	attempt 'show contents of project dir'
 	cd $localProjectLocation
-	ls -la "$1"
+	info $(pwd)/"$1"
+
+	if [[ -d $(pwd)/"$1" ]]; then
+		if [[ ! -z $1 ]]; then
+			ls -la "$1"
+		else
+			ls -la
+		fi
+	elif [[ -f $(pwd)/"$1" ]]; then
+		cat $(pwd)/"$1"
+	else
+		error "$(pwd)/$1 not found"
+	fi
 }
