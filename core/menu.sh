@@ -22,6 +22,7 @@ function deployMenu() {
 
 	printMenu 'project|p [arg]' 'Show project location or run command on project location'
 	printSubMenu 'init' 'Initiate new project'
+	printSubMenu 'list | l [path]' 'Show contents of the project directory, optional path within dir'
 	printSubMenu 'open | o | web | w' 'Open project link in browser'
 	printSubMenu 'repo' 'Open the repo url'
 	printSubMenu 'edit | e' 'Edit current project in configured editor'

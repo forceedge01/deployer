@@ -283,3 +283,9 @@ function deployer_dev() {
 	cd $localProjectLocation
 	deployer_run_semicolon_delimited_commands "$devStart" false
 }
+
+function Deployer_project_list() {
+	attempt 'show contents of project dir'
+	cd $localProjectLocation
+	ls -la "$1"
+}

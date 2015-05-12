@@ -28,6 +28,8 @@ case "$service" in
 		case "$action" in 
 			'init' )
 				Deployer_project_init "$2" "$3";;
+			'list' | 'l' )
+				Deployer_project_list "$2";;
 			'open' | 'web' | 'w' | 'o' )
 				deployer_open_web;;
 			'repo' )
