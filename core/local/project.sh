@@ -3,30 +3,28 @@
 function Deployer_project_init() {
 	attempt 'create a new project'
 
-	# go to the home directory to make the dir, if path is not absoute, create it 
-	# in the home dir
-	cd
+	# if path is not absoute, create it 
+	# in the current directory as that is what is expected
+	cd $(pwd)
 
 	if [[ -z "$1" ]]; then
 		error 'Unable to initiate new project, need to specify path'
 		return
 	fi
 
-	if [[ -d "$1" ]]; then
-		error 'Unable to instantiate new project, path already exists'
-		return
-	fi
-
 	if [[ ! -z "$2" ]]; then
 		perform 'Clone repo'
-		git clone "$2" "$1"
+		git clone "$1" "$2"
 		performed
 		
-		cd "$1"
+		cd "$2"
 		
 		perform 'Make sure master branch is checked out'
 		git checkout master
 		performed
+	elif [[ -d "$1" ]]; then
+		error 'Unable to instantiate new project, path already exists'
+		return
 	else
 		perform 'Create project folder'
 		mkdir -p "$1"
@@ -37,6 +35,7 @@ function Deployer_project_init() {
 
 	deployer_init
 	deployer_use
+	deployer_local_edit_project
 
 	info 'New project created: '$(pwd)
 }
@@ -195,7 +194,9 @@ function Deployer_project_checkout() {
 		git checkout -b $1
 	else 
 		info 'Existing branch checkout'
-		git checkout $1
+		perform_command_local 'Stash current changes' 'git stash' 'Unable to stash changes'
+		perform_command_local "Checkout $1" "git checkout $1" "Unable to checkout branch $1"
+		perform_command_local 'Re-apply stashed changes' 'git stash apply' 'Unable to apply stashed changes'
 	fi
 }
 
