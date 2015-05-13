@@ -21,7 +21,11 @@ function Deployer_issue_list() {
 		return
 	fi
 
-	cat -n $localProjectLocation/issues
+	if [[ ! -z "$1" ]]; then
+		cat -n $localProjectLocation/issues | grep "$1"
+	else
+		cat -n $localProjectLocation/issues
+	fi
 }
 
 function Deployer_issue_new() {

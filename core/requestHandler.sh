@@ -184,7 +184,7 @@ case "$service" in
 			'edit' )
 				Deployer_issue_edit;;
 			* )
-				Deployer_issue_list;;
+				Deployer_issue_list "$2";;
 		esac;;
 	'dev' )
 		case "$action" in 
