@@ -287,7 +287,6 @@ function deployer_dev() {
 
 function Deployer_project_list() {
 	attempt 'show contents of project dir'
-	deployer_project_location
 	cd $localProjectLocation
 	info $(pwd)/"$1"
 
