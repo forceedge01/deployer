@@ -24,8 +24,14 @@ function deployer_deploy() {
 		echo
 	fi
 
+	fileResult=''
 	if [[ ! -z $maintenancePageContent ]]; then
-		deployer_run_command 'Put up maintenance page' "touch index.html && echo '$maintenancePageContent' > index.html"
+		fileResult=$(deployer_ssher_toDir 'ls' | grep ^index.html$)
+		if [[ -z $fileResult ]]; then
+			deployer_run_command 'Put up maintenance page' "touch index.html && echo '$maintenancePageContent' > index.html"
+		else 
+			error 'Unable to setup maintenance page, file already exists'
+		fi
 	fi
 
 	deployer_preDeploy
@@ -42,7 +48,9 @@ function deployer_deploy() {
 	deployer_postDeploy
 
 	if [[ ! -z $maintenancePageContent ]]; then
-		deployer_run_command 'Take down maintenance page' 'rm index.html'
+		if [[ -z $fileResult ]]; then
+			deployer_run_command 'Take down maintenance page' 'rm index.html'
+		fi
 	fi
 
 	depolyer_remote_project_status
