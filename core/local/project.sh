@@ -105,6 +105,7 @@ function Deployer_project_save() {
 	cd $localProjectLocation
 	attempt 'save project'
 	branch=$(getCurrentBranchName)
+	deployer_project_location
 
 	if [[ $allowSaveToMaster == false && $branch == 'master' ]]; then
 		error 'allowSaveToMaster is set to false, cannot save to master branch. Please create another branch and save again'
@@ -286,6 +287,7 @@ function deployer_dev() {
 
 function Deployer_project_list() {
 	attempt 'show contents of project dir'
+	deployer_project_location
 	cd $localProjectLocation
 	info $(pwd)/"$1"
 
