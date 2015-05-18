@@ -12,6 +12,8 @@ case "$service" in
 		deployer_init;;
 	'log' )
 		Deployer_commit_log "$2";;
+	'log-cleanup' )
+		echo '' > $DEPLOYER_LOCATION/../logs/project-commits.log;;
 	'ssh' )
 		case "$action" in
 			'setup' )
