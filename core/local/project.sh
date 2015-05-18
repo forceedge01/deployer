@@ -157,7 +157,7 @@ function Deployer_project_save() {
     if [[ ! -f "$DEPLOYER_LOCATION"/../logs/project-commits.log ]]; then 
     	touch "$DEPLOYER_LOCATION"/../logs/project-commits.log
    	fi
-    formattedCommit="[$(date '+%Y-%m-%d %H:%M:%S')]::[$(deployer_FolderNameFromPath $localProjectLocation)] $input"
+    formattedCommit="[$(date '+%d-%m-%Y %H:%M:%S')]::[$(deployer_FolderNameFromPath $localProjectLocation)] $input"
     echo $formattedCommit >> "$DEPLOYER_LOCATION"/../logs/project-commits.log
 
    	echo "$commit"

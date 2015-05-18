@@ -77,7 +77,7 @@ readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$pr
 function Deployer_commit_log() {
 	attempt 'show all commit logs'
 	if [[ -z $1 ]]; then
-		filter=$(date '+%Y-%m-%d')
+		filter=$(date '+%d-%m-%Y')
 	else
 		filter="$1"
 	fi
