@@ -73,3 +73,14 @@ readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$pr
 		performed 'Already exists'
 	fi
 }
+
+function Deployer_commit_log() {
+	attempt 'show all commit logs'
+	if [[ -z $1 ]]; then
+		filter=$(date '+%Y-%m-%d')
+	else
+		filter="$1"
+	fi
+
+	cat -n "$DEPLOYER_LOCATION"/../logs/project-commits.log | grep "$filter"
+}

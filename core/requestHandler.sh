@@ -10,8 +10,8 @@ case "$service" in
 		deployer_use;;
 	'init' )
 		deployer_init;;
-	'logs' )
-		Deployer_tail_logs;;
+	'log' )
+		Deployer_commit_log "$2";;
 	'ssh' )
 		case "$action" in
 			'setup' )
@@ -54,6 +54,8 @@ case "$service" in
 				Deployer_project_test;;
 			'dev' )
 				deployer_dev;;
+			'logs' )
+				Deployer_tail_logs;;
 			* )
 				Deployer_local_run "$2";;
 		esac;;

@@ -151,7 +151,16 @@ function Deployer_project_save() {
 	perform 'Show branch/files'
 	git status -sb
 	readUser 'Please enter commit message: '
-    git commit -m "$input"
+	git commit -m "$input"
+
+    # Add the commit info to the commits.log
+    if [[ ! -f "$DEPLOYER_LOCATION"/../logs/project-commits.log ]]; then 
+    	touch "$DEPLOYER_LOCATION"/../logs/project-commits.log
+   	fi
+    formattedCommit="[$(date '+%Y-%m-%d %H:%M:%S')]::[$(deployer_FolderNameFromPath $localProjectLocation)] $input"
+    echo $formattedCommit >> "$DEPLOYER_LOCATION"/../logs/project-commits.log
+
+   	echo "$commit"
 	perform 'Push changes'
 	output=$(git push origin $branch)
 	if [[ $(echo $?) != 0 ]]; then
