@@ -261,7 +261,7 @@ function Deployer_local_run() {
 
 function deployer_project_location() {
 	folder=$(deployer_FolderNameFromPath $localProjectLocation)
-	gray "Project [$folder] >>> $localProjectLocation"
+	echo "Project [$folder] >>> $localProjectLocation"
 	echo
 }
 

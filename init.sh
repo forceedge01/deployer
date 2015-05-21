@@ -26,7 +26,7 @@ else
 		fi
         
         echo 'Exporting variable $project to bashrc file'
-        echo "alias project=\"cd \$($deployerAlias p | awk '{split(\$0,chunks,\" \"); print chunks[4]}')\"" >> ~/.bashrc
+        echo "alias project=\"cd \$(IFS=' ' read -ra chunks <<< $($deployerAlias p); echo ${chunks[3]})\"" >> ~/.bashrc
 
         # Change the alias inside files so it works
         sed -i'.bk' s/deployerAlias=.*/deployerAlias=$deployerAlias/ "$currentDirectory/core/loader.sh"
