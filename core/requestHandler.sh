@@ -184,7 +184,7 @@ case "$service" in
 			'list' )
 				Deployer_issue_list;;
 			'new' )
-				Deployer_issue_new "$2" "$3";;
+				Deployer_issue_new "$2" "$3" "$4";;
 			'edit' )
 				Deployer_issue_edit;;
 			* )

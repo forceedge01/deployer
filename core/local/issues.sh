@@ -50,12 +50,12 @@ function Deployer_issue_new() {
 	user=$(git config user.name)
 	performed
 
-	if [[ ! -z "$2" ]]; then
-		category="[$2]"
+	if [[ ! -z "$3" ]]; then
+		category="::[$3]"
 	fi
 
 	perform 'Store issue'
-	echo "$date [$user]::$category $1" >> ./issues
+	printf "[$1] --- $date [$user]$category\n $2\n" >> ./issues
 	performed
 }
 
