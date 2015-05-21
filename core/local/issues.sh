@@ -43,7 +43,7 @@ function Deployer_issue_new() {
 	fi
 
 	perform 'Add timestamp'
-	date=$(date)
+	date=$(date '+%a %d %h %Y %H:%M:%S')
 	performed
 
 	perform 'Add user'
