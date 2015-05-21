@@ -55,7 +55,7 @@ function Deployer_issue_new() {
 	fi
 
 	perform 'Store issue'
-	printf "[$1] --- $date [$user]$category\n $2\n" >> ./issues
+	printf "\n[$1] --- $date [$user]$category\n   $2\n" >> ./issues
 	performed
 }
 
