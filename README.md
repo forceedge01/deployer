@@ -136,10 +136,10 @@ declare config=(
 )
 # log filepath for this app
 declare logFiles=()
-# any command to run on the local project using the deployer dev command
+# any command to run on the local project using the deployer project:dev command, separate commands by ';' delimiter
 declare devStart=''
 # an alias to the command you want to set to have the tests run
-declare projectTest=''
+declare testStart=''
 
 # ---------------------------------------------–------- #
 ```
