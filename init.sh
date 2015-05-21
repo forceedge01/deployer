@@ -17,7 +17,7 @@ else
 	echo 'Checking for deployer installation...'
 
 	echo "Creating $auxilary file"
-	sudo touch $auxilary
+	touch $auxilary
 
 	if [[ ! -f /usr/bin/$deployerAlias ]]; then
 		echo 'Sorting out file permissions...'
@@ -33,10 +33,10 @@ else
 		fi
 
 		echo 'Adding alias reload to bashrc'
-		echo 'alias reload="source ~/.bash_profile"' >> $auxilary
+		echo "alias reload='source $mainFile'" >> $auxilary
         
         echo 'Adding alias project to bashrc'
-        echo "alias project=\"reload && cd \$(IFS=' ' read -ra chunks <<< $($deployerAlias p); echo ${chunks[3]})\"" >> $auxilary
+        echo "alias project=\"reload && cd \$(IFS=' ' read -ra chunks <<< \$($deployerAlias p); echo \${chunks[3]})\"" >> $auxilary
 
         # Change the alias inside files so it works
         sed -i'.bk' s/deployerAlias=.*/deployerAlias=$deployerAlias/ "$currentDirectory/core/loader.sh"
