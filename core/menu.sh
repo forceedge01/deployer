@@ -55,7 +55,7 @@ function deployMenu() {
 	printMenu 'issue | issues | i'
 	printSubMenu 'init'
 	printSubMenu 'list'
-	printSubMenu 'new'
+	printSubMenu 'new [title] [description] [group]'
 	printSubMenu 'edit'
 
 	printMenu 'docs | d'
