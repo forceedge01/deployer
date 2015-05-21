@@ -24,9 +24,12 @@ else
 			echo 'Setup current project'
 			cp $currentDirectory/config/$projectFileDistributable $currentDirectory/config/$projectFile
 		fi
+
+		echo 'Adding alias reload to bashrc'
+		echo 'alias reload="source ~/.bash_profile"' >> ~/.bashrc
         
-        echo 'Exporting variable $project to bashrc file'
-        echo "alias project=\"cd \$(IFS=' ' read -ra chunks <<< $($deployerAlias p); echo ${chunks[3]})\"" >> ~/.bashrc
+        echo 'Adding alias project to bashrc'
+        echo "alias project=\"reload && cd \$(IFS=' ' read -ra chunks <<< $($deployerAlias p); echo ${chunks[3]})\"" >> ~/.bashrc
 
         # Change the alias inside files so it works
         sed -i'.bk' s/deployerAlias=.*/deployerAlias=$deployerAlias/ "$currentDirectory/core/loader.sh"
@@ -43,13 +46,12 @@ else
 			echo '# Deployer aliases' >> ~/.bashrc
 			echo "alias $deployerAlias='bash $deployerAlias'" >> ~/.bashrc
 			echo '# End of deployer aliases and functions' >> ~/.bashrc
-			echo 'Make sure the bashrc file is sourced before using the deployer command'
-			source ~/.bashrc;;
+			echo 'Make sure the bashrc file is sourced before using the deployer command';;
 		* )
 			echo 'Unsupported OS';;
 	esac
 
+	source ~/.bashrc
 	echo "Use the '$deployerAlias' command to get started..."
 fi
-
 echo 'Done.'

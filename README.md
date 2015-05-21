@@ -144,5 +144,13 @@ declare testStart=''
 # ---------------------------------------------–------- #
 ```
 
+## Useful Aliases
+As part of deployer, you get the following aliases:
+- relaod
+Reload will reload the ~/.bashrc file for you.
+
+- project
+The project alias can be used to switch immediate to the the current project directory being used by deployer. 
+
 ## Dependencies
 The local machine and remote server must have git installed.
