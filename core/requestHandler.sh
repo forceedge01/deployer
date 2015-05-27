@@ -41,7 +41,7 @@ case "$service" in
 			'update' | 'u' )
 				Deployer_project_update;;
 			'save' | 's' )
-				Deployer_project_save;;
+				Deployer_project_save "$2";;
 			'diff' | 'd' )
 				Deployer_project_diff "$2";;
 			'status' | 'st' )

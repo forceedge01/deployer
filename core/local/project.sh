@@ -106,6 +106,7 @@ function Deployer_project_save() {
 	attempt 'save project'
 	branch=$(getCurrentBranchName)
 	deployer_project_location
+	commitMessage="$1"
 
 	if [[ $allowSaveToMaster == false && $branch == 'master' ]]; then
 		error 'allowSaveToMaster is set to false, cannot save to master branch. Please create another branch and save again'
@@ -150,7 +151,12 @@ function Deployer_project_save() {
 	performed
 	perform 'Show branch/files'
 	git status -sb
-	readUser 'Please enter commit message: '
+	
+	if [[ -z "$commitMessage" ]]; then
+		readUser 'Please enter commit message: '
+		commitMessage="$input"
+	fi
+
 	git commit -m "$input"
 
     # Add the commit info to the commits.log
