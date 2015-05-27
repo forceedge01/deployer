@@ -204,9 +204,17 @@ function Deployer_project_checkout() {
 		git checkout -b $1
 	else 
 		info 'Existing branch checkout'
-		perform_command_local 'Stash current changes' 'git stash' 'Unable to stash changes'
+		# Check if there are any changes on branch, if so stash them and re-apply later
+		changes=$(git status -s)
+		if [[ ! -z $changes ]]; then
+			perform_command_local 'Stash current changes' 'git stash' 'Unable to stash changes'
+		fi
+		
 		perform_command_local "Checkout $1" "git checkout $1" "Unable to checkout branch $1"
-		perform_command_local 'Re-apply stashed changes' 'git stash apply' 'Unable to apply stashed changes'
+
+		if [[ ! -z $changes ]]; then
+			perform_command_local 'Re-apply stashed changes' 'git stash apply' 'Unable to apply stashed changes'
+		fi
 	fi
 }
 
