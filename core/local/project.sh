@@ -215,7 +215,7 @@ function Deployer_project_checkout() {
 		if [[ ! -z $changes ]]; then
 			perform_command_local 'Stash current changes' 'git stash' 'Unable to stash changes'
 		fi
-		
+
 		perform_command_local "Checkout $1" "git checkout $1" "Unable to checkout branch $1"
 
 		if [[ ! -z $changes ]]; then

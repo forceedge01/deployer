@@ -210,10 +210,14 @@ function deployer_run_semicolon_delimited_commands() {
 
 function perform_command_local() {
 	perform "$1"
-	exitCode=$("$2" &>/dev/null && echo -n $?)
+	exitCode=$($2 &>/dev/null && echo -n $?)
 	if [[ $exitCode != 0 ]]; then
 		error "$3"
 		return
 	fi
 	performed
+}
+
+function yesterday() {
+	date -v-1d '+%d-%m-%Y'
 }

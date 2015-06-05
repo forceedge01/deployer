@@ -79,7 +79,11 @@ function Deployer_commit_log() {
 	if [[ -z $1 ]]; then
 		filter=$(date '+%d-%m-%Y')
 	else
-		filter="$1"
+		if [[ "$1" == 'yesterday' ]]; then
+			filter=$(yesterday)
+		else
+			filter="$1"
+		fi
 	fi
 
 	cat -n "$DEPLOYER_LOCATION"/../logs/project-commits.log | grep "$filter"
