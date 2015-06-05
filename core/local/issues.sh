@@ -57,6 +57,10 @@ function Deployer_issue_new() {
 	perform 'Store issue'
 	printf "\n[$1]$category --- $date [$user]\n   $2\n" >> ./issues
 	performed
+
+	perform 'Save issue'
+	$(git add ./issues && git commit -m 'Issues update, $1' &> /dev/null && git push &> /dev/null)
+	performed
 }
 
 function Deployer_issue_edit() {
