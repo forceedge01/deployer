@@ -35,6 +35,7 @@ function Deployer_project_init() {
 
 	deployer_init
 	deployer_use
+	source $projectFile
 	deployer_local_edit_project
 
 	info 'New project created: '$(pwd)
@@ -113,6 +114,10 @@ function Deployer_project_save() {
 
 		return
 	fi
+
+	if [[ -z $remote ]]; then
+    	remote='origin'
+    fi
 	
 	changes=$(git status -s)
 	if [[ -z $changes ]]; then
@@ -126,7 +131,7 @@ function Deployer_project_save() {
 			if [[ $(userChoice) == 'Y' ]]; then
 				echo
 				perform 'Push local changes'
-				git push
+				$(git push $remote $branch)
 				result=$?
 			fi
 			echo
@@ -168,7 +173,7 @@ function Deployer_project_save() {
 
    	echo "$commit"
 	perform 'Push changes'
-	output=$(git push origin $branch)
+	output=$(git push $remote $branch)
 	if [[ $(echo $?) != 0 ]]; then
 		error 'Unable to push, aborting...'
 		return
