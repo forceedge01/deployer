@@ -170,7 +170,7 @@ case "$service" in
 				deloyer_config_doctor;;
 			* )
 				echo 'Displaying project file...'; 
-				cat $localProjectLocation/$deployerFile;
+				cat "$localProjectLocation/$deployerFile";
 				echo '';;
 		esac;;
 	'issue' | 'issues' | 'i' )
