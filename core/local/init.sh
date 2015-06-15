@@ -86,5 +86,7 @@ function Deployer_commit_log() {
 		fi
 	fi
 
+	info "Applying filter: $filter"
+
 	cat -n "$DEPLOYER_LOCATION"/../logs/project-commits.log | grep "$filter"
 }
