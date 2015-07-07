@@ -29,12 +29,12 @@ function loadDeployerConfigs() {
 		return
 	fi
 
-	source $localProjectLocation/$deployerFile
+	source "$localProjectLocation/$deployerFile"
 }
 
 function setDefaults() {
 	if [[ -z $repo ]]; then
-		repo=$(cd $localProjectLocation && git config --get remote.origin.url)
+		repo=$(cd "$localProjectLocation" && git config --get remote.origin.url)
 	fi
 }
 

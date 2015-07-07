@@ -73,7 +73,7 @@ function deployer_select_project() {
 }
 
 function Deployer_project_update() {
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	branch=$(getCurrentBranchName)
 	attempt "update current branch: $branch"
 
@@ -101,7 +101,7 @@ function Deployer_project_update() {
 }
 
 function Deployer_project_save() {
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	attempt 'save project'
 	branch=$(getCurrentBranchName)
 	deployer_project_location
@@ -189,12 +189,12 @@ function Deployer_project_save() {
 
 function Deployer_project_diff() {
 	warning "showing diff on project"
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	git diff $1
 }
 
 function Deployer_project_checkout() {
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 
 	if [[ -z $1 ]]; then
 		warning 'Showing branches'
@@ -229,7 +229,7 @@ function Deployer_project_checkout() {
 
 function Deployer_project_status() {
 	warning "Show status of project"
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	git status -sb
 }
 
@@ -250,17 +250,17 @@ function deployer_local_edit_project() {
 		editor='vim'
 	fi
 
-	$editor $localProjectLocation
+	$editor "$localProjectLocation"
 }
 
 function Deployer_local_run() {
-	if [[ ! -d $localProjectLocation ]]; then
+	if [[ ! -d "$localProjectLocation" ]]; then
 		return
 	fi
 
 	if [[ -z "$1" ]]; then
 		# load libs
-		if [[ -z $localProjectLocation ]]; then
+		if [[ -z "$localProjectLocation" ]]; then
 			warning "Project Location >>> Please set project location to use deployer"
 			return
 		fi
@@ -272,12 +272,12 @@ function Deployer_local_run() {
 	fi
 
 	warning 'Running command on local project'
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	$1
 }
 
 function deployer_project_location() {
-	folder=$(deployer_FolderNameFromPath $localProjectLocation)
+	folder=$(deployer_FolderNameFromPath "$localProjectLocation")
 	echo "Project [$folder] >>> $localProjectLocation"
 	echo
 }
@@ -296,7 +296,7 @@ function Deployer_project_test() {
 	if [[ -z $testStart ]]; then
 		error 'No command to run'
 	else
-		cd $localProjectLocation
+		cd "$localProjectLocation"
 		deployer_run_semicolon_delimited_commands "$testStart" true
 	fi
 }
@@ -307,13 +307,13 @@ function deployer_dev() {
 		return
 	fi
 	
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	deployer_run_semicolon_delimited_commands "$devStart" false
 }
 
 function Deployer_project_list() {
 	attempt 'show contents of project dir'
-	cd $localProjectLocation
+	cd "$localProjectLocation"
 	info $(pwd)/"$1"
 
 	if [[ -d $(pwd)/"$1" ]]; then
