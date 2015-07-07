@@ -35,8 +35,6 @@ function Deployer_project_init() {
 
 	deployer_init
 	deployer_use
-	source $projectFile
-	deployer_local_edit_project
 
 	info 'New project created: '$(pwd)
 }
