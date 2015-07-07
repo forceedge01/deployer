@@ -41,6 +41,50 @@ function Deployer_project_init() {
 	info 'New project created: '$(pwd)
 }
 
+function Deployer_project_destroy() {
+	warning 'About to destroy project'
+
+	warning 'Select a project'
+	deployer_project_location
+	echo
+	cat -n $projectsLog
+	readUser 'Enter project number: '
+
+	project=$(awk "NR==$input" $projectsLog)
+
+	if [[ -z $project ]]; then
+		error "Could not find project number $input"
+
+		return
+	fi
+
+	# Confirm removal of project
+	echo -n "Are you sure you want to destroy the project [$project]? [y/n]: "
+	answer=$(userChoice)
+	if [[ $answer != 'Y' ]]; then
+		return 1
+	fi
+	echo
+	echo
+
+	# Get project path
+	projectPath=$(echo $project | awk -F'] - ' '{print $2}')
+
+	# Delete line from the projects file
+	perform 'remove project from log'
+	sed -i".bk" -e "$input"d "$projectsLog"	
+	performed
+	
+	# Delete project from local system
+	perform 'Remove project if exists'
+	if [[ -d $projectPath ]]; then
+		rm -rf $projectPath
+	fi
+	performed
+
+	info 'Project Destroyed'
+}
+
 function deployer_select_project() {
 	warning 'Select a project'
 	deployer_project_location
@@ -56,9 +100,9 @@ function deployer_select_project() {
 		return
 	fi
 	
-	project=$(echo $project | awk -F'] - ' '{print $2}')
+	projectPath=$(echo $project | awk -F'] - ' '{print $2}')
 
-	if [[ ! -d $project ]]; then
+	if [[ ! -d $projectPath ]]; then
 		error 'Project not found!'
 		# perform 'Remove entry from projects file'
 		# sed -i'.bk' -e "$input"d "$projectsLog"
@@ -67,11 +111,11 @@ function deployer_select_project() {
 		return
 	fi
 
-	cd "$project"
+	cd "$projectPath"
 	deployer_use
 	echo 
 	gray "Project set to: "
-	info "[$(deployer_FolderNameFromPath $project)] >>> $project"
+	info "[$(deployer_FolderNameFromPath $projectPath)] >>> $projectPath"
 }
 
 function Deployer_project_update() {

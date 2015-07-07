@@ -58,6 +58,8 @@ case "$service" in
 				deployer_dev;;
 			'logs' )
 				Deployer_tail_logs;;
+			'destroy' )
+				Deployer_project_destroy;;
 			* )
 				Deployer_local_run "$2";;
 		esac;;
