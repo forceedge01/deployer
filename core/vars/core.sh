@@ -7,3 +7,4 @@ declare deploymentMethod='git'
 declare addonsFolder='addons'
 declare projectsLog="$DEPLOYER_LOCATION/../logs/projects.log"
 declare downloadsFolder="downloads"
+declare sshKeyFile=$HOME'/.ssh/id_rsa.pub'

@@ -28,6 +28,30 @@ function deployer_ssher_toDir() {
 	deployer_ssher "cd $remoteProjectLocation &> /dev/null; $execCommand"
 }
 
+function Deployer_ssh_revoke() {
+	attempt 'revoke access'
+
+	if [[ ! -f "$sshKeyFile" ]]; then
+		error 'sshKey file not found at: '$sshKeyFile', please set the sshKeyFile variable in deploy.conf to specify where it is'
+
+		return
+	fi
+
+	key=$(cat $sshKeyFile)
+
+	if [[ -z "$key" ]]; then
+		error 'No key found at '$sshKeyFile ', if the is set in a different file, please set the sshKeyFile variable in your config file'
+
+		return
+	fi
+
+	perform 'Remove ssh key from remote server'
+	deployer_ssher "sed -i'.bk' '\|$key|d' \$HOME/.ssh/authorized_keys"
+	performed	
+
+	info 'SSH access revoked'
+}
+
 function deployer_ssh_setup() {
 	attempt 'setup ssh config on remote server'
 	perform 'check if .ssh directory exists'

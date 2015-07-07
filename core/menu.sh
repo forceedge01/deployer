@@ -11,6 +11,9 @@ function deployMenu() {
 	printMenu 'init [path/gitrepo [path]]' "Create $deployerFile file for current directory"
 	printMenu 'use' "Use the current directories $deployerFile file for deployer"
 	printMenu "ssh [arg]" "log into ssh machine or run command on remote machine"
+	printSubMenu 'setup' 'Setup ssh key on remote server'
+	printSubMenu 'revoke' 'Revoke ssh access from remote server'
+
 	printMenu "sshp [arg]" "ssh commands over to ssh server on the project directory"
 
 	printMenu "deploy | d" "Deploy latest master branch on remote server"

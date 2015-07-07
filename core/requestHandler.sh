@@ -18,6 +18,8 @@ case "$service" in
 		case "$action" in
 			'setup' )
 				deployer_ssh_setup;;
+			'revoke' )
+				Deployer_ssh_revoke;;
 			* )
 				deployer_ssher "$2";;
 		esac;;
