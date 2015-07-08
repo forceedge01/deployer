@@ -160,6 +160,8 @@ function Deployer_project_save() {
 	if [[ -z $remote ]]; then
     	remote='origin'
     fi
+
+    info 'Push to remote channel: '$remote
 	
 	changes=$(git status -s)
 	if [[ -z $changes ]]; then
