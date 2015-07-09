@@ -34,6 +34,8 @@ function deployer_deploy() {
 		fi
 	fi
 
+	info "Updating path: $remoteProjectLocation"
+
 	deployer_preDeploy
 	
 	if [[ -z "$1" || "$1" == 'master' ]]; then
