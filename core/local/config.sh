@@ -54,6 +54,9 @@ function deloyer_config_doctor() {
 
 	warning 'App specific settings'
 
+	perform 'Push to remote channel: '
+	performed "$remote (git push $remote)"
+
 	perform 'Remote project location'
 	if [[ -z $remoteProjectLocation ]]; then
 		warning 'Not set, using home dir'
