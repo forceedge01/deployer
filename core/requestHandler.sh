@@ -34,8 +34,10 @@ case "$service" in
 				Deployer_project_init "$2" "$3";;
 			'list' | 'l' )
 				Deployer_project_list "$2";;
-			'open' | 'web' | 'w' | 'o' )
+			'web' | 'w' )
 				deployer_open_web;;
+			'open' | 'o' )
+				deployer_open_dir;;
 			'repo' )
 				open $(Deployer_repo_url);;
 			'edit' | 'e' )

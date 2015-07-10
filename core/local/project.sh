@@ -328,6 +328,14 @@ function deployer_project_location() {
 	echo
 }
 
+function deployer_open_dir() {
+	if [[ -z "$localProjectLocation" ]]; then
+		error 'localProjectLocation var is not set in config file'
+	else
+		open $localProjectLocation
+	fi
+}
+
 function deployer_open_web() {
 	if [[ ! -z "$webURL" ]]; then 
 		open $webURL
