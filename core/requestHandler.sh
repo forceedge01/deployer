@@ -69,7 +69,7 @@ case "$service" in
 			* )
 				Deployer_local_run "${@:2}";;
 		esac;;
-	'projects' | 'ps' )
+	'projects' | 'ps' | 'list' )
 		# load relative files
 		source $DEPLOYER_LOCATION/local/project.sh
 		deployer_select_project "$2";;
