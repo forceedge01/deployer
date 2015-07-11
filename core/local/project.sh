@@ -83,6 +83,43 @@ function Deployer_project_destroy() {
 	info 'Project Destroyed'
 }
 
+function Deployer_project_remove() {
+	warning 'remove project'
+
+	warning 'Select a project'
+	deployer_project_location
+	echo
+	cat -n $projectsLog
+	readUser 'Enter project number: '
+
+	project=$(awk "NR==$input" $projectsLog)
+
+	if [[ -z $project ]]; then
+		error "Could not find project number $input"
+
+		return
+	fi
+
+	# Confirm removal of project
+	echo -n "Are you sure you want to remove the project [$project]? This will not remove it from your system, use project:destroy for that. [y/n]: "
+	answer=$(userChoice)
+	if [[ $answer != 'Y' ]]; then
+		return 1
+	fi
+	echo
+	echo
+
+	# Get project path
+	projectPath=$(echo $project | awk -F'] - ' '{print $2}')
+
+	# Delete line from the projects file
+	perform 'remove project from log'
+	sed -i".bk" -e "$input"d "$projectsLog"	
+	performed
+
+	info 'Project removed'
+}
+
 function deployer_select_project() {
 	warning 'Select a project'
 	deployer_project_location
@@ -304,7 +341,7 @@ function Deployer_local_run() {
 		return
 	fi
 
-	if [[ -z "$1" ]]; then
+	if [[ -z "$@" ]]; then
 		# load libs
 		if [[ -z "$localProjectLocation" ]]; then
 			warning "Project Location >>> Please set project location to use deployer"
@@ -319,7 +356,7 @@ function Deployer_local_run() {
 
 	warning 'Running command on local project'
 	cd "$localProjectLocation"
-	$1
+	"$@"
 }
 
 function deployer_project_location() {

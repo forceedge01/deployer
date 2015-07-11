@@ -6,11 +6,11 @@ function deployer_ssher() {
 		return
 	fi
 
-	if [[ ! -z $1 ]]; then
+	if [[ ! -z "$@" ]]; then
 		if [[ $verbose == 1 ]]; then
-			echo "Executing '$1' on '$sshServer'..."
+			echo "Executing '$@' on '$sshServer'..."
 		fi
-		ssh -t $username@$sshServer "$1" 2> /dev/null
+		ssh -t $username@$sshServer "$@" 2> /dev/null
 		
 		return 0
 	fi
@@ -20,7 +20,7 @@ function deployer_ssher() {
 }
 
 function deployer_ssher_toDir() {
-	execCommand=$1
+	execCommand="$@"
 	if [[ -z "$execCommand" ]]; then
 		execCommand='bash'
 	fi

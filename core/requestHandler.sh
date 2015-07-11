@@ -21,10 +21,10 @@ case "$service" in
 			'revoke' )
 				Deployer_ssh_revoke;;
 			* )
-				deployer_ssher "$2";;
+				deployer_ssher "${@:2}";;
 		esac;;
 	'sshp' )
-		deployer_ssher_toDir "$2";;
+		deployer_ssher_toDir "${@:2}";;
 	'project' | 'p' )
 		# load relative files
 		source $DEPLOYER_LOCATION/local/project.sh
@@ -64,8 +64,10 @@ case "$service" in
 				Deployer_tail_logs;;
 			'destroy' )
 				Deployer_project_destroy;;
+			'remove' )
+				Deployer_project_remove;;
 			* )
-				Deployer_local_run "$2";;
+				Deployer_local_run "${@:2}";;
 		esac;;
 	'projects' | 'ps' )
 		# load relative files
