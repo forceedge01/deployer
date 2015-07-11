@@ -37,9 +37,11 @@ function deployer_deploy() {
 	info "Updating path: $remoteProjectLocation"
 
 	deployer_preDeploy
+	# this is a special variable used by the deployer_run_command, it will set it to 0 if the command was successful
+	success=1
 	
 	if [[ -z "$1" || "$1" == 'master' ]]; then
-		deployer_pull_changes "master"
+		deployer_run_command "Updating remote 'master'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to update'
 	else
 		deployer_run_command 'Update remote server' 'git fetch --tags; git fetch origin' 'Unable to get tags'
 		deployer_run_command "Checkout tag/branch '$1'" "git checkout $1" 'Unable to checkout branch'
@@ -56,11 +58,15 @@ function deployer_deploy() {
 	fi
 
 	depolyer_remote_project_status
-	deployer_os_notification "$branch deployed successfully"
+	if [[ $success == 0 ]]; then
+		deployer_os_notification "$branch deployed successfully"
+	else
+		deployer_os_notification "Unable to deploy $branch"
+	fi
 }
 
 function deployer_pull_changes() {
-	deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to update'
+	echo $(deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to update')
 }
 
 function deployer_deploy_latest() {
@@ -91,6 +97,9 @@ function deployer_deploy_latest() {
 
 	performed "$latestTag"
 	deployer_remote_update
+
+	success=1
+	
 	deployer_run_command "Deploy tag $latestTag" "git checkout $latestTag" "Unable to checkout $latestTag"
 	# perform "Deploy tag $latestTag"
 	# deployer_ssher_toDir "git checkout $latestTag"
@@ -98,7 +107,12 @@ function deployer_deploy_latest() {
 	alterConfigFiles
 	deployer_postDeploy
 	depolyer_remote_project_status
-	deployer_os_notification "Latest tag deployed successfully"
+
+	if [[ $success == 0 ]]; then
+		deployer_os_notification "Latest tag deployed successfully"
+	else
+		deployer_os_notification "Unable to deploy"
+	fi
 }
 
 function deployer_preDeploy() {

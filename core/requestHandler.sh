@@ -73,13 +73,6 @@ case "$service" in
 		# load relative files
 		source $DEPLOYER_LOCATION/local/project.sh
 		deployer_select_project "$2";;
-	'deploy' | 'd' )
-		case "$2" in 
-			'latest' )
-				deployer_deploy_latest;;
-			* )
-				deployer_deploy "$2";;
-		esac;;
 	'addons' )
 		# load files
 		source $DEPLOYER_LOCATION/local/addons.sh
@@ -106,10 +99,17 @@ case "$service" in
 			* )
 				Deployer_downloads_list;;
 		esac;;
-	'remote' | 'r' )
+	'remote' | 'r' | 'staging' )
 		case "$action" in
 			'init' | "clone" )
 				deployer_remote_init;;
+			'deploy' | 'd' )
+				case "$2" in 
+					'latest' )
+						deployer_deploy_latest;;
+					* )
+						deployer_deploy "$2";;
+				esac;;
 			'reclone' )
 				deployer_reclone;;
 			'update' )

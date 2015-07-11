@@ -117,22 +117,26 @@ function deployer_os_notification() {
 	esac
 }
 
+# use the success variable when calling this function to determine 
+# whether or not the call was successful
 function deployer_run_command() {
 	perform "$1"
 	if [[ $verbose == 1 ]]; then
 		deployer_ssher_toDir "$2"
-		return 0
+		success=0
 	fi
 	if [[ $3 == 1 ]]; then
 		deployer_ssher_toDir "$2"
-		return 0
+		success=0
 	fi
 
 	result=$(deployer_ssher_toDir "($2) &>/dev/null && echo -n $?")
 	if [[ $result == 0 ]]; then
 		performed
+		success=0
 	else
 		error "$3"
+		success=1
 	fi
 }
 
