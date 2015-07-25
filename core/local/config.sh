@@ -40,6 +40,8 @@ function deloyer_config_doctor() {
 	    fi
     fi
 
+    deployer_check_depenedencies
+
 	perform 'username for SSH server set'
 	if [[ -z "$username" ]]; then
 		error 'username var not set!'

@@ -35,6 +35,8 @@ declare permissiveDeployment=false
 declare downloadsPath='~/deployer_downloads'
 # set uploads folder for deployer
 declare uploadsPath='~/deployer_uploads'
+# components that should be checked when deploying e.g (php=5.5 git=1.7)
+declare dependencies=()
 
 # ---------------------------------------------–------- #
 
