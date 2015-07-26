@@ -118,16 +118,55 @@ function deployer_deploy_latest() {
 function deployer_preDeploy() {
 	warning 'Pre-deploy: check for dependencies'
 
-	deployer_check_depenedencies
+	deployer_check_depenedencies_remote
 
 	if [[ ! -z $preDeployCommand ]]; then
-		deployer_run_command 'Run pre-deploy commands' "$preDeployCommand" 'Unable to run preDeployCommands'
-		# perform 'Run pre-deploy commands: '
-		# deployer_ssher_toDir "$preDeployCommand"
+		performed 'Pre-deploy commands'
+		deployer_run_semicolon_delimited_commands "$preDeployCommand" true true
+		performed 'End of pre-deploy commands'
 	fi
 }
 
-function deployer_check_depenedencies()
+function deployer_check_depenedencies_local() 
+{
+	if [[ -z $dependencies ]]; then
+		info 'No dependencies specified'
+	else
+		for dependency in "${dependencies[@]}"
+		do
+			perform 'Check '$dependency
+			# Split based on '='
+			IFS='=' read -ra ADDR <<< "$dependency"
+			
+			# Check if '=' was provided, if not just check if the binary exists
+			if [[ -z ${ADDR[1]} ]]; then
+				cmd="command -v ${ADDR[0]}"
+			else	
+				cmd="${ADDR[0]} --version"
+			fi
+
+			# Run command on remote server
+			output=$($cmd)
+
+			if [[ ! -z "${ADDR[1]}" ]]; then
+				check=$(echo "$output" | grep ${ADDR[1]})
+			else
+				# output empty means that the binary was not found
+				check=$output
+			fi
+		    
+		    # Check output of command
+		    # Output empty means binary not found
+		    if [[ -z $check ]]; then
+		    	error "Not found, output from server: $output"
+		    else
+		    	performed
+		    fi
+		done
+	fi
+}
+
+function deployer_check_depenedencies_remote()
 {
 	if [[ -z $dependencies ]]; then
 		info 'No dependencies specified'
@@ -168,9 +207,9 @@ function deployer_check_depenedencies()
 
 function deployer_postDeploy() {
 	if [[ ! -z $postDeployCommand ]]; then
-		deployer_run_command 'Run post-deploy commands' "$postDeployCommand" 'Unable to run postDeployCommands'
-		# perform 'Run post-deploy commands: '
-		# deployer_ssher_toDir "$postDeployCommand"
+		performed 'Post-deploy commands'
+		deployer_run_semicolon_delimited_commands "$postDeployCommand" true true
+		performed 'End of post-deploy commands'
 	fi
 }
 

@@ -40,14 +40,18 @@ function deloyer_config_doctor() {
 	    fi
     fi
 
-    deployer_check_depenedencies
-
 	perform 'username for SSH server set'
 	if [[ -z "$username" ]]; then
 		error 'username var not set!'
     else
 	    performed
     fi
+
+    warning 'Checking local environment dependencies'
+    deployer_check_depenedencies_local
+    
+    warning 'Checking remote environment dependencies'
+    deployer_check_depenedencies_remote
 
 	warning 'SSH debug Settings'
 

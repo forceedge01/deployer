@@ -121,13 +121,10 @@ function deployer_os_notification() {
 # whether or not the call was successful
 function deployer_run_command() {
 	perform "$1"
-	if [[ $verbose == 1 ]]; then
+	if [[ $verbose == 1 || $3 == 1 ]]; then
 		deployer_ssher_toDir "$2"
 		success=0
-	fi
-	if [[ $3 == 1 ]]; then
-		deployer_ssher_toDir "$2"
-		success=0
+		return
 	fi
 
 	result=$(deployer_ssher_toDir "($2) &>/dev/null && echo -n $?")
@@ -194,20 +191,28 @@ function deployer_run_semicolon_delimited_commands() {
 	fi
 
 	breakOnFailure=$2
+	remote=$3
 
 	IFS=';' read -ra ADDR <<< "$1"
 	for command in "${ADDR[@]}" 
 	do
-		perform "$command"
-		$command
-		if [[ $? != 0 ]]; then
-			error 'An error occured'
-
-			if [[ $breakOnFailure == true ]]; then
-				return
-			fi
+		if [[ $remote == true ]]; then
+			verbose=1
+			deployer_run_command "$command" "$command" "Unable to run command"
+			verbose=0
 		else
-			performed "$command"
+			perform "$command"
+			$command
+
+			if [[ $? != 0 ]]; then
+				error 'An error occured'
+
+				if [[ $breakOnFailure == true ]]; then
+					return
+				fi
+			else
+				performed "$command"
+			fi
 		fi
 	done
 }
