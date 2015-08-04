@@ -194,6 +194,10 @@ function Deployer_project_save() {
 		return
 	fi
 
+	if [[ ! -z $testStart ]]; then
+		Deployer_project_test
+	fi
+
 	if [[ -z $remote ]]; then
     	remote='origin'
     fi
