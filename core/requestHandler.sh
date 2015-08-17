@@ -120,11 +120,9 @@ case "$service" in
 				deployer_remote_status;;
 			'download' | 'downloads')
 				source $DEPLOYER_LOCATION/remote/download_upload.sh
-
 				deployer_remote_download "$2";;
 			'upload' | 'uploads' )
 				source $DEPLOYER_LOCATION/remote/download_upload.sh
-				
 				deployer_local_upload "$2";;
 			'get' )
 				deployer_remote_get "$2";;

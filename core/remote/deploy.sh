@@ -7,13 +7,18 @@ function deployer_deploy() {
 		return
 	fi
 
-	if [[ -z "$1" || "$1" == 'master' ]]; then
-		branch='latest master'
-		attempt "deploy latest from master branch"
-	else
-		branch="$1"
-		attempt "deploy '$1'"
+    branch=$1
+
+    if [[ "$branch" == '--force' ]]; then
+       permissiveDeployment=true
+       branch='master'
+    fi
+
+	if [[ -z "$branch" || "$branch" == 'master' ]]; then
+		branch='master'
 	fi
+
+    attempt "deploy '$branch'"
 
 	if [[ $permissiveDeployment != true ]]; then
 		echo -n 'Are you sure you want to continue? [y/n]: '
@@ -39,13 +44,13 @@ function deployer_deploy() {
 	deployer_preDeploy
 	# this is a special variable used by the deployer_run_command, it will set it to 0 if the command was successful
 	success=1
-	
-	if [[ -z "$1" || "$1" == 'master' ]]; then
-		deployer_run_command "Updating remote 'master'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to update'
+
+    if [[ "$branch" == 'master' ]]; then
+		deployer_run_command "Updating remote 'master'" "git checkout . && git checkout $branch &> /dev/null && git pull origin $branch" 'Unable to update'
 	else
 		deployer_run_command 'Update remote server' 'git fetch --tags; git fetch origin' 'Unable to get tags'
-		deployer_run_command "Checkout tag/branch '$1'" "git checkout $1" 'Unable to checkout branch'
-		deployer_run_command 'Update remote server codebase if needed' "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $1" 'Not needed'
+		deployer_run_command "Checkout tag/branch '$branch'" "git checkout $branch" 'Unable to checkout branch'
+		deployer_run_command 'Update remote server codebase if needed' "[[ $(git describe --exact-match HEAD &>/dev/null; echo $?) != 0 ]] && git pull origin $branch" 'Not needed'
 	fi
 
 	alterConfigFiles
