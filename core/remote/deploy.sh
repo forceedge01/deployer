@@ -70,6 +70,18 @@ function deployer_deploy() {
 	fi
 }
 
+function deployer_remote_checkout() {
+	info 'Checkout branch on remote'
+
+	if [[ -z "$1" ]]; then
+		error 'Must provide branch name'
+
+		return
+	fi
+
+	deployer_run_command "Checking out $1" "git checkout . && git fetch origin && git checkout $1 && git pull origin $1" 'Unable to checkout'
+}
+
 function deployer_pull_changes() {
 	echo $(deployer_run_command "Updating remote '$1'" "git checkout . && git checkout $1 &> /dev/null && git pull origin $1" 'Unable to update')
 }

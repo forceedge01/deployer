@@ -16,9 +16,7 @@ function Deployer_project_init() {
 		perform 'Clone repo'
 		git clone "$1" "$2"
 		performed
-		
 		cd "$2"
-		
 		perform 'Make sure master branch is checked out'
 		git checkout master
 		performed
@@ -72,7 +70,7 @@ function Deployer_project_destroy() {
 	perform 'remove project from log'
 	sed -i".bk" -e "$input"d "$projectsLog"	
 	performed
-	
+
 	# Delete project from local system
 	perform 'Remove project if exists'
 	if [[ -d $projectPath ]]; then
@@ -123,18 +121,22 @@ function Deployer_project_remove() {
 function deployer_select_project() {
 	warning 'Select a project'
 	deployer_project_location
-	echo
-	cat -n $projectsLog
-	readUser 'Enter project number: '
+    if [[ -z $1 ]]; then
+	    echo
+	    cat -n $projectsLog
+	    readUser 'Enter project number: '
+    else
+        input=$1
+    fi
 
-	project=$(awk "NR==$input" $projectsLog)
+    project=$(awk "NR==$input" $projectsLog)
 
 	if [[ -z $project ]]; then
 		error "Could not find project number $input"
 
 		return
 	fi
-	
+
 	projectPath=$(echo $project | awk -F'] - ' '{print $2}')
 
 	if [[ ! -d $projectPath ]]; then

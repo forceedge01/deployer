@@ -5,7 +5,7 @@ IFS=':' read -ra ADDR <<< "$1"
 service="${ADDR[0]}"
 action="${ADDR[1]}"
 
-case "$service" in 
+case "$service" in
 	'use' )
 		deployer_use;;
 	'init' )
@@ -110,6 +110,8 @@ case "$service" in
 					* )
 						deployer_deploy "$2";;
 				esac;;
+			'ch' | 'checkout' )
+				deployer_remote_checkout "$2";;
 			'reclone' )
 				deployer_reclone;;
 			'update' )
