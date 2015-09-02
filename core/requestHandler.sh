@@ -112,6 +112,8 @@ case "$service" in
 				esac;;
 			'ch' | 'checkout' )
 				deployer_remote_checkout "$2";;
+			'search' )
+				deployer_remote_search "$2";;
 			'reclone' )
 				deployer_reclone;;
 			'update' )

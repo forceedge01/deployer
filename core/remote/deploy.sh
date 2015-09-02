@@ -74,12 +74,23 @@ function deployer_remote_checkout() {
 	info 'Checkout branch on remote'
 
 	if [[ -z "$1" ]]; then
-		error 'Must provide branch name'
+		deployer_ssher_toDir 'git branch -v && git tag -n1'
+	else 
+		deployer_run_command "Checking out $1" "git checkout . && git fetch origin && git checkout $1 && git pull origin $1" 'Unable to checkout'
+		depolyer_remote_project_status
+	fi
+}
+
+function deployer_remote_search() {
+	info 'Search for a branch on remote server'
+
+	if [[ -z "$1" ]]; then
+		error "Must provide a branch name as a filter"
 
 		return
 	fi
 
-	deployer_run_command "Checking out $1" "git checkout . && git fetch origin && git checkout $1 && git pull origin $1" 'Unable to checkout'
+	deployer_remote_checkout | grep "$1"
 }
 
 function deployer_pull_changes() {

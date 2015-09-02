@@ -287,7 +287,7 @@ function Deployer_project_checkout() {
 
 	if [[ -z $1 ]]; then
 		warning 'Showing branches'
-		git branch -a
+		git branch -v
 		return
 	fi
 	
