@@ -316,6 +316,12 @@ function Deployer_project_checkout() {
 	fi
 }
 
+function Deployer_project_search() {
+	info 'Search for branch locally'
+
+	Deployer_project_checkout | grep "$1"
+}
+
 function Deployer_project_status() {
 	warning "Show status of project"
 	cd "$localProjectLocation"
