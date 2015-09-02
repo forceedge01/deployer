@@ -53,7 +53,7 @@ case "$service" in
 			'checkout' | 'ch' )
 				Deployer_project_checkout "$2";;
 			'search' )
-				Deployer_project_search "$2";;
+				Deployer_project_search "${@:2}";;
 			'merge' | 'mr' )
 				Deployer_project_merge "$2";;
 			'select' | 'sel' )
@@ -115,7 +115,7 @@ case "$service" in
 			'ch' | 'checkout' )
 				deployer_remote_checkout "$2";;
 			'search' )
-				deployer_remote_search "$2";;
+				deployer_remote_search "${@:2}";;
 			'reclone' )
 				deployer_reclone;;
 			'update' )
