@@ -287,7 +287,7 @@ function Deployer_project_checkout() {
 
 	if [[ -z $1 ]]; then
 		warning 'Showing branches'
-		git branch -v && git tag -n1
+		git branch -av && git tag -n1
 		
 		return
 	fi
@@ -320,7 +320,7 @@ function Deployer_project_checkout() {
 function Deployer_project_search() {
 	info 'Search for branch locally'
 
-	Deployer_project_checkout | grep "$1"
+	Deployer_project_checkout | grep -i "$1"
 }
 
 function Deployer_project_status() {

@@ -74,7 +74,7 @@ function deployer_remote_checkout() {
 	info 'Checkout branch on remote'
 
 	if [[ -z "$1" ]]; then
-		deployer_ssher_toDir 'git branch -v && git tag -n1'
+		deployer_ssher_toDir 'git branch -av && git tag -n1'
 	else 
 		deployer_run_command "Checking out $1" "git checkout . && git fetch origin && git checkout $1 && git pull origin $1" 'Unable to checkout'
 		depolyer_remote_project_status
@@ -90,7 +90,7 @@ function deployer_remote_search() {
 		return
 	fi
 
-	deployer_remote_checkout | grep "$1"
+	deployer_remote_checkout | grep -i "$1"
 }
 
 function deployer_pull_changes() {
