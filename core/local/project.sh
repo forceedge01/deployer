@@ -318,9 +318,9 @@ function Deployer_project_checkout() {
 }
 
 function Deployer_project_search() {
-	info 'Search for branch locally'
+	info "Search for branch locally: $*" 
 
-	Deployer_project_checkout | grep -i "$1"
+	Deployer_project_checkout | grep -i "$*"
 }
 
 function Deployer_project_status() {

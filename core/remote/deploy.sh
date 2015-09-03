@@ -82,15 +82,15 @@ function deployer_remote_checkout() {
 }
 
 function deployer_remote_search() {
-	info 'Search for a branch on remote server'
+	info "Search for a branch on remote server: $*"
 
-	if [[ -z "$1" ]]; then
+	if [[ -z "$*" ]]; then
 		error "Must provide a branch name as a filter"
 
 		return
 	fi
 
-	deployer_remote_checkout | grep -i "$1"
+	deployer_remote_checkout | grep -i "$*"
 }
 
 function deployer_pull_changes() {
