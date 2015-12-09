@@ -21,20 +21,7 @@ function deployer_init() {
 	info "Please configure the $deployerFile file in order to use deployer"
 }
 
-function deployer_use() {
-	if [[ $localProjectLocation == $(pwd) ]]; then
-		warning 'Project already selected'
-		return
-	fi
-	
-	attempt "set current directory as project dir"
-
-	perform "locate '$deployerFile' file"
-	if [[ ! -f ./$deployerFile ]]; then
-		error "Unable to locate '$deployerFile' file in current directory, run 'deployer init' to create one."
-		return 1
-	fi
-	performed
+function deployer_manage() {
 	perform "check if $projectFile file exists for deployer"
 	if [[ -f $DEPLOYER_LOCATION/../config/$projectFile ]]; then
 		performed
@@ -72,6 +59,24 @@ readonly localProjectLocation='$currentDir'" > "$DEPLOYER_LOCATION/../config/$pr
 	else
 		performed 'Already exists'
 	fi
+}
+
+function deployer_use() {
+	if [[ $localProjectLocation == $(pwd) ]]; then
+		warning 'Project already selected'
+		return
+	fi
+	
+	attempt "set current directory as project dir"
+
+	perform "locate '$deployerFile' file"
+	if [[ ! -f ./$deployerFile ]]; then
+		error "Unable to locate '$deployerFile' file in current directory, run 'deployer init' to create one."
+		return 1
+	fi
+	performed
+	
+	deployer_manage
 }
 
 function Deployer_commit_log() {

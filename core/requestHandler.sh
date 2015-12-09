@@ -5,11 +5,39 @@ IFS=':' read -ra ADDR <<< "$1"
 service="${ADDR[0]}"
 action="${ADDR[1]}"
 
+# load custom file for environment, provided by the -e flag.
+# This file will override variables set in the usual deployer.conf file
+for opt in "$@"; do
+	case $opt in
+		'env'*)
+			# Extract value from opt variable
+			IFS='=' read -ra ADDR <<< "$opt"
+			env=${ADDR[1]}
+
+			# Concatinate new file name
+			confFile="$env"_"$deployerFile"
+
+			# Check if the file exists
+			info "Attempting to include custom conf file: $confFile"
+			if [[ ! -f "$localProjectLocation/$confFile" ]]; then
+				error "Custom conf file '$confFile' not found!"
+				exit
+			fi
+
+			# Load new file
+			source "$localProjectLocation/$confFile";
+			2=
+	esac
+done
+
+# Forward action request to proper handler
 case "$service" in
 	'use' )
 		deployer_use;;
 	'init' )
 		deployer_init;;
+	'manage' )
+		deployer_manage;;
 	'log' )
 		Deployer_commit_log "$2";;
 	'log-cleanup' )
