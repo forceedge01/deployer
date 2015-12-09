@@ -149,7 +149,7 @@ function deployer_select_project() {
 	fi
 
 	cd "$projectPath"
-	deployer_use
+	deployer_manage
 	echo 
 	gray "Project set to: "
 	info "[$(deployer_FolderNameFromPath $projectPath)] >>> $projectPath"

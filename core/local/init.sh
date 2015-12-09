@@ -22,6 +22,8 @@ function deployer_init() {
 }
 
 function deployer_manage() {
+	attempt "set current directory as project dir"
+
 	perform "check if $projectFile file exists for deployer"
 	if [[ -f $DEPLOYER_LOCATION/../config/$projectFile ]]; then
 		performed
@@ -67,7 +69,7 @@ function deployer_use() {
 		return
 	fi
 	
-	attempt "set current directory as project dir"
+	attempt "set project"
 
 	perform "locate '$deployerFile' file"
 	if [[ ! -f ./$deployerFile ]]; then
