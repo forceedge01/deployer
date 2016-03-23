@@ -3,32 +3,44 @@
 function Deployer_project_init() {
 	attempt 'create a new project'
 
-	# if path is not absoute, create it 
+	# Set the path var.
+	path="$1"
+
+	# if path is not absolute, create it 
 	# in the current directory as that is what is expected
 	cd $(pwd)
 
-	if [[ -z "$1" ]]; then
-		error 'Unable to initiate new project, need to specify path'
-		return
+	# Check if path is given.
+	if [[ -z "$path" ]]; then
+		warning 'Path not given, assuming the selected project.'
+		path=$localProjectLocation
 	fi
 
+	# Check if path and clone is given, if $2 is provided then $1 is the repo url.
 	if [[ ! -z "$2" ]]; then
 		perform 'Clone repo'
-		git clone "$1" "$2"
+		git clone "$path" "$2"
 		performed
 		cd "$2"
 		perform 'Make sure master branch is checked out'
 		git checkout master
 		performed
-	elif [[ -d "$1" ]]; then
-		error 'Unable to instantiate new project, path already exists'
+		perform "run the project init command"
+		deployer_run_semicolon_delimited_commands "$projectInit" true true
+		performed
+	elif [[ -d "$path" ]]; then
+		warning 'Unable to instantiate new project, path already exists'
+		perform "run the project init command"
+		echo "$projectInit"
+		deployer_run_semicolon_delimited_commands "$projectInit" true true
+		performed
 		return
 	else
 		perform 'Create project folder'
-		mkdir -p "$1"
+		mkdir -p "$path"
 		performed
 
-		cd "$1"
+		cd "$path"
 	fi
 
 	deployer_init
