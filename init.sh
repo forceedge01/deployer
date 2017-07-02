@@ -24,7 +24,15 @@ else
 		chmod -R 0777 ./core
 
 		echo 'Creating symlink...'
-		sudo ln -s $currentDirectory/core/loader.sh /usr/bin/$deployerAlias
+		if [[ ! -d /usr/local/bin ]]; then
+			echo '>>> ERROR: Directory /usr/local/bin does not exist!'
+		fi
+
+		sudo ln -s $currentDirectory/core/loader.sh /usr/local/bin/$deployerAlias
+
+		if [[ $? != 0 ]]; then
+			echo 'ERROR>>> Was unable to create symlink! Check permissions on /usr/local/bin'
+		fi
 
 		if [[ ! -f $currentDirectory/config/main.sh ]]; then
 			source $currentDirectory/core/vars/core.sh
@@ -34,7 +42,7 @@ else
 
 		echo 'Adding alias reload to bashrc'
 		echo "alias reload='source $mainFile'" >> $auxilary
-        
+
         echo 'Adding alias project to bashrc'
         echo "alias project=\"reload && cd \$(IFS=' ' read -ra chunks <<< \$($deployerAlias p); echo \${chunks[3]})\"" >> $auxilary
 
