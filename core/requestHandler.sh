@@ -90,8 +90,6 @@ case "$service" in
 				Deployer_project_test;;
 			'dev' )
 				deployer_dev;;
-			'logs' )
-				Deployer_tail_logs;;
 			'destroy' )
 				Deployer_project_destroy;;
 			'remove' )
@@ -146,6 +144,8 @@ case "$service" in
 				deployer_remote_search "${@:2}";;
 			'reclone' )
 				deployer_reclone;;
+			'logs' )
+				Deployer_tail_logs;;
 			'update' )
 				deployer_remote_update;;
 			'tags' )

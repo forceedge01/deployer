@@ -11,6 +11,7 @@ function deployMenu() {
 	printMenu 'init [path/gitrepo [path]]' "Create $deployerFile file for current directory"
 	printMenu 'use' "Use the current directories $deployerFile file for deployer"
 	printMenu "ssh [arg]" "log into ssh machine or run command on remote machine"
+	printMenu "log" "Shows the local log of changes"
 	printSubMenu 'setup' 'Setup ssh key on remote server'
 	printSubMenu 'revoke' 'Revoke ssh access from remote server'
 
@@ -45,6 +46,7 @@ function deployMenu() {
 	printSubMenu "update" "update remote server"
 	printSubMenu "tags" "view tags available on remote machine"
 	printSubMenu "status" "show status of remote machine"
+	printSubMenu "logs" "show remote logs on the server"
 	printSubMenu "upload [arg]" "upload file/folder to ssh server's configured uploads directory"
 	printSubMenu "download [arg]" "download file/folder to ssh server's configured downloads directory"
 	printSubMenu 'get [file/folderPath]' 'Get a file/folder from the remote server'
