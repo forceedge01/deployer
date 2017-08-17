@@ -19,7 +19,7 @@ else
 	echo "Creating $auxilary file"
 	touch $auxilary
 
-	if [[ ! -f /usr/bin/$deployerAlias ]]; then
+	if [[ ! -f /usr/local/bin/$deployerAlias ]]; then
 		echo 'Sorting out file permissions...'
 		chmod -R 0777 ./core
 
