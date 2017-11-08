@@ -6,6 +6,7 @@
 declare deployerAlias="dep"
 declare auxilary="${HOME}/.bashrc_deployer_auxilary"
 declare mainFile="${HOME}/.bashrc"
+declare installationDirectory="/usr/local/bin"
 
 currentDirectory=$(pwd)
 
@@ -16,22 +17,24 @@ elif [[ ! -f $mainFile ]]; then
 else
 	echo 'Checking for deployer installation...'
 
-	echo "Creating $auxilary file"
+	echo 'Creating $auxilary file'
 	touch $auxilary
 
-	if [[ ! -f /usr/local/bin/$deployerAlias ]]; then
+	if [[ ! -f $installationDirectory/$deployerAlias ]]; then
 		echo 'Sorting out file permissions...'
 		chmod -R 0777 ./core
 
 		echo 'Creating symlink...'
-		if [[ ! -d /usr/local/bin ]]; then
-			echo '>>> ERROR: Directory /usr/local/bin does not exist!'
+		if [[ ! -d $installationDirectory ]]; then
+			echo ">>> ERROR: Directory $installationDirectory does not exist!"
+
+			return;
 		fi
 
-		sudo ln -s $currentDirectory/core/loader.sh /usr/local/bin/$deployerAlias
+		sudo ln -s $currentDirectory/core/loader.sh $installationDirectory/$deployerAlias
 
 		if [[ $? != 0 ]]; then
-			echo 'ERROR>>> Was unable to create symlink! Check permissions on /usr/local/bin'
+			echo "ERROR>>> Was unable to create symlink! Check permissions on $installationDirectory"
 		fi
 
 		if [[ ! -f $currentDirectory/config/main.sh ]]; then
