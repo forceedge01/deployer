@@ -3,8 +3,7 @@
 deployerAlias=dep
 
 function getDeployerLocation() {
-	fileLocation=$(ls -la /usr/local/bin | grep "$deployerAlias ->" | awk '{split($0, location,/ -> /); print location[2]}')
-	export DEPLOYER_LOCATION=$(dirname ${fileLocation})
+	export DEPLOYER_LOCATION="$( cd "$(dirname "$0")" ; pwd -P )/core"
 }
 
 # Fetch deployer location in the DEPLOYER_LOCATION variable
