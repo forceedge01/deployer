@@ -255,6 +255,10 @@ function Deployer_project_save() {
 	performed
 	perform 'Show branch/files'
 	git status -sb
+
+	if [[ $showDiffBeforeSave == true ]]; then
+		git diff --cached
+	fi
 	
 	if [[ -z "$commitMessage" ]]; then
 		readUser 'Please enter commit message: '

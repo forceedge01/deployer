@@ -55,6 +55,8 @@ declare dbName=''
 declare editor='vim'
 # allow push to master branch
 declare allowSaveToMaster=false
+# Show diff before saving
+declare showDiffBeforeSave=true
 # project location on SSH server
 declare remoteProjectLocation=''
 # project repo url, if not set default origin url will be used
