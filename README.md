@@ -3,13 +3,14 @@ A simple script that will handle project deployment on a remote ssh server. The 
 
 ## Supported OS
 Local machine:
-- OSX (tested)
-- Ubuntu (tested)
+- OSX
+- Ubuntu
+- Windows (Hack) - Refer to section 'Windows Hack'.
 
 Remote server:
 - Centos 6 (tested)
 
-Deployer should work on any cli that has bash tools available.
+Deployer should work on any cli that has bash available.
 
 ## Installation
 To get started run 
@@ -118,6 +119,8 @@ declare editor='vim'
 # allow push to master branch
 declare allowSaveToMaster=false
 # project location on SSH server
+# Show diff before saving
+declare showDiffBeforeSave=true
 declare remoteProjectLocation=''
 # project repo url, if not set default origin url will be used
 declare repo=''
@@ -154,3 +157,10 @@ The project alias can be used to switch immediate to the the current project dir
 
 ## Dependencies
 The local machine and remote server must have git installed.
+
+## Windows Hack
+To get this tool working on windows you will need to hack the loader.sh file, line 7. Just set the
+deployer path as a string and everything else should just work.
+
+Recommended configuration for windows is install a bash tool such as git bash for windows.
+Download deployer and follow the usual install instructions.
