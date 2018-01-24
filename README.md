@@ -35,17 +35,19 @@ deployer use
 
 This will show  a message confirming that the file is being used with deployer. You can quickly edit this file by running
 ```
-deployer config:edit # deployer c:e
+deployer config:edit
 ```
 
 Deploying is as easy as
 ```
-deployer project:deploy # deployer p:d
+deployer project:deploy
 ```
+
+The above will deploy your current branch.
 
 Or a specific branch
 ```
-deployer deploy mybranch # deployer p:d mybranch
+deployer project:deploy mybranch
 ```
 
 To quickly setup ssh keys on the remote server, just run:
