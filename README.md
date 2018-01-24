@@ -38,6 +38,12 @@ This will show  a message confirming that the file is being used with deployer. 
 deployer config:edit
 ```
 
+Once you've configured the config file, run the following to verify the config. This should give you useful information on what will and will not work.
+
+```
+deployer config:doctor
+```
+
 Deploying is as easy as
 ```
 deployer project:deploy

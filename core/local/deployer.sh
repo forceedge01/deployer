@@ -16,6 +16,8 @@ function Deployer_save() {
 	attempt 'save deployer changes'
 	cd $DEPLOYER_LOCATION
 	git add --all
+	git diff --cached
+	readUser 'Everything alright?'
 	git commit
 	git push
 }
