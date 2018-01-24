@@ -238,6 +238,8 @@ case "$service" in
 				Deployer_save;;
 			'edit' )
 				Deployer_edit;;
+			'diff' )
+				Deployer_diff;;
 		esac;;
 	'update' | 'u' )
 		Deployer_update;;

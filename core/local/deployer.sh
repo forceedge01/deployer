@@ -23,3 +23,7 @@ function Deployer_save() {
 function Deployer_edit() {
 	$editor $DEPLOYER_LOCATION
 }
+
+function Deployer_diff() {
+	cd $DEPLOYER_LOCATION && git diff;
+}

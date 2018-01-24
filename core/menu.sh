@@ -85,6 +85,7 @@ function deployMenu() {
 	printMenu 'dev'
 	printSubMenu 'edit' 'Edit deployer source'
 	printSubMenu 'save' 'Save changes made to deployer source'
+	printSubMenu 'diff' 'View diff for the changes made to deployer source'
 
 	printMenu '--help' 'Shows how to use deployer'
 }

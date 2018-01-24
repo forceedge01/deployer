@@ -86,7 +86,9 @@ function deployer_ssh_setup() {
     else
         warning 'Not found, adding key'
 	fi
-	deployer_run_command 'set key in remote ssh server' "touch ~/.ssh/authorized_keys && echo $key >> ~/.ssh/authorized_keys" 'Unable to reach server!'
+
+	deployer_ssher_toDir "touch ~/.ssh/authorized_keys && echo '$key' >> ~/.ssh/authorized_keys"
+	performed 'Key added.'
 }
 
 function deployer_remote_keys() {
