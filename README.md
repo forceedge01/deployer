@@ -1,5 +1,7 @@
 # deployer
-A simple script that will handle project deployment on a remote ssh server. The objective being making the script language independent and as simple as possible.
+A simple script that will handle project management/deployment locally and on a remote ssh server. The objective being making the script language independent and as simple as possible.
+
+deployer handles multiple projects with ease.
 
 ## Supported OS
 Local machine:
