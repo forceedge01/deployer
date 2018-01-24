@@ -21,7 +21,7 @@ function Deployer_save() {
 }
 
 function Deployer_edit() {
-	$editor $DEPLOYER_LOCATION
+	$editor "$DEPLOYER_LOCATION/../"
 }
 
 function Deployer_diff() {

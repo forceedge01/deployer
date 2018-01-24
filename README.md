@@ -35,17 +35,17 @@ deployer use
 
 This will show  a message confirming that the file is being used with deployer. You can quickly edit this file by running
 ```
-deployer config:edit
+deployer config:edit # deployer c:e
 ```
 
 Deploying is as easy as
 ```
-deployer deploy
+deployer project:deploy # deployer p:d
 ```
 
 Or a specific branch
 ```
-deployer deploy mybranch
+deployer deploy mybranch # deployer p:d mybranch
 ```
 
 To quickly setup ssh keys on the remote server, just run:
@@ -100,6 +100,8 @@ declare permissiveDeployment=false
 declare downloadsPath='~/deployer_downloads'
 # set uploads folder for deployer
 declare uploadsPath='~/deployer_uploads'
+# components that should be checked when deploying e.g (php=5.5 git=1.7)
+declare dependencies=()
 
 # ---------------------------------------------–------- #
 
@@ -118,9 +120,9 @@ declare dbName=''
 declare editor='vim'
 # allow push to master branch
 declare allowSaveToMaster=false
-# project location on SSH server
 # Show diff before saving
 declare showDiffBeforeSave=true
+# project location on SSH server
 declare remoteProjectLocation=''
 # project repo url, if not set default origin url will be used
 declare repo=''
