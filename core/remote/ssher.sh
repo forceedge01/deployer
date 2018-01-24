@@ -87,7 +87,7 @@ function deployer_ssh_setup() {
         warning 'Not found, adding key'
 	fi
 
-	deployer_ssher_toDir "touch ~/.ssh/authorized_keys && echo '$key' >> ~/.ssh/authorized_keys"
+	deployer_ssher_toDir "mkdir -p ~/.ssh/ && touch ~/.ssh/authorized_keys && echo '$key' >> ~/.ssh/authorized_keys"
 	performed 'Key added.'
 }
 
