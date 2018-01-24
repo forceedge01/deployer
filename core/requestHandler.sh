@@ -105,7 +105,7 @@ case "$service" in
 		# load files
 		source $DEPLOYER_LOCATION/local/addons.sh
 
-		# handle casees
+		# handle cases
 		case "$action" in 
 			'get' )
 				Deployer_addons_get "$2";;
@@ -162,6 +162,8 @@ case "$service" in
 				deployer_remote_get "$2";;
 			'keys' )
 				deployer_remote_keys;;
+			'dependencies' | 'deps' )
+				deployer_check_depenedencies_remote;;
 			'services' )
 				# load relative files
 				source $DEPLOYER_LOCATION/remote/services.sh
@@ -206,7 +208,7 @@ case "$service" in
 		case "$action" in 
 			'edit' | 'e' )
 				Deployer_config_edit;;
-			'verify' | 'v' )
+			'verify' | 'doctor' | 'v' )
 				deloyer_config_doctor;;
 			* )
 				echo 'Displaying project file...'; 

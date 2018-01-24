@@ -14,7 +14,7 @@ Deployer_downloads_list() {
 Deployer_downloads_open() {
 	warning "Open file $1"
 	
-	if [[ ! -d "" ]]; then
+	if [[ ! -d "$localProjectLocation/$downloadsFolder" ]]; then
 		error 'Downloads folder not found'
 		return
 	fi
