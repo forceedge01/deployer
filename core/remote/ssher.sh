@@ -25,7 +25,10 @@ function deployer_ssher_toDir() {
 		execCommand='bash'
 	fi
 
-	deployer_ssher "cd $remoteProjectLocation &> /dev/null; $execCommand"
+	execCommand="cd $remoteProjectLocation; $execCommand"
+
+	attempt "Running command: '$execCommand'"
+	deployer_ssher "$execCommand"
 }
 
 function Deployer_ssh_revoke() {
