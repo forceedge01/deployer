@@ -243,9 +243,9 @@ case "$service" in
 		Deployer_update;;
 	'uninstall' )
 		deployer_uninstall;;
-	'version' | 'v' )
+	'--version' | '-v' )
 		Deployer_version;;
-	'help' | '--help' )
+	'--help' )
 		deployer_info;;
 	*)
 		helperMenu;;

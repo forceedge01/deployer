@@ -79,8 +79,8 @@ function deployMenu() {
 	printSubMenu 'edit'
 
 	printMenu "update | u" "Update deployer"
-	printMenu "version | v" "Display deployer version"
 	printMenu "uninstall" "uninstall deployer"
+	printMenu "--version | -v " "Display deployer version"
 
 	printMenu 'dev'
 	printSubMenu 'edit' 'Edit deployer source'
