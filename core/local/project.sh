@@ -111,7 +111,7 @@ function Deployer_project_remove() {
 	fi
 
 	# Confirm removal of project
-	echo -n "Are you sure you want to remove the project [$project]? This will not remove it from your system, use project:destroy for that. [y/n]: "
+	echo -n "Are you sure you want to unmanage the project [$project]? This will not remove it from your system, use project:destroy for that. [y/n]: "
 	answer=$(userChoice)
 	if [[ $answer != 'Y' ]]; then
 		return 1
@@ -127,7 +127,7 @@ function Deployer_project_remove() {
 	sed -i".bk" -e "$input"d "$projectsLog"	
 	performed
 
-	info 'Project removed'
+	info 'Project not managed by deployer'
 }
 
 function deployer_select_project() {

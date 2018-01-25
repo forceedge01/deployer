@@ -37,7 +37,7 @@ function deployMenu() {
 	printSubMenu 'save | s' 'Save local project changes'
 	printSubMenu 'dev' 'Run devStart command configured in config file'
 	printSubMenu 'test' 'Run test command set in config file'
-	printSubMenu 'remove' 'Remove project from deployer logs'
+	printSubMenu 'unmanage | remove' 'Remove project from deployer logs'
 	printSubMenu 'destroy' 'Destroy project locally and removing it from the deployer project index'
 
 	printMenu 'remote | r' 'Show remote project version'

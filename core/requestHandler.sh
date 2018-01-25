@@ -92,7 +92,7 @@ case "$service" in
 				deployer_dev;;
 			'destroy' )
 				Deployer_project_destroy;;
-			'remove' )
+			'remove' | 'unmanage' )
 				Deployer_project_remove;;
 			* )
 				Deployer_local_run "${@:2}";;

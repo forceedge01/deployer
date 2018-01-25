@@ -23,6 +23,10 @@ function Deployer_save() {
 }
 
 function Deployer_edit() {
+	if [[ -z $editor ]]; then
+		editor='vim'
+	fi
+
 	$editor "$DEPLOYER_LOCATION/../"
 }
 
