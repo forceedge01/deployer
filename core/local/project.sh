@@ -309,7 +309,7 @@ function Deployer_project_checkout() {
 	fi
 	
 	warning "Checking out $1"
-	if [[ $(git branch --list $1) == '' ]]; then
+	if [[ $(git branch -av | grep $1) == '' ]]; then
 		info 'New branch checkout'
 		git checkout master
 		if [[ $? != 0 ]]; then
