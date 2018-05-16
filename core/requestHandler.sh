@@ -38,6 +38,8 @@ case "$service" in
 		deployer_init;;
 	'manage' )
 		deployer_manage;;
+	'clone' )
+		deployer_clone "$2";;
 	'log' )
 		Deployer_commit_log "$2";;
 	'log-cleanup' )

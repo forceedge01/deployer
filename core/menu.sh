@@ -9,6 +9,7 @@ function helperMenu() {
 function deployMenu() {
 	warning 'Deployer menu'
 	printMenu 'init [path/gitrepo [path]]' "Create $deployerFile file for current directory"
+	printMenu 'clone [gitrepo]' "Clone the git repo, and preform dep init/use where necessary."
 	printMenu 'use' "Use the current directories $deployerFile file for deployer"
 	printMenu 'manage' "Just manage the project, do not connect to remote repository."
 	printMenu 'projects | ps | list [arg:int]' 'Select project no from the list of projects'

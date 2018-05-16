@@ -21,6 +21,33 @@ function deployer_init() {
 	info "Please configure the $deployerFile file in order to use deployer"
 }
 
+function deployer_clone() {
+	attempt "Cloning repo"
+
+	if [[ -z $1 ]]; then
+		error "No repo url provided to clone."
+		return
+	fi
+
+	repoUrl="$1";
+	git clone "$repoUrl";
+
+	if [[ $? != 0 ]]; then
+		error "An error occurred, please look above for more info."
+		return
+	fi
+
+	lastBit="${repoUrl##*/}"
+	folder="${lastBit%.*}"
+	cd "$folder";
+
+	if [[ ! -f ./deployerFile ]]; then
+		deployer_init;
+	fi
+
+	deployer_use;
+}
+
 function deployer_manage() {
 	attempt "set current directory as project dir"
 
